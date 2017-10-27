@@ -1,0 +1,21 @@
+{
+  "presets": [
+    ["es2015", { "modules": false }],
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    [
+      "transform-runtime", {
+      "helpers": false,
+      "polyfill": true,
+      "regenerator": true
+    }
+    ],
+    "transform-export-extensions",
+    "transform-decorators-legacy",
+    "mobx-deep-action",
+    ["import", { "style": "css", "libraryName": "antd-mobile" }]
+  ],
+  "compact": "true"
+}
