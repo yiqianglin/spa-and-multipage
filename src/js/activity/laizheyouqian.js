@@ -1,4 +1,4 @@
 import 'css/common.css';
-import 'css/activity/forshoulei.less';
+import 'css/activity/forshoulei.scss';
 
 console.log('来这有钱');

@@ -17,7 +17,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 // });
 // 多入口设置polyfill？
 // entries['polyfill'] = ['babel-polyfill'];
-  // console.log('\n', '\n');
+// console.log('\n', '\n');
 // console.log(entries);
 // console.log('\n', '\n');
 module.exports = {
@@ -91,9 +91,9 @@ module.exports = {
                 })
             },
             {
-                test: /\.less$/,
+                test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader", 
+                    fallback: "style-loader",
                     use: [
                         { 
                             loader: 'css-loader',
@@ -119,7 +119,7 @@ module.exports = {
                           }
                         },
                         { 
-                            loader: 'less-loader'
+                            loader: 'sass-loader'
                         }
                     ]
                 })
@@ -132,6 +132,23 @@ module.exports = {
                     }
                 ],
                 exclude: /node_modules/
+            },
+            {
+              test: require.resolve('jquery'),
+              use: [{
+                loader: 'expose-loader',
+                options: 'jQuery'
+              },{
+                loader: 'expose-loader',
+                options: '$'
+              }]
+            },
+            {
+              test: require.resolve('swiper'),
+              use: [{
+                loader: 'expose-loader',
+                options: 'sWiper'
+              }]
             }
         ]
     },
