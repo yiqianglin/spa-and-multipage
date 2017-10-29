@@ -28,7 +28,7 @@ html, body {
     background-image: url("../../images/index/logo.png");
     display: block;
     position: absolute;
-    bottom: 0;
+    bottom: 8px;
   }
 }
 .banner{
@@ -53,22 +53,54 @@ html, body {
 
 .select-nav{
   width: 100%;
-
+  margin-top: 30px;
   .select-item-ul{
-    width: 1100px;
+    width: 1000px;
     height: 98px;
     margin: 0 auto;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
   .select-item-li{
-    width: 130px;
+    width: 125px;
     height: 98px;
     display: block;
     float: left;
+    text-align: center;
+    .icon{
+      display: block;
+      width: 46px;
+      height: 46px;
+      margin: 0 auto;
+    }
+    .icon-remark{
+      color: #333333;
+      font-size: 16px;
+      margin-top: 10px;
+    }
   }
-  .select-item-li-01{
-    background: url("../../images/sprites/nav-01-normal.png") no-repeat center center;
+  @for $i from 1 through 10{
+    .select-item-li-#{if($i>9,$i,'0'+$i)} .icon{
+      background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -39px;
+    }
+    .select-item-li-#{if($i>9,$i,'0'+$i)}:hover .icon{
+      background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -108px;
+    }
   }
-  .select-item-li-02{
-    background: url("../../images/sprites/nav-02-normal.png") no-repeat center center;
-  }
+}
+
+
+.swiper-pagination-bullet {
+  width: 40px;
+  height: 6px;
+  text-align: center;
+  line-height: 6px;
+  font-size: 12px;
+  color: #000;
+  background: #dcdcdc;
+  border-radius: 0;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background: #2892fe;
 }

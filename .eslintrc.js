@@ -46,6 +46,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'prefer-arrow-callback': ['error', { allowUnboundThis: true }],
     'no-mixed-operators': ['warn'],
+    'linebreak-style': ["error", "windows"],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }

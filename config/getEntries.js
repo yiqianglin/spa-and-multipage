@@ -27,7 +27,7 @@ module.exports = {
  */
 function getActivityEntries() {
     let jsPath, entries = {};
-    jsPath = glob.sync(srcPath + 'js/!(utils|common|config)/*.js');
+    jsPath = glob.sync(srcPath + 'js/!(utils|common|config|lib)/*.js');
     jsPath = jsPath.filter(v => {
         let jsPath_isLegal = true;
         notRequirePath.forEach((path) => {
