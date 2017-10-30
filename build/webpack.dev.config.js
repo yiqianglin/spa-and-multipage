@@ -25,13 +25,13 @@ let plugins = [
 ]
 Object.keys(plugin_entry).forEach(name => {
     let isHtml = fs.existsSync(srcPath + '/html/' + name + '.html');
-    let isTemplate = fs.existsSync(srcPath + '/html/' + name + '.art');
-    console.log(isHtml ? 'src/html/' + name + '.html' : isTemplate ?  'src/html/' + name + '.art' : '啥都没有啊，那就没有HtmlWebpackPlugin了');
+    let isTemplate = fs.existsSync(srcPath + '/html/' + name + '.ejs');
+    console.log(isHtml ? 'src/html/' + name + '.html' : isTemplate ?  'src/html/' + name + '.ejs' : '啥都没有啊，那就没有HtmlWebpackPlugin了');
     plugins.push(new HtmlWebpackPlugin({
         //favicon: baseConfig.srcPath + '/favicon.ico',
         title: '自定义的title',
         filename: name + '.html',
-        template: isHtml ? 'src/html/' + name + '.html' : 'src/html/' + name + '.art',
+        template: isHtml ? 'src/html/' + name + '.html' : 'src/html/' + name + '.ejs',
         inject: true,
         minify:{    //压缩HTML文件
             removeComments: false,    //移除HTML中的注释

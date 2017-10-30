@@ -38,18 +38,18 @@ module.exports = {
             //         }
             //     }],
             // },
-            // {
-            //     test: /\.(ejs)$/,
-            //     loader: 'ejs-loader'
-            // },
             {
-                test: /\.art$/,
-                loader: "art-template-loader",
-                options: {
-                    // art-template options (if necessary)
-                    // @see https://github.com/aui/art-template
-                }
+                test: /\.(ejs)$/,
+                loader: 'ejs-compiled-loader',
             },
+            // {
+            //     test: /\.art$/,
+            //     loader: "art-template-loader",
+            //     options: {
+            //         // art-template options (if necessary)
+            //         // @see https://github.com/aui/art-template
+            //     }
+            // },
             {
                 test: /\.(png|jpg|gif)$/,
                 use: [
@@ -234,7 +234,9 @@ module.exports = {
             }
         ]
     },
-
+    externals: {
+      moment: true // cdn
+    },
     resolve: {
         // 配置别名，在项目中可缩减引用路径
         alias: {

@@ -17,10 +17,18 @@ const config = {
 		port: 3004,
 		hostName: 'localhost',
 		autoOpenBrowser: true,
-		assetsPublicPath: '/'
-	},
-	proxy: []
-
+		assetsPublicPath: '/',
+    proxyTable: {
+      context: [
+        '/cashloan-web-market/cashloanmarket'
+      ],
+      options: {
+        // target: 'http://192.168.25.151:8080',
+        target: 'http://test.xunleiyidai.com',
+        changeOrigin: true
+      }
+    }
+	}
 }
 
 module.exports = config;

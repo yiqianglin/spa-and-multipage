@@ -10,13 +10,15 @@ const express = require('express');
 
 const webpack = require('webpack');
 
-const config = require('../config/config');
-
 //将http请求代理到其他服务器
 var proxyMiddleware = require('http-proxy-middleware');
 
+const config = require('../config/config');
+
 // 根据 Node 环境来引入相应的 webpack 配置
 var webpackConfig = require('./webpack.dev.config');
+
+const proxyTable = config.dev.proxyTable;
 
 // dev-server 监听的端口，默认为baseConfig.dev.port设置的端口，即8080
 var port = config.port;
@@ -52,17 +54,9 @@ compiler.plugin('compilation', function (compilation) {
 })
 
 //反向代理
-config.proxy.forEach(function (item) {
-  app.use( 
-    proxyMiddleware(
-      item[0], { 
-        target: item[1], 
-        changeOrigin: true, 
-        pathRewrite: { [item[0]]: item[2] } 
-      }
-    )
-  )
-})
+if (proxyTable.context) {
+  app.use(proxyMiddleware(proxyTable.context, proxyTable.options));
+}
 
 
 // 重定向不存在的URL，常用于SPA

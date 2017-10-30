@@ -37,7 +37,7 @@ function getActivityEntries() {
         });
         // 验证js对应的html模板在不在，不在的不放入入口，以免HtmlWebpackPlugin找不到对应模板
         let pathname = v.match(/(.*)src\/js\/(.*).js/)[2];
-        let flag = fs.existsSync(srcPath + '/html/' + pathname + '.html') || fs.existsSync(srcPath + '/html/' + pathname + '.art');
+        let flag = fs.existsSync(srcPath + '/html/' + pathname + '.html') || fs.existsSync(srcPath + '/html/' + pathname + '.ejs');
         if(!flag){
             jsPath_isLegal = false;
             console.warn('有js文件并未对应其html模板', pathname);

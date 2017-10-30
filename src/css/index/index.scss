@@ -8,17 +8,17 @@ html, body {
   height: 100%;
   min-height: 100%;
 }
+$viewWidth: 1000px;
 .wrapper{
   position: relative;
   width: 100%;
-  min-width: 1000px;
+  min-width: $viewWidth;
   min-height: 100%;
-  padding-bottom: 120px;
   background: #ffffff;
   margin: 0 auto;
 }
 .header{
-  width: 1000px;
+  width: $viewWidth;
   height: 80px;
   margin: 0 auto;
   position: relative;
@@ -31,6 +31,54 @@ html, body {
     bottom: 8px;
   }
 }
+.footer{
+  width: 100%;
+  margin-top: 52px;
+  height: 120px;
+  background: #626262;
+  color: #fff;
+  font-size: 14px;
+  .inner-wrp{
+    width: $viewWidth;
+    margin: 0 auto;
+    padding: 18px 0 18px 88px;
+    .QRcode{
+      float: left;
+      width: 78px;
+    }
+    .art-right{
+      float: left;
+      border-right: 1px solid #8e8e8e;
+      padding: 17px 28px 17px 0;
+      margin-left: 10px;
+      .art-bottom{
+        margin-top: 18px;
+      }
+    }
+    .left-QRcode-wrp{
+      float: left;
+    }
+    .right-remark-wrp{
+      float: left;
+      padding: 17px 0;
+      margin-left: 50px;
+      .art-bottom{
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 .banner{
   width: 100%;
   .swiper-container{
@@ -51,19 +99,19 @@ html, body {
   }
 }
 
-.select-nav{
+.select-container{
   width: 100%;
   margin-top: 30px;
   .select-item-ul{
-    width: 1000px;
-    height: 98px;
+    width: $viewWidth;
+    height: 80px;
     margin: 0 auto;
     overflow-x: auto;
     overflow-y: hidden;
   }
   .select-item-li{
     width: 125px;
-    height: 98px;
+    height: 80px;
     display: block;
     float: left;
     text-align: center;
@@ -74,7 +122,7 @@ html, body {
       margin: 0 auto;
     }
     .icon-remark{
-      color: #333333;
+      color: #333;
       font-size: 16px;
       margin-top: 10px;
     }
@@ -87,7 +135,101 @@ html, body {
       background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -108px;
     }
   }
+  .tab-container{
+    width: 100%;
+    max-width: $viewWidth;
+    margin: 32px auto 0;
+
+    .title-wrp{
+      height: 42px;
+      border-bottom: 4px solid #fd5c4d;
+      padding-right: 14px;
+      .title{
+        width: 111px;
+        height: 38px;
+        line-height: 42px;
+        display: block;
+        background: url("../../images/index/icon.png") no-repeat  -598px -196px;
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        float: left;
+      }
+      .more{
+        display: block;
+        float: right;
+        font-size: 16px;
+        line-height: 42px;
+        color: #333;
+      }
+    }
+    .cooperater-ul{
+      width: $viewWidth;
+      display: block;
+      margin-top: 8px;
+      font-size: 0;
+      .cooperater-li{
+        width: 240px;
+        height: 300px;
+        border: 1px solid #ececec;
+        display: inline-block;
+        margin-right: 13px;
+        margin-top: 12px;
+        padding-top: 22px;
+        vertical-align: middle;
+        position: relative;
+        &.cooperater-li-right{
+          margin-right: 0;
+        }
+        &:hover{
+          box-shadow: 0 0 22px #92b5fd;
+        }
+        .li-remark{
+          width: 45px;
+          height: 50px;
+          display: block;
+          background: url("../../images/index/icon.png") no-repeat  -598px -264px;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+        .cooperater-img{
+          display: block;
+          width: 168px;
+          margin: 0 auto;
+        }
+        .cooperater-name{
+          font-size: 18px;
+          color: #333;
+          text-align: center;
+          margin-top: 30px;
+        }
+        .cooperater-remark{
+          color: #fd5c4d;
+          font-size: 18px;
+          text-align: center;
+          margin-top: 20px;
+        }
+        .go-cooperater-btn{
+          width: 200px;
+          height: 42px;
+          line-height: 42px;
+          display: block;
+          margin: 28px auto 0;
+          background: url("../../images/index/icon.png") no-repeat  -366px -264px;
+          color: #5a8fff;
+          font-size: 18px;
+          text-align: center;
+          &:hover{
+            background: url("../../images/index/icon.png") no-repeat  -366px -196px;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
 }
+
 
 
 .swiper-pagination-bullet {
