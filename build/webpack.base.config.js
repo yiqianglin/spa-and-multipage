@@ -38,18 +38,18 @@ module.exports = {
             //         }
             //     }],
             // },
-            {
-                test: /\.(ejs)$/,
-                loader: 'ejs-compiled-loader',
-            },
             // {
-            //     test: /\.art$/,
-            //     loader: "art-template-loader",
-            //     options: {
-            //         // art-template options (if necessary)
-            //         // @see https://github.com/aui/art-template
-            //     }
+            //     test: /\.(ejs)$/,
+            //     loader: 'ejs-compiled-loader',
             // },
+            {
+                test: /\.art$/,
+                loader: "art-template-loader",
+                options: {
+                    // art-template options (if necessary)
+                    // @see https://github.com/aui/art-template
+                }
+            },
             {
                 test: /\.(png|jpg|gif)$/,
                 use: [
@@ -229,9 +229,16 @@ module.exports = {
               test: require.resolve('swiper'),
               use: [{
                 loader: 'expose-loader',
-                options: 'sWiper'
+                options: 'swiper'
               }]
-            }
+            },
+            // {  没用
+            //   test: require.resolve('layer'),
+            //   use: [{
+            //     loader: 'expose-loader',
+            //     options: 'layer'
+            //   }]
+            // }
         ]
     },
     externals: {

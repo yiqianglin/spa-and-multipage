@@ -1,0 +1,13 @@
+{{if location == 'index'}}
+<div class="header">
+    <div class="inner-wrp">
+        <a href="http://www.baidu.com" class="logo"></a>
+    </div>
+</div>
+{{else}}
+<div class="header shadow">
+    <div class="inner-wrp">
+        <a href="http://www.baidu.com" class="logo"></a>
+    </div>
+</div>
+{{/if}}

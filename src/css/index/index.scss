@@ -4,11 +4,13 @@
 @import '../lib/lib-media';
 @import '../lib/lib-reset';
 @import '../lib/lib-help';
+
+@import '../component/header';
+@import '../component/footer';
 html, body {
   height: 100%;
   min-height: 100%;
 }
-$viewWidth: 1000px;
 .wrapper{
   position: relative;
   width: 100%;
@@ -17,67 +19,6 @@ $viewWidth: 1000px;
   background: #ffffff;
   margin: 0 auto;
 }
-.header{
-  width: $viewWidth;
-  height: 80px;
-  margin: 0 auto;
-  position: relative;
-  .logo{
-    width: 178px;
-    height: 46px;
-    background-image: url("../../images/index/logo.png");
-    display: block;
-    position: absolute;
-    bottom: 8px;
-  }
-}
-.footer{
-  width: 100%;
-  margin-top: 52px;
-  height: 120px;
-  background: #626262;
-  color: #fff;
-  font-size: 14px;
-  .inner-wrp{
-    width: $viewWidth;
-    margin: 0 auto;
-    padding: 18px 0 18px 88px;
-    .QRcode{
-      float: left;
-      width: 78px;
-    }
-    .art-right{
-      float: left;
-      border-right: 1px solid #8e8e8e;
-      padding: 17px 28px 17px 0;
-      margin-left: 10px;
-      .art-bottom{
-        margin-top: 18px;
-      }
-    }
-    .left-QRcode-wrp{
-      float: left;
-    }
-    .right-remark-wrp{
-      float: left;
-      padding: 17px 0;
-      margin-left: 50px;
-      .art-bottom{
-        margin-top: 20px;
-      }
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
 
 .banner{
   width: 100%;
@@ -102,6 +43,7 @@ $viewWidth: 1000px;
 .select-container{
   width: 100%;
   margin-top: 30px;
+  // 一级分类
   .select-item-ul{
     width: $viewWidth;
     height: 80px;
@@ -115,6 +57,12 @@ $viewWidth: 1000px;
     display: block;
     float: left;
     text-align: center;
+    cursor: pointer;
+    &:hover, &.selected{
+      .icon-remark{
+        color: #fd5c4d;
+      }
+    }
     .icon{
       display: block;
       width: 46px;
@@ -131,8 +79,37 @@ $viewWidth: 1000px;
     .select-item-li-#{if($i>9,$i,'0'+$i)} .icon{
       background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -39px;
     }
-    .select-item-li-#{if($i>9,$i,'0'+$i)}:hover .icon{
+    .select-item-li-#{if($i>9,$i,'0'+$i)}:hover .icon, .select-item-li-#{if($i>9,$i,'0'+$i)}.selected .icon{
       background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -108px;
+    }
+  }
+  // 二级分类
+  .select-detail-item-wrp{
+    width: $viewWidth;
+    margin: 26px auto 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-size: 16px;
+    color: #cdcdcd;
+    padding: 0 114px;
+    position: relative;
+    line-height: 1.5;
+    .mark{
+      position: absolute;
+      left: 30px;
+      top: 0;
+    }
+    .select-detail-item-ul{
+      float: left;
+      display: inline-block;
+      .select-detail-item-li{
+        display: inline-block;
+        margin-left: 22px;
+        cursor: pointer;
+        &:hover, &.selected{
+          color: #fd5c4d;
+        }
+      }
     }
   }
   .tab-container{

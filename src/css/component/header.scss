@@ -1,0 +1,26 @@
+/* 引入库文件 */
+@import '../lib/lib-variables';
+@import '../lib/lib-mixin';
+@import '../lib/lib-media';
+@import '../lib/lib-reset';
+@import '../lib/lib-help';
+.header{
+  width: 100%;
+  &.shadow{
+    box-shadow: 0px 5px 25px 0px #ededed;
+  }
+  .inner-wrp{
+    width: $viewWidth;
+    height: 80px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .logo{
+    width: 178px;
+    height: 46px;
+    background-image: url("../../images/index/logo.png");
+    display: block;
+    position: absolute;
+    bottom: 8px;
+  }
+}

@@ -1,0 +1,43 @@
+/* 引入库文件 */
+@import '../lib/lib-variables';
+@import '../lib/lib-mixin';
+@import '../lib/lib-media';
+@import '../lib/lib-reset';
+@import '../lib/lib-help';
+.footer{
+  width: 100%;
+  margin-top: 52px;
+  height: 120px;
+  background: #626262;
+  color: #fff;
+  font-size: 14px;
+  .inner-wrp{
+    width: $viewWidth;
+    margin: 0 auto;
+    padding: 18px 0 18px 88px;
+    .QRcode{
+      float: left;
+      width: 78px;
+    }
+    .art-right{
+      float: left;
+      border-right: 1px solid #8e8e8e;
+      padding: 17px 28px 17px 0;
+      margin-left: 10px;
+      .art-bottom{
+        margin-top: 18px;
+      }
+    }
+    .left-QRcode-wrp{
+      float: left;
+    }
+    .right-remark-wrp{
+      float: left;
+      padding: 17px 0;
+      margin-left: 50px;
+      .art-bottom{
+        margin-top: 20px;
+      }
+    }
+  }
+}

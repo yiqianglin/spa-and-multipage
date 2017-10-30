@@ -81,6 +81,7 @@
     "expose-loader": "^0.7.3",
     "fs": "^0.0.1-security",
     "jquery": "^3.2.1",
+    "layer": "^0.1.0",
     "qs": "^6.5.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
