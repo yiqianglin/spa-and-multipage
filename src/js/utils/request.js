@@ -4,18 +4,22 @@
 import axios from 'axios';
 import qs from 'qs';
 
-export class ApiError extends Error {
-  constructor({
-    ret = -1, // 包括状态ret
-    data = null, // 后台返回数据
-    status = null, // 响应头状态
-    message = ''
-  }) {
-    super(message);
-    this.ret = ret;
-    this.status = status;
-    this.data = data;
-  }
+// export class ApiError extends Error {
+//   constructor({
+//     ret = -1, // 包括状态ret
+//     data = null, // 后台返回数据
+//     status = null, // 响应头状态
+//     message = ''
+//   }) {
+//     super(message);
+//     this.ret = ret;
+//     this.status = status;
+//     this.data = data;
+//   }
+// }
+
+function ApiError() {
+  console.log('errosdfsdfsdfsdfr');
 }
 
 function checkStatus(response) {

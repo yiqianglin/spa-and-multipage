@@ -10,7 +10,11 @@
     <body>
         <div class="wrapper">
             {{include '../../component/index/header.art', { location: 'more' } }}
-            <div id="select-container-wrp"></div>
+            <div class="select-container" id="select-container-wrp">
+                <div id="select-item-ul"></div>
+                <div id="select-detail-item-wrp"></div>
+                <div id="tab-container"></div>
+            </div>
             {{include '../../component/index/footer.art'}}
         </div>
         <div class="pop-wrp" id="pop-wrp">

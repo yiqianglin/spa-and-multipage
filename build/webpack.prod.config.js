@@ -12,10 +12,10 @@ let entry = config.entry;
 let plugin_entry = JSON.parse(JSON.stringify(config.entry));
 
 let plugins = [
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production')
-    })
+  new webpack.optimize.UglifyJsPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('production')
+  })
 ];
 
 Object.keys(plugin_entry).forEach(name => {
@@ -29,7 +29,7 @@ Object.keys(plugin_entry).forEach(name => {
     filename: name + '.html',
     template: isHtml ? 'src/html/' + name + '.html' : 'src/html/' + name + '.art',
     inject: true,
-    minify:{    //压缩HTML文件
+    minify: {    //压缩HTML文件
       removeComments: false,    //移除HTML中的注释
       collapseWhitespace: false    //删除空白符与换行符
     },
@@ -39,30 +39,30 @@ Object.keys(plugin_entry).forEach(name => {
 
 entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
 module.exports = webpackMerge(baseConfig, {
-    entry: entry,
-    output: {
-        path: path.join(__dirname,'../dist/'), //构建目录 
-        publicPath: '/',
-        filename: 'js/[name].[chunkhash:8].js'
-    },
-    module: {  
-        rules: [
+  entry: entry,
+  output: {
+    path: path.join(__dirname, '../dist/'), //构建目录
+    publicPath: '/',
+    filename: 'js/[name].[chunkhash:8].js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader", 
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                importLoaders: 0,
-                                minimize: true  // css压缩
-                            }
-                        }
-                    ]                    
-                })
+              loader: 'css-loader',
+              options: {
+                importLoaders: 0,
+                minimize: true  // css压缩
+              }
             }
-        ]
-    },
-    plugins: plugins
+          ]
+        })
+      }
+    ]
+  },
+  plugins: plugins
 });

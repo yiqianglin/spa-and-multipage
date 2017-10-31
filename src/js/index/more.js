@@ -5,7 +5,9 @@ import { post } from 'js/utils/request';
 import { template } from 'js/lib/template-web';
 import { checkIEVersonr } from 'js/utils/utilsFunc';
 
-const indexTmp = require('component/index/select-container.art');
+const selectItemUlTmp = require('component/index/select-item-ul.art');
+const selectDetailItemWrpTmp = require('component/index/select-detail-item-wrp.art');
+const tabContainerTmp = require('component/index/tab-container.art');
 
 $(document).ready(() => {
   const manager = {
@@ -21,7 +23,8 @@ $(document).ready(() => {
         .then((response) => {
           console.log(1, response);
           manager.globalData.productTypeList = response.data.data.list;
-          manager.renderSelectedContainer();
+          manager.globalData.productTypeIdSelected = manager.globalData.productTypeList[0].productTypeId; // 初始默认第一项一级分类被选中
+          manager.renderSelectedContainer(selectItemUlTmp, $('#select-item-ul'));
           return Promise.resolve(response);
         });
     },
@@ -30,7 +33,7 @@ $(document).ready(() => {
         .then((response) => {
           console.log(2, response);
           manager.globalData.productDetailTypeList = response.data.data.list;
-          manager.renderSelectedContainer();
+          manager.renderSelectedContainer(selectDetailItemWrpTmp, $('#select-detail-item-wrp'));
           return Promise.resolve(response);
         });
     },
@@ -39,19 +42,20 @@ $(document).ready(() => {
         .then((response) => {
           console.log(3, response);
           manager.globalData.productList = response.data.data.list;
-          manager.renderSelectedContainer();
+          manager.renderSelectedContainer(tabContainerTmp, $('#tab-container'));
           return Promise.resolve(response);
         });
     },
-    renderSelectedContainer() {
-      const html = indexTmp({
+    renderSelectedContainer(tmp, dom) {
+      console.log(manager.globalData.productTypeIdSelected);
+      const html = tmp({
         productTypeIdSelected: manager.globalData.productTypeIdSelected, // 一级类目选择id
         productDetailTypeSelected: manager.globalData.productDetailTypeSelected, // 二级类目选择id
         productTypeList: manager.globalData.productTypeList, // 一级类目返回数据
         productDetailTypeList: manager.globalData.productDetailTypeList, // 二级类目返回数据
         productList: manager.globalData.productList // 商户列表
       });
-      $('#select-container-wrp').html(html);
+      dom.html(html);
     },
     showPop(options, url) {
       manager.createQRcode(url);
@@ -130,7 +134,6 @@ $(document).ready(() => {
     init() {
       manager.getProductType_1()
         .then(() => {
-          manager.globalData.productTypeIdSelected = manager.globalData.productTypeList[0].productTypeId; // 初始默认第一项一级分类被选中
           if (!manager.globalData.productTypeList[0].hasSubType) { // 没有二级分类
             manager.getProductList({ productTypeId: manager.globalData.productTypeIdSelected, pageIndex: 1, pageSize: 100 });
           }

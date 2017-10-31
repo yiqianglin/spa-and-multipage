@@ -1,0 +1,19 @@
+<ul class="select-item-ul clearfix">
+  {{each productTypeList val key}}
+  <li class="select-item-li select-item-li-{{key+1 > 9 ? key+1: '0'+ (key+1)}}
+             {{if val.productTypeId == productTypeIdSelected}}selected{{/if}}"
+      data-hasSubType="{{val.hasSubType}}"
+      data-productTypeId="{{val.productTypeId}}"
+  >
+    <span class="icon"></span>
+    <p class="icon-remark">{{val.name}}</p>
+  </li>
+  {{/each}}
+
+  <!--
+  <li class="select-item-li select-item-li-01">
+      <span class="icon"></span>
+      <p class="icon-remark">小额极速</p>
+  </li>
+  -->
+</ul>
