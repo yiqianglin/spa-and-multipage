@@ -13,6 +13,14 @@
             <div id="select-container-wrp"></div>
             {{include '../../component/index/footer.art'}}
         </div>
+        <div class="pop-wrp" id="pop-wrp">
+            <div class="pop-inner-panel">
+                <p class="cooperater-name">现金巴士</p>
+                <div class="QRcode-canvas" id="QRcode-canvas"></div>
+                <p class="remark">扫一扫手机打开</p>
+            </div>
+            <a href="javascript:void(0);" class="close-btn">关闭</a>
+        </div>
 
     </body>
 </html>

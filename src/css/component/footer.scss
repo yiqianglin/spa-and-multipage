@@ -6,11 +6,12 @@
 @import '../lib/lib-help';
 .footer{
   width: 100%;
-  margin-top: 52px;
   height: 120px;
   background: #626262;
   color: #fff;
   font-size: 14px;
+  position: absolute;
+  bottom: 0;
   .inner-wrp{
     width: $viewWidth;
     margin: 0 auto;

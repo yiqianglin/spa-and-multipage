@@ -1,4 +1,5 @@
 build/*.js
+build/*
 config/*.js
 src/js/utils/*.js
 src/js/utils/m/*.js

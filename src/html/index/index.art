@@ -6,6 +6,7 @@
         <title> {{ htmlWebpackPlugin.options.title }} </title>
         <meta http-equiv="x-ua-compatible" content="IE=8,9,10,edge" >
         <meta name="description" content="借钱就送 极速借 2小时到账 领1年白金会员"/>
+        <link rel="stylesheet" href="../../css/lib/swiper/swiper.css">
     </head>
     <body>
         <div class="wrapper">
@@ -34,6 +35,7 @@
             </div>
             <div id="select-container-wrp"></div>
             {{include '../../component/index/footer.art'}}
+            
         </div>
     </body>
 </html>

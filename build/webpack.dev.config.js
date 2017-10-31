@@ -18,7 +18,6 @@ let plugins = [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     //new webpack.NoErrorsPlugin(),
-
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('development')
     })
@@ -37,19 +36,16 @@ Object.keys(plugin_entry).forEach(name => {
             removeComments: false,    //移除HTML中的注释
             collapseWhitespace: false    //删除空白符与换行符
         },
-        chunks: [name, 'polyfill'], // 需要引入的chunk，不配置就会引入所有页面的资源
+        chunks: ['vendor', name, 'polyfill'], // 需要引入的chunk，不配置就会引入所有页面的资源
     }));
 });
 
-
-
-
-
-
-
-
+entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
 let _config = {
     entry: entry,
+    output: {
+      publicPath: '/',
+    },
     module: {
         rules: [
           {

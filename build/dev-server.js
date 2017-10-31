@@ -29,7 +29,7 @@ var app = express()
 // //   app.set('views', path.join(__dirname, '../src/html/'));
 //
 // 　　app.set('view engine','html');
-　　app.use(express.static(path.join(__dirname, '../src')));  
+// 　　app.use(express.static(path.join(__dirname, '../src')));     ??????????
 
 //根据webpack配置文件创建Compiler对象
 console.log('----------------最终结果---------------------');
@@ -38,8 +38,8 @@ var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   hot: true,
-  publicPath: webpackConfig.output.publicPath,
-  quiet: true
+  publicPath: '/',
+  quiet: false
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {

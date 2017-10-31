@@ -29,7 +29,7 @@ function checkStatus(response) {
       message: '访问错误'
     }));
   }
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!');
+
   return Promise.reject(new ApiError({
     message: '访问错误'
   }));
@@ -55,11 +55,12 @@ export function post(url, data, timeout = 60000) {
       return Promise.reject(new ApiError({
         data: response.data,
         status: response.status,
-        message: '访问错误'
+        message: '网络异常，请稍后再试'
       }));
     }
   ).catch((err) => {
-    console.log(err.message, err.status, err.data);
+    console.log(err, err.status, err.data);
+    layer.msg(err.message);
     return Promise.reject(err);
   });
 }

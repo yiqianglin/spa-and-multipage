@@ -1,13 +1,12 @@
 #忽略npm模块
 node_modules/
-#忽略文档文件
-docs/
 #忽略项目内压缩文档
 *.7z
 *.rar
 *.zip
 *.log
-#忽略vscode
+#忽略IDE
 .vscode/
 #忽略dist文件夹
 dist/
+debug.log
