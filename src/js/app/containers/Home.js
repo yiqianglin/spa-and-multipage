@@ -10,6 +10,7 @@ import 'css/app/home.scss';
 import HomeTypeSelector from '../component/HomeTypeSelector';
 import Banner from '../component/Banner';
 import HomeCooperaterPanel from '../component/HomeCooperaterPanel';
+import TypeSelectPanel from '../component/TypeSelectPanel';
 import QRcodePanelBottom from '../component/QRcodePanelBottom';
 
 @inject('systemStore', 'cooperaterStore') @observer
@@ -24,8 +25,8 @@ export default class Home extends Component {
         <HomeTypeSelector />
         <Banner />
         <HomeCooperaterPanel />
+        <TypeSelectPanel />
         <QRcodePanelBottom />
-        首页
       </div>
     );
   }

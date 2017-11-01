@@ -3,6 +3,20 @@ import { request } from 'js/app/utils/utilsFunc';
 import systemStore from './SystemStore';
 
 class CooperaterStore {
+  @computed get productTypeName() {
+    const productTypeList = this.dataList && this.dataList.get('productTypeList').toJS();
+    const productTypeSelected = this.dataList && this.dataList.get('productTypeSelected');
+    if (productTypeList && productTypeList.length && productTypeSelected !== null) {
+      const temp = productTypeList.filter((result) => {
+        return Number(result.productTypeId) === productTypeSelected;
+      });
+      if (temp.length > 0) {
+        return temp[0].name;
+      }
+      return null;
+    }
+    return null;
+  }
   constructor() {
     this.dataList = observable.map({
       productTypeList: [], // 一级分类列表
@@ -36,11 +50,17 @@ class CooperaterStore {
    * getProductType()
    */
   async getProductTypeDeatil(productTypeId) {
+    this.dataList.set('productTypeSelected', productTypeId);
     const params = { productTypeId };
     const data = await request('/cashloan-web-market/cashloanmarket/productType.htm', params);
     if (+data.status === 1) {
       const { list } = data.data;
-      this.dataList.set('productTypeDeatilList', list);
+      if (!list.length) { // 二级分类为空
+        this.getProductList(this.dataList.get('productTypeSelected'));
+      } else { // 二级分类不为空，则默认选中第一个，获取产品列表
+        this.dataList.set('productTypeDeatilSelected', list[0].productTypeId);
+        this.getProductList(this.dataList.get('productTypeSelected'), this.dataList.get('productTypeDeatilSelected'));
+      }
     }
   }
 
@@ -50,11 +70,18 @@ class CooperaterStore {
    * getProductList()
    */
   async getProductList(productTypeId, secondProductTypeId, pageIndex = 1, pageSize = 100) {
-    const params = { productTypeId, secondProductTypeId, pageIndex, pageSize };
+    const params = {
+      productTypeId,
+      pageIndex,
+      pageSize
+    };
+    if (secondProductTypeId) {
+      params.secondProductTypeId = secondProductTypeId;
+    }
     const data = await request('/cashloan-web-market/cashloanmarket/productList.htm', params);
     if (+data.status === 1) {
       const { list } = data.data;
-      this.dataList.set('productTypeDeatilList', list);
+      this.dataList.set('cooperaterList', list);
     }
   }
 

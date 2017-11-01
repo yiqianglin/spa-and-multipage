@@ -7,30 +7,29 @@ import { inject, observer } from 'mobx-react';
 import 'css/app/homeTypeSelector.scss';
 
 @inject((stores) => {
-  console.log(stores);
   const props = {
-    productTypeList: stores.cooperaterStore.dataList.get('productTypeList').toJS()
+    productTypeList: stores.cooperaterStore.dataList.get('productTypeList').toJS(),
+    getProductTypeDeatil: stores.cooperaterStore.getProductTypeDeatil.bind(stores.cooperaterStore)
   };
   return props;
 }) @observer
 class HomeTypeSelector extends Component {
-  constructor(props) {
-    super(props);
-    this.name = 'sdfs';
-  }
-  clickHandler() {
-    console.log(this);
+  clickHandler(productTypeId, hasSubType) {
+    this.props.getProductTypeDeatil(productTypeId);
   }
   render() {
     const { productTypeList } = this.props;
-    console.log(this.props.productTypeList);
     return (
       <div className="home-type-selector">
         <ul className="type-selector-ul">
           {
-            productTypeList ? productTypeList.map((element, index) => (
-              <li className="type-selector-li" key={index} data-hassubtype={element.hasSubType} onClick={this.clickHandler.bind(this)}>
-                {element.name}
+            productTypeList ? productTypeList.map((elem, index) => (
+              <li className="type-selector-li" key={index}
+                  data-hassubtype={elem.hasSubType}
+                  data-producttypeid={elem.productTypeId}
+                  onClick={ () => this.clickHandler(elem.productTypeId, elem.hasSubType) }
+              >
+                {elem.name}
               </li>
             )) : null
           }

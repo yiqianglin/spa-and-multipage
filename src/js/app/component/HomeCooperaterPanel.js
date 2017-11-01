@@ -6,75 +6,35 @@ import { inject, observer } from 'mobx-react';
 
 @inject((stores) => {
   const props = {
+    cooperaterList: stores.cooperaterStore.dataList.get('cooperaterList').toJS(),
+    productTypeName: stores.cooperaterStore.productTypeName
   };
   return props;
 }) @observer
 class HomeCooperaterPanel extends Component {
-  constructor() {
-    super();
-    this.state = {
-      indexShow: 0,
-    };
-  }
   render() {
+    const {
+      cooperaterList,
+      productTypeName
+    } = this.props;
+    console.log('*************', cooperaterList);
     return (
       <div className="cooperator-panel-wrp">
-        <div className="title">极速贷款</div>
+        <div className="title">{ productTypeName }</div>
         <ul className="cooperator-ul">
-          <li className="cooperator-li xianjinbashi">
-            <a href="javascript:void(0);" className="cooperater-link">
-              <span className="remark">放水</span>
-              <img src="https://xl-games.oss-cn-hangzhou.aliyuncs.com/xunleijr-activity/daikuanchaoshi/m/common/qianzhan.png" alt="" className="cooperater-img" />
-              <p className="cooperater-name">钱站</p>
-              <p className="cooperater-remark">借款20分钟到账</p>
-              <span className="go-cooperater-btn">立即贷款</span>
-            </a>
-          </li>
-          <li className="cooperator-li xianjinbashi">
-            <a href="javascript:void(0);" className="cooperater-link">
-              <span className="remark">放水</span>
-              <img src="https://xl-games.oss-cn-hangzhou.aliyuncs.com/xunleijr-activity/daikuanchaoshi/m/common/qianzhan.png" alt="" className="cooperater-img" />
-              <p className="cooperater-name">钱站</p>
-              <p className="cooperater-remark">借款20分钟到账</p>
-              <span className="go-cooperater-btn">立即贷款</span>
-            </a>
-          </li>
-          <li className="cooperator-li xianjinbashi">
-            <a href="javascript:void(0);" className="cooperater-link">
-              <span className="remark">放水</span>
-              <img src="https://xl-games.oss-cn-hangzhou.aliyuncs.com/xunleijr-activity/daikuanchaoshi/m/common/qianzhan.png" alt="" className="cooperater-img" />
-              <p className="cooperater-name">钱站</p>
-              <p className="cooperater-remark">借款20分钟到账</p>
-              <span className="go-cooperater-btn">立即贷款</span>
-            </a>
-          </li>
-          <li className="cooperator-li xianjinbashi">
-            <a href="javascript:void(0);" className="cooperater-link">
-              <span className="remark">放水</span>
-              <img src="https://xl-games.oss-cn-hangzhou.aliyuncs.com/xunleijr-activity/daikuanchaoshi/m/common/qianzhan.png" alt="" className="cooperater-img" />
-              <p className="cooperater-name">钱站</p>
-              <p className="cooperater-remark">借款20分钟到账</p>
-              <span className="go-cooperater-btn">立即贷款</span>
-            </a>
-          </li>
-          <li className="cooperator-li xianjinbashi">
-            <a href="javascript:void(0);" className="cooperater-link">
-              <span className="remark">放水</span>
-              <img src="https://xl-games.oss-cn-hangzhou.aliyuncs.com/xunleijr-activity/daikuanchaoshi/m/common/qianzhan.png" alt="" className="cooperater-img" />
-              <p className="cooperater-name">钱站</p>
-              <p className="cooperater-remark">借款20分钟到账</p>
-              <span className="go-cooperater-btn">立即贷款</span>
-            </a>
-          </li>
-          <li className="cooperator-li xianjinbashi">
-            <a href="javascript:void(0);" className="cooperater-link">
-              <span className="remark">放水</span>
-              <img src="https://xl-games.oss-cn-hangzhou.aliyuncs.com/xunleijr-activity/daikuanchaoshi/m/common/qianzhan.png" alt="" className="cooperater-img" />
-              <p className="cooperater-name">钱站</p>
-              <p className="cooperater-remark">借款20分钟到账</p>
-              <span className="go-cooperater-btn">立即贷款</span>
-            </a>
-          </li>
+          {
+            cooperaterList ? cooperaterList.map((elem, index) => (
+              <li className="cooperator-li" key={index}>
+                <a href={elem.homeUrl} className="cooperater-link">
+                  {/* <span className="remark">放水</span> */}
+                  <img src={elem.imageUrl} alt="" className="cooperater-img" />
+                  <p className="cooperater-name">{elem.name}</p>
+                  <p className="cooperater-remark">{elem.description}</p>
+                  <span className="go-cooperater-btn">立即贷款</span>
+                </a>
+              </li>
+            )) : null
+          }
         </ul>
         <p className="bottom-remark">贷款有风险，选择需谨慎</p>
       </div>

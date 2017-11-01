@@ -1,0 +1,47 @@
+@import '../lib/lib-variables';
+
+.type-select-panel-wrp{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  .product-type-ul{
+    width: 100%;
+    padding-top: 62px;
+    .product-type-li{
+      width: 50%;
+      display: inline-block;
+      margin-bottom: 45px;
+      .product-type-con{
+        width: 188px;
+        height: 148px;
+        margin: 0 auto;
+        .product-type-icon{
+          width: 69px;
+          height: 69px;
+          display: block;
+          margin: 0 auto;
+        }
+        .product-type-name{
+          font-size: 28px;
+          color: nth($colorText, 1);
+          text-align: center;
+          margin-top: 28px;
+          display: block;
+        }
+      }
+    }
+  }
+  @for $i from 1 through 8{
+    .product-type-li-#{if($i>9,$i,'0'+$i)} .product-type-icon{
+      background: url("../../images/app/select-panel-icon-#{if($i>9,$i,'0'+$i)}.png") no-repeat center center;
+      background-size: contain;
+    }
+    .product-type-li-#{if($i>9,$i,'0'+$i)}:hover .product-type-icon, .product-type-li-#{if($i>9,$i,'0'+$i)}.selected .product-type-icon{
+
+    }
+  }
+}
