@@ -1,0 +1,28 @@
+.QRcode-wrp{
+  width: 100%;
+  position: absolute;
+  background-color: #8d7eff;
+  bottom: 0;
+  padding: 22px 0 22px;
+  .inner-wrp{
+    width: 690px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .QRcode{
+    display: inline-block;
+    width: 200px;
+    vertical-align: middle;
+  }
+  .art-right {
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    margin-left: 20px;
+    font-size: 20px;
+    .art {
+      line-height: 38px;
+    }
+  }
+}

@@ -25,7 +25,14 @@
             </div>
             <a href="javascript:void(0);" class="close-btn">关闭</a>
         </div>
-
+        <!--[if IE 8]>
+        <script src="/js/lib/es5-shim/es5-shim.min.js"></script>
+        <script src="/js/lib/es5-shim/es5-sham.min.js"></script>
+        <script src="/js/lib/es5-shim/json3.min.js"></script>
+        <![endif]-->
+        <script src="/js/lib/jquery-1.10.2.min.js"></script>
+        <script src="/js/lib/layer/layer.js"></script>
+        <script src="/js/lib/jquery.qrcode.min.js"></script>
     </body>
 </html>
 

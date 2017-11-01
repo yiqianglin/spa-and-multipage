@@ -1,8 +1,8 @@
 const path = require('path');
-const $ = require('jquery');
 const webpack = require('webpack');
 
 const config = require('../config/config');
+const postcssConfig = require('../config/postcss.config');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -52,7 +52,7 @@ module.exports = {
             options: {
               name: 'images/[name].[hash].[ext]',
               limit: 100,
-              publicPath: '/'
+              publicPath: process.env.NODE_ENV === 'production' ? '/cashloan-web-market/' : '/'
             }
           },
         ]
@@ -72,53 +72,7 @@ module.exports = {
               loader: 'postcss-loader',
               options: {
                 ident: 'postcss', // webpack需要ident在使用的options时候{Function}/require使用identifier（）（复杂选项）。ident只要它是独一无二的，可以自由命名。建议把它命名（ident: 'postcss'）
-                plugins: (loader) => [
-                  require('autoprefixer')({
-                    pc: [
-                      'last 3 versions',
-                      'Explorer >= 8',
-                      'Chrome >= 21',
-                      'Firefox >= 1',
-                      'Edge 13'
-                    ]
-                  }),
-                  /*                                require('postcss-sprites')({
-                   retina: true,	// 是否识别分辨率标识，默认为true。分辨率标识指的是类似@2x的文件名标识，比如存在两个图标文件logo.png和logo@2x.png并且style文件中对两张图标都有引用，如果配置retina:true，boi将把两种分辨率的图片分别合并为一张sprites图片，否则会编译到同一张sprites图片里
-                   verbose: true,	// 将插件输出打印到控制台
-                   spritePath: '../dist/images', // 雪碧图合并后存放地址，相对路径
-                   stylesheetPath: '../dist/css/index',	// 保存输出样式表的文件夹的相对路径。如果为空，则将使用CSS文件的路径。
-                   basePath: './',	// Your base path that will be used for images with absolute CSS urls.
-                   spritesmith: {	// 将图像转换为精简图和坐标图。
-                   padding: 2
-                   },
-                   filterBy(image) {
-                   // 定义过滤器函数，该函数将处理在样式表中创建的图像列表。
-                   // 每个函数必须返回一个Promise应解决或拒绝的函数。
-
-                   console.log(image.url);
-                   console.log('能不能找到/images/sprite/：', image.url.indexOf('/images/sprite/') !== -1);
-                   if (image.url.indexOf('/images/sprite/') === -1) {
-                   return Promise.reject();
-                   }
-                   return Promise.resolve();
-                   },
-                   groupBy(image) {
-                   // 定义将处理您的样式表中创建的图像列表的组函数。
-                   return spritesGroupBy(image);
-                   },
-                   hooks: {
-                   // 挂钩 定义是否在文件名中搜索视网膜标记。
-                   onUpdateRule(rule, comment, image) {
-                   // Hook允许重写图像的CSS输出。// 更新生成后的规则，这里主要是改变了生成后的url访问路径
-                   return spritesOnUpdateRule(true, rule, comment, image);
-                   },
-                   onSaveSpritesheet(opts, groups) {
-                   // Hook允许重写生成的spritesheet的数据。
-                   return spritesOnSaveSpritesheet(true, opts, groups);
-                   }
-                   }
-                   })*/
-                ]
+                plugins: postcssConfig
               }
             }
           ]
@@ -139,17 +93,7 @@ module.exports = {
               loader: 'postcss-loader',
               options: {
                 ident: 'postcss', // webpack需要ident在使用的options时候{Function}/require使用identifier（）（复杂选项）。ident只要它是独一无二的，可以自由命名。建议把它命名（ident: 'postcss'）
-                plugins: (loader) => [
-                  require('autoprefixer')({
-                    pc: [
-                      'last 3 versions',
-                      'Explorer >= 8',
-                      'Chrome >= 21',
-                      'Firefox >= 1',
-                      'Edge 13'
-                    ]
-                  })
-                ]
+                plugins: postcssConfig
               }
             },
             {
@@ -174,30 +118,31 @@ module.exports = {
         // ],
         exclude: [/node_modules/, path.join(__dirname, '../src/js/lib/')]
       },
-      {
-        test: require.resolve('jquery'),
-        use: [{
-          loader: 'expose-loader',
-          options: 'jQuery'
-        }, {
-          loader: 'expose-loader',
-          options: '$'
-        }]
-      },
-      {
-        test: require.resolve('swiper'),
-        use: [{
-          loader: 'expose-loader',
-          options: 'swiper'
-        }]
-      }
+      // {
+      //   test: require.resolve('jquery'),
+      //   use: [{
+      //     loader: 'expose-loader',
+      //     options: 'jQuery'
+      //   }, {
+      //     loader: 'expose-loader',
+      //     options: '$'
+      //   }]
+      // },
+      // },
+      // {
+      //   test: require.resolve('swiper'),
+      //   use: [{
+      //     loader: 'expose-loader',
+      //     options: 'swiper'
+      //   }]
+      // }
     ]
   },
   externals: {  // 不想打包的模块
     moment: true, // cdn
-    $: "jquery",
-    jQuery: "jquery",
-    "window.jQuery": "jquery"
+    // $: "jquery",
+    // jQuery: "jquery",
+    // "window.jQuery": "jquery"
   },
   resolve: {
     // 配置别名，在项目中可缩减引用路径
@@ -218,14 +163,14 @@ module.exports = {
 
     // 将公共代码抽离出来合并为一个文件
     new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery"
+      // $: "jquery",
+      // jQuery: "jquery",
+      // "window.jQuery": "jquery"
     }),
     new webpack.optimize.CommonsChunkPlugin({name: ['polyfill', 'vendor'], minChunks: Infinity}),
     new ExtractTextPlugin({
       filename: ('css/[name].[chunkhash:8].css'),    // 这个路径为什么能随便写，也没影响
-      publicPath: '/',
+      publicPath: process.env.NODE_ENV === 'production' ? '/cashloan-web-market/' : '/',
       allChunks: true   // 这个新加上去，并不知道有什么用
       // 疑问：这plugin会将所有的css，less等全都打包到一个css，可以手动指定分隔css，但是动态改变不行。extract-chunk-text-webpack-plugin
     }),

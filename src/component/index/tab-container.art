@@ -1,6 +1,6 @@
 <div class="tab-container">
   <div class="title-wrp">
-    <span class="title">{{productTypeList[productTypeIdSelected]}}</span>
+    <span class="title">{{productTypeList[productTypeIdSelected - 1]['name']}}</span>
     <a href="/index/more.html" class="more">更多</a>
   </div>
   <div class="clearfix"></div>

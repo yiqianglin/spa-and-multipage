@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'production';
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
@@ -33,16 +34,18 @@ Object.keys(plugin_entry).forEach(name => {
       removeComments: false,    //移除HTML中的注释
       collapseWhitespace: false    //删除空白符与换行符
     },
-    chunks: ['vendor', name, 'polyfill'], // 需要引入的chunk，不配置就会引入所有页面的资源
+    chunks: ['vendor', 'polyfill', name], // 需要引入的chunk，不配置就会引入所有页面的资源
   }));
 });
 
-entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
+// entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
+entry['polyfill'] = ['core-js/es6/promise'];
+
 module.exports = webpackMerge(baseConfig, {
   entry: entry,
   output: {
     path: path.join(__dirname, '../dist/'), //构建目录
-    publicPath: '/',
+    publicPath: '/cashloan-web-market/',
     filename: 'js/[name].[chunkhash:8].js'
   },
   module: {

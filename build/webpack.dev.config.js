@@ -5,10 +5,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); //webpack html 打包�
 const webpackMerge = require('webpack-merge');
 const config = require('../config/config');
 const baseConfig = require('./webpack.base.config');
+const argv = require('yargs').argv;
 
 const srcPath = path.join(__dirname, '../src/');//源码路径
 let entry = config.entry;
 let plugin_entry = JSON.parse(JSON.stringify(config.entry));
+const { projectType } = argv;
 
 Object.keys(entry).forEach(function (name) {
   entry[name] = [__dirname + '/dev.client.js'].concat(entry[name])
@@ -40,7 +42,17 @@ Object.keys(plugin_entry).forEach(name => {
   }));
 });
 
-entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
+// entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
+if (projectType === 'app') {
+  entry['vendor'] = [
+    'react',
+    'react-dom',
+    'react-router',
+    'mobx',
+    'mobx-react',
+    'axios'
+  ];
+}
 let _config = {
   entry: entry,
   output: {

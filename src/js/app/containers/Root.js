@@ -3,6 +3,9 @@
  */
 import React, { Component } from 'react';
 import { Router, browserHistory } from 'react-router';
+import { Provider } from 'mobx-react';
+import * as stores from 'js/app/stores';
+import Home from './Home';
 import Rules from './Rules';
 
 const rootRoute = {
@@ -12,12 +15,12 @@ const rootRoute = {
       component: require('./App').default,
       childRoutes: [
         {
-          path: 'rules.html',
+          path: 'app/app.entry.html',
           getComponent(nextState, cb) {
             require.ensure(
               [],
               (require) => {
-                cb(null, require('./Rules').default);
+                cb(null, require('./Home').default);
               },
               'Rules'
             );
@@ -31,7 +34,9 @@ const rootRoute = {
 class Root extends Component {
   render() {
     return (
-        <Rules />
+      <Provider {...stores}>
+        <Router history={browserHistory} routes={rootRoute} />
+      </Provider>
     );
   }
 }
