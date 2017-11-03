@@ -1,62 +1,70 @@
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin'); //webpack html 打包模块
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // webpack html 打包模块
 const webpackMerge = require('webpack-merge');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = require('../config/config');
 const baseConfig = require('./webpack.base.config');
 const argv = require('yargs').argv;
 
-const srcPath = path.join(__dirname, '../src/');//源码路径
-let entry = config.entry;
-let plugin_entry = JSON.parse(JSON.stringify(config.entry));
+const srcPath = path.join(__dirname, '../src/'); // 源码路径
+const entry = config.entry;
+const plugin_entry = JSON.parse(JSON.stringify(config.entry));
 const { projectType } = argv;
 
-Object.keys(entry).forEach(function (name) {
-  entry[name] = [__dirname + '/dev.client.js'].concat(entry[name])
-})
+Object.keys(entry).forEach((name) => {
+  entry[name] = [`${__dirname}/dev.client.js`].concat(entry[name]);
+});
 
-let plugins = [
+const plugins = [
   new webpack.optimize.OccurrenceOrderPlugin(),
   new webpack.HotModuleReplacementPlugin(),
-  //new webpack.NoErrorsPlugin(),
+  // new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development')
-  })
-]
-Object.keys(plugin_entry).forEach(name => {
-  let isHtml = fs.existsSync(srcPath + '/html/' + name + '.html');
-  let isTemplate = fs.existsSync(srcPath + '/html/' + name + '.art');
-  console.log(isHtml ? 'src/html/' + name + '.html' : isTemplate ? 'src/html/' + name + '.art' : '啥都没有啊，那就没有HtmlWebpackPlugin了');
-  plugins.push(new HtmlWebpackPlugin({
-    //favicon: baseConfig.srcPath + '/favicon.ico',
-    title: '自定义的title',
-    filename: name + '.html',
-    template: isHtml ? 'src/html/' + name + '.html' : 'src/html/' + name + '.art',
-    inject: true,
-    minify: {    //压缩HTML文件
-      removeComments: false,    //移除HTML中的注释
-      collapseWhitespace: false    //删除空白符与换行符
+  }),
+  new CopyWebpackPlugin([
+    {
+      from: 'src/js/lib',
+      to: 'js/lib'
     },
-    chunks: ['vendor', name, 'polyfill'], // 需要引入的chunk，不配置就会引入所有页面的资源
+    {
+      from: 'src/css/lib',
+      to: 'css/lib'
+    }
+  ])
+];
+Object.keys(plugin_entry).forEach((name) => {
+  const isHtml = fs.existsSync(`${srcPath}/html/${name}.html`);
+  const isTemplate = fs.existsSync(`${srcPath}/html/${name}.art`);
+  console.log(isHtml
+    ? `src/html/${name}.html`
+    : isTemplate ? `src/html/${name}.art` : '啥都没有啊，那就没有HtmlWebpackPlugin了');
+  plugins.push(new HtmlWebpackPlugin({
+    // favicon: baseConfig.srcPath + '/favicon.ico',
+    title: '自定义的title',
+    contentPath: '/cashloan-web-market',
+    filename: `${name}.html`,
+    template: isHtml ? `src/html/${name}.html` : `src/html/${name}.art`,
+    inject: true,
+    minify: {
+      // 压缩HTML文件
+      removeComments: false, // 移除HTML中的注释
+      collapseWhitespace: false // 删除空白符与换行符
+    },
+    chunks: ['vendor', name, 'polyfill'] // 需要引入的chunk，不配置就会引入所有页面的资源
   }));
 });
 
 // entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
 if (projectType === 'app') {
-  entry['vendor'] = [
-    'react',
-    'react-dom',
-    'react-router',
-    'mobx',
-    'mobx-react',
-    'axios'
-  ];
+  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios'];
 }
-let _config = {
-  entry: entry,
+const _config = {
+  entry,
   output: {
-    publicPath: '/',
+    publicPath: '/cashloan-web-market/'
   },
   module: {
     rules: [
@@ -72,10 +80,10 @@ let _config = {
             }
           }
         ]
-      },
+      }
     ]
   },
-  plugins: plugins
-}
+  plugins
+};
 
 module.exports = webpackMerge(baseConfig, _config);

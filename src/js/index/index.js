@@ -1,25 +1,25 @@
-import Swiperexpose from 'swiper';
-import 'css/lib/swiper/swiper.css';
 import 'css/index/index.scss';
 import { post } from 'js/utils/request';
-import { template } from 'js/lib/template-web';
+// import { template } from 'js/lib/template-web';
 import { checkIEVersonr } from 'js/utils/utilsFunc';
 
+const bannerTmp = require('component/index/banner.art');
 const selectItemUlTmp = require('component/index/select-item-ul.art');
-const selectDetailItemWrpTmp = require('component/index/select-detail-item-wrp.art');
 const tabContainerTmp = require('component/index/tab-container.art');
 
 $(document).ready(() => {
   const manager = {
     globalData: {
-      productTypeIdSelected: null, // 一级类目选择id
-      productDetailTypeSelected: null, // 二级类目选择id
+      bannerList: [],
       productTypeList: [], // 一级类目返回数据
-      productDetailTypeList: [], // 二级类目返回数据
       productList: [], // 商户列表
     },
-    renderSwiper() {
-      const mySwiper = new Swiperexpose('.swiper-container', {
+    renderSwiper(tmp, dom) {
+      const html = tmp({
+        bannerList: manager.globalData.bannerList
+      });
+      dom.html(html);
+      const mySwiper = new Swiper('.swiper-container', {
         autoplay: 2000, // 可选选项，自动滑动
         pagination: '.swiper-pagination',
         paginationClickable: true,
@@ -28,41 +28,41 @@ $(document).ready(() => {
         }
       });
     },
+    getBanner() {
+      return post('/cashloan-web-market/cashloanmarket/getBanner.htm', { appType: 10 })
+        .then((response) => {
+          console.log('banner', response);
+          manager.globalData.bannerList = response.data.data.list;
+          return Promise.resolve(response);
+        });
+    },
     getProductType_1() { // 一级类
       return post('/cashloan-web-market/cashloanmarket/productType.htm')
         .then((response) => {
           console.log(1, response);
           manager.globalData.productTypeList = response.data.data.list;
-          manager.globalData.productTypeIdSelected = manager.globalData.productTypeList[0].productTypeId; // 初始默认第一项一级分类被选中
-          manager.renderSelectedContainer(selectItemUlTmp, $('#select-item-ul'));
+          manager.renderSelectItemUlTmp(selectItemUlTmp, $('#select-item-ul'));
           return Promise.resolve(response);
         });
     },
-    getProductType_2(productTypeId) { // 一级类获取二级类
-      return post('/cashloan-web-market/cashloanmarket/productType.htm', productTypeId)
-        .then((response) => {
-          console.log(2, response);
-          manager.globalData.productDetailTypeList = response.data.data.list;
-          manager.renderSelectedContainer(selectDetailItemWrpTmp, $('#select-detail-item-wrp'));
-          return Promise.resolve(response);
-        });
-    },
-    getProductList(productTypeId) {
-      return post('/cashloan-web-market/cashloanmarket/productList.htm', productTypeId)
+    getProductList(params) {
+      return post('/cashloan-web-market/cashloanmarket/productList.htm', params)
         .then((response) => {
           console.log(3, response);
           manager.globalData.productList = response.data.data.list;
-          manager.renderSelectedContainer(tabContainerTmp, $('#tab-container'));
+          manager.renderTabContainerTmp(tabContainerTmp, $('#tab-container'));
           return Promise.resolve(response);
         });
     },
-    renderSelectedContainer(tmp, dom) {
-      console.log(manager.globalData.productTypeIdSelected);
+    renderSelectItemUlTmp(tmp, dom) {
       const html = tmp({
-        productTypeIdSelected: manager.globalData.productTypeIdSelected, // 一级类目选择id
-        productDetailTypeSelected: manager.globalData.productDetailTypeSelected, // 二级类目选择id
         productTypeList: manager.globalData.productTypeList, // 一级类目返回数据
-        productDetailTypeList: manager.globalData.productDetailTypeList, // 二级类目返回数据
+      });
+      dom.html(html);
+    },
+    renderTabContainerTmp(tmp, dom) {
+      const html = tmp({
+        typeName: '极速贷款', // 推荐类目返回数据
         productList: manager.globalData.productList // 商户列表
       });
       dom.html(html);
@@ -98,60 +98,29 @@ $(document).ready(() => {
     },
     eventBind() {
       // 一级类选择
-      $('body').on('click', '.select-item-li', function () {
-        if ($(this).attr('data-productTypeId') === manager.globalData.productTypeIdSelected) { // 如果点击还是同一类目
-          return;
-        }
-        manager.globalData.productTypeIdSelected = $(this).attr('data-productTypeId');
-        if ($(this).attr('data-hasSubType')) { // 有二级分类
-          console.log(manager.globalData.productTypeIdSelected);
-          manager.globalData.productDetailTypeSelected = null; // 重置
-          manager.getProductType_2({ productTypeId: manager.globalData.productTypeIdSelected })
-            .then((response) => {
-              if (response.data.data.list && response.data.data.list.length) {
-                console.log('返回的数据包含合作商');
-                manager.globalData.productDetailTypeSelected = manager.globalData.productDetailTypeList[0].productTypeId;
-                manager.getProductList({
-                  productTypeId: manager.globalData.productTypeIdSelected, secondProductTypeId: manager.globalData.productDetailTypeSelected, pageIndex: 1, pageSize: 100
-                });
-              } else {
-                manager.getProductList({
-                  productTypeId: manager.globalData.productTypeIdSelected, pageIndex: 1, pageSize: 100
-                });
-              }
-            });
-        } else { // 没有二级分类
-          console.log('没有二级分类');
-          manager.getProductList({ productTypeId: manager.globalData.productTypeIdSelected, pageIndex: 1, pageSize: 100 });
-        }
-      });
-      // 二级类选择
-      $('body').on('click', '.select-detail-item-li', function () {
-        console.log($(this).attr('data-productTypeId'));
-        if ($(this).attr('data-productTypeId') === manager.globalData.productDetailTypeSelected) {
-          return;
-        }
-        manager.globalData.productDetailTypeSelected = $(this).attr('data-productTypeId');
-        manager.getProductList({
-          productTypeId: manager.globalData.productTypeIdSelected, secondProductTypeId: manager.globalData.productDetailTypeSelected, pageIndex: 1, pageSize: 100
-        });
+      $('body').on('click', '.select-item-li', () => {
+        window.location.href = '/cashloan-web-market/index/more.html';
       });
       $('body').on('click', '.go-cooperater-btn', function () {
-        console.log($(this).attr('data-url'));
-        manager.showPop({ area: [], content: $('#pop-wrp') }, $(this).attr('data-url'));
+        const mobileurl = $(this).attr('data-mobileurl');
+        const name = $(this).attr('data-name');
+        if (mobileurl) {
+          setTimeout(() => {
+            $('#cooperater-name').html(name);
+            manager.showPop({ area: [], content: $('#pop-wrp') }, mobileurl);
+          }, 300);
+        }
       });
     },
     init() {
-      manager.renderSwiper();
-      manager.getProductType_1()
+      manager.getBanner()
         .then(() => {
-          if (!manager.globalData.productTypeList[0].hasSubType) { // 没有二级分类
-            manager.getProductList({ productTypeId: manager.globalData.productTypeIdSelected, pageIndex: 1, pageSize: 100 });
-          }
+          manager.renderSwiper(bannerTmp, $('#banner-container-wrp'));
         });
+      manager.getProductType_1();
+      manager.getProductList({ productTypeId: 999999 });
       manager.eventBind();
-      // manager.showPop({ area: [], content: $('#pop-wrp') }, 'http://www.baidu.com');
-      // layer.msg('开始都金风科技阿克苏福建省打飞机');
+      // layer.msg('测试');
     }
   };
   manager.init();

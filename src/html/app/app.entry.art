@@ -13,7 +13,7 @@
             <%- htmlWebpackPlugin.options.title %>
         </title>
         <link rel="shortcut icon" href="../../favicon.ico" >
-        <script src="/js/lib/flexible.js"></script>
+        <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/flexible.js"></script>
     </head>
     <body>
 
@@ -22,6 +22,7 @@
 
         <script>
         var _hmt = _hmt || [];
+        var contentPath = "<%- htmlWebpackPlugin.options.contentPath%>";
         (function() {
           var hm = document.createElement("script");
           hm.src = "https://hm.baidu.com/hm.js?c8d4c7ce4b091659d99e91739c0f5e58";

@@ -1,0 +1,11 @@
+@import '../lib/lib-variables';
+
+.morepage{
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 143px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

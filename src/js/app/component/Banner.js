@@ -4,15 +4,24 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import ReactSwipe from 'react-swipe';
-
 import 'css/app/banner.scss';
+
+const bannerImg = require('../../../images/app/banner.jpg');
 
 @inject((stores) => {
   const props = {
+    bannerList: stores.systemStore.bannerList.toJS(),
+    getBannerList: stores.systemStore.getBannerList.bind(stores.systemStore),
   };
   return props;
 }) @observer
 class Banner extends Component {
+  componentDidMount() {
+    this.props.getBannerList(10);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    window.dispatchEvent(new Event('resize'));
+  }
   constructor() {
     super();
     this.state = {
@@ -20,8 +29,8 @@ class Banner extends Component {
     };
   }
   render() {
-    const { productTypeList } = this.props;
-    const bannerList = [1, 2, 3];
+    const { bannerList } = this.props;
+    console.log('render bannerList', bannerList);
     return (
       <div className="banner-wrp">
         <ReactSwipe className="swipe-con" swipeOptions={{
@@ -35,9 +44,10 @@ class Banner extends Component {
         }}>
           {
             bannerList.map((item, index) => {
+              console.log(item.imageUrl);
               return (
-                <a className="banner-link" key={index} href="http://www.baidu.com">
-                  <img className="banner-img" src="http://test.xunleiyidai.com/cashloan-web-market/images/banner-01.45edb46d3b281a461314b8b0885bf097.jpg" alt=""/>
+                <a className="banner-link" key={index} href={item.url}>
+                  <img className="banner-img" src={item.imageUrl} alt=""/>
                 </a>
               );
             })

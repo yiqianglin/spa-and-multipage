@@ -1,7 +1,7 @@
 {{if location == 'index'}}
 <div class="header">
     <div class="inner-wrp">
-        <a href="http://www.baidu.com" class="logo"></a>
+        <a href="{{contentPath}}http://www.baidu.com" class="logo"></a>
     </div>
 </div>
 {{else}}

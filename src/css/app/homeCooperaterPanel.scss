@@ -1,29 +1,28 @@
 .cooperator-panel-wrp{
   width: 100%;
-  padding-top: 22px;
-  .title{
-    font-size: 28px;
-    color: #7684ff;
-    line-height: 52px;
-    border-bottom: 4px solid #7684ff;
-    padding-left: 26px;
-    height: 56px;
+  flex: 1;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
   }
   .cooperator-ul{
     width: 708px;
     margin: 18px auto 0;
     font-size: 0;
     text-align: center;
+    overflow: auto;
     .cooperator-li{
       display: inline-block;
       font-size: 18px;
       width: 230px;
       height: 300px;
       border: 1px solid #ececec;
-      margin-right: 6px;
+      margin-right: 8px;
       position: relative;
       padding-top: 28px;
       margin-bottom: 16px;
+      vertical-align: middle;
+      float: left;
       &:nth-of-type(3n){
         margin-right: 0;
       }
@@ -62,6 +61,9 @@
         font-size: 24px;
         color: nth($colorText, 1);
         text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       }
       .cooperater-remark{
         display: block;
@@ -70,6 +72,9 @@
         font-size: 24px;
         color: #fd5c4d;
         text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       }
       .go-cooperater-btn{
         width: 200px;

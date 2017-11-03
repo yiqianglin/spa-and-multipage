@@ -5,13 +5,11 @@ import React, { Component } from 'react';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'mobx-react';
 import * as stores from 'js/app/stores';
-import Home from './Home';
-import Rules from './Rules';
 
 const rootRoute = {
   childRoutes: [
     {
-      path: '/',
+      path: `${contentPath}/`,
       component: require('./App').default,
       childRoutes: [
         {
@@ -22,7 +20,19 @@ const rootRoute = {
               (require) => {
                 cb(null, require('./Home').default);
               },
-              'Rules'
+              'Home'
+            );
+          }
+        },
+        {
+          path: 'app/app.more.html',
+          getComponent(nextState, cb) {
+            require.ensure(
+              [],
+              (require) => {
+                cb(null, require('./More').default);
+              },
+              'More'
             );
           }
         }

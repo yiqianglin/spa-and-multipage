@@ -5,12 +5,11 @@ const config = require('../config/config');
 const postcssConfig = require('../config/postcss.config');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-let postcssSprites = require('postcss-sprites');
-let updateRule = require('postcss-sprites/lib/core').updateRule;
-let makeSpritesheetPath = require('postcss-sprites/lib/core')
-  .makeSpritesheetPath;
+const postcssSprites = require('postcss-sprites');
+const updateRule = require('postcss-sprites/lib/core').updateRule;
+const makeSpritesheetPath = require('postcss-sprites/lib/core').makeSpritesheetPath;
 
 // let entries = {};
 // 多入口设置polyfill？
@@ -38,7 +37,7 @@ module.exports = {
       // },
       {
         test: /\.art$/,
-        loader: "art-template-loader",
+        loader: 'art-template-loader',
         options: {
           // art-template options (if necessary)
           // @see https://github.com/aui/art-template
@@ -52,20 +51,20 @@ module.exports = {
             options: {
               name: 'images/[name].[hash].[ext]',
               limit: 100,
-              publicPath: process.env.NODE_ENV === 'production' ? '/cashloan-web-market/' : '/'
+              publicPath: '/cashloan-web-market/'
             }
-          },
+          }
         ]
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
+          fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
               options: {
-                importLoaders: 1 //允许配置css-loader应用于@import资源之前的加载器数量。
+                importLoaders: 1 // 允许配置css-loader应用于@import资源之前的加载器数量。
               }
             },
             {
@@ -81,12 +80,12 @@ module.exports = {
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
+          fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
               options: {
-                importLoaders: 1 //允许配置css-loader应用于@import资源之前的加载器数量。
+                importLoaders: 1 // 允许配置css-loader应用于@import资源之前的加载器数量。
               }
             },
             {
@@ -117,7 +116,7 @@ module.exports = {
         //   path.resolve(__dirname, 'src/js/utils')
         // ],
         exclude: [/node_modules/, path.join(__dirname, '../src/js/lib/')]
-      },
+      }
       // {
       //   test: require.resolve('jquery'),
       //   use: [{
@@ -138,8 +137,9 @@ module.exports = {
       // }
     ]
   },
-  externals: {  // 不想打包的模块
-    moment: true, // cdn
+  externals: {
+    // 不想打包的模块
+    moment: true // cdn
     // $: "jquery",
     // jQuery: "jquery",
     // "window.jQuery": "jquery"
@@ -147,14 +147,14 @@ module.exports = {
   resolve: {
     // 配置别名，在项目中可缩减引用路径
     alias: {
-      util: __dirname + '/../src/utils/index.js',
-      model: __dirname + '/../src/model/index.js',
-      config: __dirname + '/../src/config/index.js',
-      css: __dirname + '/../src/css',
-      images: __dirname + '/../src/images',
-      js: __dirname + '/../src/js',
-      html: __dirname + '/../src/html',
-      component: __dirname + '/../src/component'
+      util: `${__dirname}/../src/utils/index.js`,
+      model: `${__dirname}/../src/model/index.js`,
+      config: `${__dirname}/../src/config/index.js`,
+      css: `${__dirname}/../src/css`,
+      images: `${__dirname}/../src/images`,
+      js: `${__dirname}/../src/js`,
+      html: `${__dirname}/../src/html`,
+      component: `${__dirname}/../src/component`
     }
   },
   plugins: [
@@ -167,21 +167,20 @@ module.exports = {
       // jQuery: "jquery",
       // "window.jQuery": "jquery"
     }),
-    new webpack.optimize.CommonsChunkPlugin({name: ['polyfill', 'vendor'], minChunks: Infinity}),
+    new webpack.optimize.CommonsChunkPlugin({ name: ['polyfill', 'vendor'], minChunks: Infinity }),
     new ExtractTextPlugin({
-      filename: ('css/[name].[chunkhash:8].css'),    // 这个路径为什么能随便写，也没影响
-      publicPath: process.env.NODE_ENV === 'production' ? '/cashloan-web-market/' : '/',
-      allChunks: true   // 这个新加上去，并不知道有什么用
+      filename: 'css/[name].[chunkhash:8].css', // 这个路径为什么能随便写，也没影响
+      // publicPath: process.env.NODE_ENV === 'production' ? '/cashloan-web-market/' : '/cashloan-web-market/',
+      allChunks: true // 这个新加上去，并不知道有什么用
       // 疑问：这plugin会将所有的css，less等全都打包到一个css，可以手动指定分隔css，但是动态改变不行。extract-chunk-text-webpack-plugin
     }),
     new FriendlyErrorsPlugin()
   ]
 };
 
-
 function spritesGroupBy(image) {
-  let groups = /\/images\/sprite\/(.*?)\/.*/gi.exec(image.url);
-  let groupName = groups ? groups[1] : group;
+  const groups = /\/images\/sprite\/(.*?)\/.*/gi.exec(image.url);
+  const groupName = groups ? groups[1] : group;
   console.log(groupName);
   image.retina = true;
   image.ratio = 1;

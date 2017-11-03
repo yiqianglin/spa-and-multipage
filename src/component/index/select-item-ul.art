@@ -4,8 +4,9 @@
              {{if val.productTypeId == productTypeIdSelected}}selected{{/if}}"
       data-hasSubType="{{val.hasSubType}}"
       data-productTypeId="{{val.productTypeId}}"
+      data-typeName="{{val.name}}"
   >
-    <span class="icon"></span>
+    <span class="icon" style="background-image: url({{val.imageUrl}})"></span>
     <p class="icon-remark">{{val.name}}</p>
   </li>
   {{/each}}

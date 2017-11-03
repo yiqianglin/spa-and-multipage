@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import DevTools from 'mobx-react-devtools';
 import { inject, observer } from 'mobx-react';
-
 import 'css/app/app.scss';
+
+import TypeSelectPanel from '../component/TypeSelectPanel';
 
 @inject('systemStore', 'cooperaterStore') @observer
 export default class App extends Component {
   componentDidMount() {
     const { systemStore, cooperaterStore } = this.props;
     console.log('app DidMount');
-    cooperaterStore.getProductType();
+    this.props.cooperaterStore.getProductType();
   }
 
   render() {
@@ -20,6 +21,7 @@ export default class App extends Component {
             <DevTools />
           </div>}
         {this.props.children}
+        <TypeSelectPanel />
       </div>
     );
   }

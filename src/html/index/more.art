@@ -3,9 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title> {{ htmlWebpackPlugin.options.title }} </title>
+        <title>贷款超市</title>
         <meta http-equiv="x-ua-compatible" content="IE=8,9,10,edge" >
-        <meta name="description" content="借钱就送 极速借 2小时到账 领1年白金会员"/>
+        <meta name="description" content="贷款超市"/>
     </head>
     <body>
         <div class="wrapper">
@@ -19,20 +19,20 @@
         </div>
         <div class="pop-wrp" id="pop-wrp">
             <div class="pop-inner-panel">
-                <p class="cooperater-name">现金巴士</p>
+                <p class="cooperater-name" id="cooperater-name"></p>
                 <div class="QRcode-canvas" id="QRcode-canvas"></div>
                 <p class="remark">扫一扫手机打开</p>
             </div>
             <a href="javascript:void(0);" class="close-btn">关闭</a>
         </div>
         <!--[if IE 8]>
-        <script src="/js/lib/es5-shim/es5-shim.min.js"></script>
-        <script src="/js/lib/es5-shim/es5-sham.min.js"></script>
-        <script src="/js/lib/es5-shim/json3.min.js"></script>
+        <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/es5-shim/es5-shim.min.js"></script>
+        <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/es5-shim/es5-sham.min.js"></script>
+        <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/es5-shim/json3.min.js"></script>
         <![endif]-->
-        <script src="/js/lib/jquery-1.10.2.min.js"></script>
-        <script src="/js/lib/layer/layer.js"></script>
-        <script src="/js/lib/jquery.qrcode.min.js"></script>
+        <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/jquery-1.10.2.min.js"></script>
+        <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/layer/layer.js"></script>
+        <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/jquery.qrcode.min.js"></script>
     </body>
 </html>
 

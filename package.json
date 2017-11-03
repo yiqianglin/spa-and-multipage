@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "node ./build/dev-server.js --projectType",
-    "prod": "webpack  --config ./build/webpack.prod.config.js"
+    "prod": "webpack  --config ./build/webpack.prod.config.js",
+    "prod:app" : "node ./build/build.js --projectType=app"
   },
   "keywords": [
     "app",
@@ -77,6 +78,7 @@
   "dependencies": {
     "art-template": "^4.12.2",
     "axios": "^0.17.0",
+    "classnames": "^2.2.5",
     "ejs": "^2.5.7",
     "ejs-compiled-loader": "^1.1.0",
     "expose-loader": "^0.7.3",

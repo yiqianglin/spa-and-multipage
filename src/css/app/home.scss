@@ -9,6 +9,18 @@
   min-height: 100%;
   position: relative;
   padding-bottom: 143px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  .recommend-title{
+    font-size: 28px;
+    color: #7684ff;
+    line-height: 52px;
+    border-bottom: 4px solid #7684ff;
+    padding-left: 26px;
+    height: 56px;
+    margin-top: 22px;
+  }
 }
 @import './homeCooperaterPanel';
 @import './QRcodePanelBottom';

@@ -12,44 +12,40 @@ let allPath = glob.sync(srcPath + "*/");
 let entry = getActivityEntries();
 
 module.exports = {
-    srcPath:  srcPath, //源码路径
-    port: 3004,
-    hostName: 'localhost',
-    proxy:[],
-    allPath: allPath,
-    entry: entry
+  entry: entry
 }
 
 /*
-    return json object
-    example
-    { 'activity/forshoulei': 'E:/xunlei/daikuan/src/js/activity/forshoulei.js' }
+ return json object
+ example
+ { 'activity/forshoulei': 'E:/xunlei/daikuan/src/js/activity/forshoulei.js' }
  */
 function getActivityEntries() {
-    let jsPath, entries = {};
-    jsPath = glob.sync(srcPath + 'js/!(utils|common|config|lib)/*.js');
-    jsPath = jsPath.filter(v => {
-        let jsPath_isLegal = true;
-        notRequirePath.forEach((path) => {
-            if(new RegExp(path).test(v)) {
-                jsPath_isLegal = false;
-            }
-        });
-        // 验证js对应的html模板在不在，不在的不放入入口，以免HtmlWebpackPlugin找不到对应模板
-        let pathname = v.match(/(.*)src\/js\/(.*).js/)[2];
-        let flag = fs.existsSync(srcPath + '/html/' + pathname + '.html') || fs.existsSync(srcPath + '/html/' + pathname + '.art');
-        if(!flag){
-            jsPath_isLegal = false;
-            console.warn('有js文件并未对应其html模板', pathname);
-        }
-        return jsPath_isLegal;
+  let jsPath;
+  let entries = {};
+  jsPath = glob.sync(srcPath + 'js/!(utils|common|config|lib)/*.js');
+  jsPath = jsPath.filter(v => {
+    let jsPath_isLegal = true;
+    notRequirePath.forEach((path) => {
+      if (new RegExp(path).test(v)) {
+        jsPath_isLegal = false;
+      }
     });
+    // 验证js对应的html模板在不在，不在的不放入入口，以免HtmlWebpackPlugin找不到对应模板
+    let pathname = v.match(/(.*)src\/js\/(.*).js/)[2];
+    let flag = fs.existsSync(srcPath + '/html/' + pathname + '.html') || fs.existsSync(srcPath + '/html/' + pathname + '.art');
+    if (!flag) {
+      jsPath_isLegal = false;
+      console.warn('有js文件并未对应其html模板', pathname);
+    }
+    return jsPath_isLegal;
+  });
 
-    var entry, dirname, pathname;
-    jsPath.forEach(v => {
-        entry = v;
-        pathname = entry.match(/(.*)src\/js\/(.*).js/)[2];
-        entries[pathname] = entry
-    });
-    return entries;
+  var entry, dirname, pathname;
+  jsPath.forEach(v => {
+    entry = v;
+    pathname = entry.match(/(.*)src\/js\/(.*).js/)[2];
+    entries[pathname] = entry;
+  });
+  return entries;
 }

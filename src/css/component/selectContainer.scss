@@ -1,14 +1,16 @@
 /* 引入库文件 */
 @import '../lib/lib-variables';
-@import '../lib/lib-mixin';
-@import '../lib/lib-media';
-@import '../lib/lib-reset';
-@import '../lib/lib-help';
 
 .select-container{
   width: 100%;
   margin-top: 30px;
+
   // 一级分类
+  #select-item-ul{
+    width: $viewWidth;
+    height: 80px;
+    margin: 0 auto;
+  }
   .select-item-ul{
     width: $viewWidth;
     height: 80px;
@@ -27,12 +29,18 @@
       .icon-remark{
         color: #fd5c4d;
       }
+      .icon{
+        background-position: -15px -76px;
+      }
     }
     .icon{
       display: block;
       width: 46px;
       height: 46px;
       margin: 0 auto;
+      background-repeat: no-repeat;
+      background-position: left top;
+      background-position: -15px -7px;
     }
     .icon-remark{
       color: #333;
@@ -40,17 +48,21 @@
       margin-top: 10px;
     }
   }
-  @for $i from 1 through 10{
-    .select-item-li-#{if($i>9,$i,'0'+$i)} .icon{
-      background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -39px;
-    }
-    .select-item-li-#{if($i>9,$i,'0'+$i)}:hover .icon, .select-item-li-#{if($i>9,$i,'0'+$i)}.selected .icon{
-      background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -108px;
-    }
-  }
+  //@for $i from 1 through 10{
+  //  .select-item-li-#{if($i>9,$i,'0'+$i)} .icon{
+  //    background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -39px;
+  //  }
+  //  .select-item-li-#{if($i>9,$i,'0'+$i)}:hover .icon, .select-item-li-#{if($i>9,$i,'0'+$i)}.selected .icon{
+  //    background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -108px;
+  //  }
+  //}
   // 二级分类
+  #select-detail-item-wrp{
+
+  }
   .select-detail-item-wrp{
     width: $viewWidth;
+    height: 28px;
     margin: 26px auto 0;
     overflow-x: auto;
     overflow-y: hidden;
@@ -58,8 +70,6 @@
     color: #cdcdcd;
     padding: 0 85px;
     position: relative;
-    line-height: 1.5;
-    height: 28px;
     .mark{
       position: absolute;
       left: 30px;
@@ -78,11 +88,14 @@
       }
     }
   }
+  #tab-container{
+    margin: 32px auto 0;
+    min-height: 430px;
+  }
   .tab-container{
     width: 100%;
     max-width: $viewWidth;
-    margin: 32px auto 0;
-
+    margin: 0 auto;
     .title-wrp{
       height: 42px;
       border-bottom: 4px solid #fd5c4d;
@@ -111,6 +124,7 @@
       display: block;
       margin-top: 8px;
       font-size: 0;
+      overflow-y: auto;
       .cooperater-li{
         width: 240px;
         height: 300px;
@@ -126,16 +140,27 @@
           margin-right: 0;
         }
         &:hover{
-          box-shadow: 0 0 12px #92b5fd;
+          box-shadow: 0 0 12px #dde8ff;
+          transform: translateY(-5px);
+          transition: all linear 0.3s;
         }
         .li-remark{
-          width: 45px;
-          height: 50px;
-          display: block;
-          background: url("../../images/index/icon.png") no-repeat  -598px -264px;
+          display: inline-block;
+          height: 30px;
+          max-width: 150px;
+          line-height: 30px;
+          color: #fde58d;
+          font-size: 18px;
+          background-color: #ff5b43;
           position: absolute;
+          top: 13px;
           right: 0;
-          top: 0;
+          padding: 0 15px 0 18px;
+          border: none;
+          border-radius: 15px 0 0 15px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
         .cooperater-img{
           display: block;
@@ -151,7 +176,7 @@
         }
         .cooperater-remark{
           color: #fd5c4d;
-          font-size: 18px;
+          font-size: 16px;
           text-align: center;
           margin-top: 20px;
         }

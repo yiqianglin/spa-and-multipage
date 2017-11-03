@@ -10,13 +10,20 @@ import 'css/app/home.scss';
 import HomeTypeSelector from '../component/HomeTypeSelector';
 import Banner from '../component/Banner';
 import HomeCooperaterPanel from '../component/HomeCooperaterPanel';
-import TypeSelectPanel from '../component/TypeSelectPanel';
 import QRcodePanelBottom from '../component/QRcodePanelBottom';
 
-@inject('systemStore', 'cooperaterStore') @observer
+@inject((stores) => {
+  const props = {
+    cooperaterList: stores.cooperaterStore.dataList.get('cooperaterList').toJS(),
+    productTypeName: stores.cooperaterStore.productTypeName,
+    getRecommend: stores.cooperaterStore.getRecommend.bind(stores.cooperaterStore)
+  };
+  return props;
+})
 export default class Home extends Component {
   componentDidMount() {
     setWechatTitle('贷款超市');
+    this.props.getRecommend(999999);
   }
 
   render() {
@@ -24,8 +31,9 @@ export default class Home extends Component {
       <div className="homepage" id="homepage">
         <HomeTypeSelector />
         <Banner />
+        <div className="recommend-title">极速贷款</div>
         <HomeCooperaterPanel />
-        <TypeSelectPanel />
+
         <QRcodePanelBottom />
       </div>
     );

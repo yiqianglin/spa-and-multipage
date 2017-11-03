@@ -1,7 +1,6 @@
+{{if productDetailTypeList.length}}
 <div class="select-detail-item-wrp">
-  {{if productDetailTypeList.length}}
   <span class="mark">区间：</span>
-  {{/if}}
   <ul class="select-detail-item-ul">
     {{each productDetailTypeList val key}}
     <li class="select-detail-item-li {{if val.productTypeId == productDetailTypeSelected}}selected{{/if}}" data-productTypeId="{{val.productTypeId}}" >{{val.name}}</li>
@@ -11,3 +10,4 @@
     -->
   </ul>
 </div>
+{{/if}}

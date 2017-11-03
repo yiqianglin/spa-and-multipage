@@ -3,52 +3,57 @@
  */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { browserHistory } from 'react-router';
+
+import classnames from 'classnames';
 
 import 'css/app/typeSelectPanel.scss';
 
 @inject((stores) => {
   const props = {
     productTypeList: stores.cooperaterStore.dataList.get('productTypeList').toJS(),
-    getProductTypeDeatil: stores.cooperaterStore.getProductTypeDeatil.bind(stores.cooperaterStore)
+    productTypeSelected: stores.cooperaterStore.dataList.get('productTypeSelected'),
+    getProductTypeDeatil: stores.cooperaterStore.getProductTypeDeatil.bind(stores.cooperaterStore),
+    isShow: stores.systemStore.popStatus.get('isShowTypeSelectPanel'),
+    togglePop: stores.systemStore.togglePop.bind(stores.systemStore)
   };
   return props;
 }) @observer
 class TypeSelectPanel extends Component {
-  clickHandler(productTypeId, hasSubType) {
-    this.props.getProductTypeDeatil(productTypeId);
+  async clickHandler(productTypeId, hasSubType) {
+    await this.props.getProductTypeDeatil(productTypeId);
+    browserHistory.push(`${contentPath}/app/app.more.html`);
+    this.props.togglePop('isShowTypeSelectPanel', false);
   }
   render() {
-    const { productTypeList } = this.props;
+    const { productTypeList, productTypeSelected, isShow } = this.props;
+    const panelClassname = classnames({
+      'type-select-panel-wrp': true,
+      show: isShow
+    });
     return (
-      <div className="type-select-panel-wrp">
-        <div className="product-type-con">
-          <ul className="product-type-ul">
-            <li className="product-type-li product-type-li-01">
-              <div className="product-type-con">
-                <span className="product-type-icon"></span>
-                <span className="product-type-name">小额极速</span>
-              </div>
-            </li>
-            <li className="product-type-li product-type-li-02">
-              <div className="product-type-con">
-                <span className="product-type-icon"></span>
-                <span className="product-type-name">小额极速</span>
-              </div>
-            </li>
-            <li className="product-type-li  product-type-li-03">
-              <div className="product-type-con">
-                <span className="product-type-icon"></span>
-                <span className="product-type-name">小额极速</span>
-              </div>
-            </li>
-            <li className="product-type-li  product-type-li-04">
-              <div className="product-type-con">
-                <span className="product-type-icon"></span>
-                <span className="product-type-name">小额极速</span>
-              </div>
-            </li>
-          </ul>
-        </div>
+      <div className={panelClassname}>
+        <ul className="product-type-ul">
+          {
+            productTypeList ? productTypeList.map((elem, index) => {
+              const classname = classnames({
+                'product-type-li': true,
+                selected: elem.productTypeId === productTypeSelected
+              });
+              const iconStyle = {
+                backgroundImage: `url('${elem.imageUrl}')`
+              };
+              return (
+                <li className={`${classname} product-type-li-0${index + 1}`} key={index}>
+                  <div className="product-type-con" onClick={() => this.clickHandler(elem.productTypeId)}>
+                    <span className="product-type-icon" style={iconStyle}></span>
+                    <span className="product-type-name">{elem.name}</span>
+                  </div>
+                </li>
+              );
+            }) : null
+          }
+        </ul>
       </div>
     );
   }

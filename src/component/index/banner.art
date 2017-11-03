@@ -1,0 +1,12 @@
+<div class="banner">
+    <div class="swiper-container swiper-container-horizontal">
+        <div class="swiper-wrapper">
+            {{each bannerList val key}}
+                <div class="swiper-slide">
+                    <a class="banner-link" href={{val.url}} style="background: url({{val.imageUrl}}) no-repeat center center"></a>
+                </div>
+            {{/each}}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>

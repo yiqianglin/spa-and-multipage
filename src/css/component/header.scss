@@ -1,9 +1,5 @@
 /* 引入库文件 */
 @import '../lib/lib-variables';
-@import '../lib/lib-mixin';
-@import '../lib/lib-media';
-@import '../lib/lib-reset';
-@import '../lib/lib-help';
 .header{
   width: 100%;
   &.shadow{
@@ -16,8 +12,8 @@
     position: relative;
   }
   .logo{
-    width: 178px;
-    height: 46px;
+    width: 164px;
+    height: 44px;
     background-image: url("../../images/index/logo.png");
     display: block;
     position: absolute;

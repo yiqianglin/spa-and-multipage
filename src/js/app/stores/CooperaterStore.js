@@ -22,8 +22,9 @@ class CooperaterStore {
       productTypeList: [], // 一级分类列表
       productTypeDeatilList: [], // 二级分类列表
       cooperaterList: [], // 合作商列表
-      productTypeSelected: null, // 一级分类选择
-      productTypeDeatilSelected: null, // 二级分类选择
+      productTypeSelected: null, // 一级分类选择(id)
+      productTypeDeatilSelected: null, // 二级分类选择(id)
+      recommendList: [] // 首页推荐合作商
     });
   }
 
@@ -55,12 +56,27 @@ class CooperaterStore {
     const data = await request('/cashloan-web-market/cashloanmarket/productType.htm', params);
     if (+data.status === 1) {
       const { list } = data.data;
+      this.dataList.set('productTypeDeatilList', list);
       if (!list.length) { // 二级分类为空
         this.getProductList(this.dataList.get('productTypeSelected'));
       } else { // 二级分类不为空，则默认选中第一个，获取产品列表
         this.dataList.set('productTypeDeatilSelected', list[0].productTypeId);
         this.getProductList(this.dataList.get('productTypeSelected'), this.dataList.get('productTypeDeatilSelected'));
       }
+    }
+  }
+
+  /**
+   * 获取推荐列表
+   * @example
+   * getProductList()
+   */
+  async getRecommend(productTypeId) {
+    const params = { productTypeId };
+    const data = await request('/cashloan-web-market/cashloanmarket/productList.htm', params);
+    if (+data.status === 1) {
+      const { list } = data.data;
+      this.dataList.set('recommendList', list);
     }
   }
 

@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
+const QRcodeImg = require('../../../images/app/QRcode.png');
+
 @inject((stores) => {
   const props = {
   };
@@ -14,7 +16,7 @@ class QRcodePanelBottom extends Component {
     return (
       <div className="QRcode-wrp">
         <div className="inner-wrp">
-          <img src="../../images/app/QRcode.png" alt="" className="QRcode" />
+          <img src={QRcodeImg} alt="" className="QRcode" />
           <div className="art-right">
             <p className="art">长按二维码，关注“来这有钱”</p>
             <p className="art">最新、最全贷款信息</p>
