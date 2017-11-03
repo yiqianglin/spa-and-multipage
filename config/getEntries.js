@@ -11,6 +11,8 @@ let allPath = glob.sync(srcPath + "*/");
 // 取得所有入口文件的目录
 let entry = getActivityEntries();
 
+console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+console.log(entry);
 module.exports = {
   entry: entry
 }

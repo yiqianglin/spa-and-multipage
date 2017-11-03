@@ -50,10 +50,10 @@
   }
   //@for $i from 1 through 10{
   //  .select-item-li-#{if($i>9,$i,'0'+$i)} .icon{
-  //    background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -39px;
+  //    background: url("../../images/cashloanmarket/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -39px;
   //  }
   //  .select-item-li-#{if($i>9,$i,'0'+$i)}:hover .icon, .select-item-li-#{if($i>9,$i,'0'+$i)}.selected .icon{
-  //    background: url("../../images/index/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -108px;
+  //    background: url("../../images/cashloanmarket/icon.png") no-repeat  #{-(49+($i - 1)*87.1)}px -108px;
   //  }
   //}
   // 二级分类
@@ -105,7 +105,7 @@
         height: 38px;
         line-height: 42px;
         display: block;
-        background: url("../../images/index/icon.png") no-repeat  -598px -196px;
+        background: url("../../images/cashloanmarket/icon.png") no-repeat  -598px -196px;
         color: #fff;
         font-size: 18px;
         text-align: center;
@@ -186,12 +186,12 @@
           line-height: 42px;
           display: block;
           margin: 28px auto 0;
-          background: url("../../images/index/icon.png") no-repeat  -366px -264px;
+          background: url("../../images/cashloanmarket/icon.png") no-repeat  -366px -264px;
           color: #5a8fff;
           font-size: 18px;
           text-align: center;
           &:hover{
-            background: url("../../images/index/icon.png") no-repeat  -366px -196px;
+            background: url("../../images/cashloanmarket/icon.png") no-repeat  -366px -196px;
             color: #fff;
           }
         }

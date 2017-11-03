@@ -25,12 +25,12 @@ const port = config.port;
 
 // 创建1个 express 实例
 const app = express();
-// 　app.engine('html',require('ejs').__express);
-// //   app.set('views', path.join(__dirname, '../src/html/'));
+// 　m.engine('html',require('ejs').__express);
+// //   m.set('views', path.join(__dirname, '../src/html/'));
 //
-// 　　app.set('view engine','html');
-// app.use(express.static(path.join(__dirname, '../src')));
-// app.use('/', express.static('./dist'));
+// 　　m.set('view engine','html');
+// m.use(express.static(path.join(__dirname, '../src')));
+// m.use('/', express.static('./dist'));
 
 
 // 根据webpack配置文件创建Compiler对象
@@ -38,16 +38,16 @@ console.log('----------------最终结果---------------------');
 console.log(webpackConfig);
 const compiler = webpack(webpackConfig);
 
-// app.get('/cashloan-web-market/app/*', function (req, res) {
-//   console.log('GET ', 'http://localhost:3004/cashloan-web-market/app/', req.originalUrl);
-//   console.log(compiler.outputPath + '/app.entry.html');
-//   const htmlStr = compiler.outputFileSystem.readFileSync(compiler.outputPath + '/app.entry.html') + "";
+// m.get('/cashloanmarket-web-site/m/*', function (req, res) {
+//   console.log('GET ', 'http://localhost:3004/cashloanmarket-web-site/app/', req.originalUrl);
+//   console.log(compiler.outputPath + '/m.entry.html');
+//   const htmlStr = compiler.outputFileSystem.readFileSync(compiler.outputPath + '/m.entry.html') + "";
 //   res.send(htmlStr);
 // })
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   hot: true,
-  publicPath: '/cashloan-web-market',
+  publicPath: '/cashloanmarket-web-site',
   quiet: false
 });
 
@@ -67,16 +67,16 @@ if (proxyTable.context) {
   app.use(proxyMiddleware(proxyTable.context, proxyTable.options));
 }
 
-var rewrites = {
-  rewrites: [{
-    from: '/cashloan-web-market/app/', // 正则或者字符串
-    to: '/cashloan-web-market/app/app.entry.html', // 字符串或者函数
-  }],
-  htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
-}
-
-// 重定向不存在的URL，常用于SPA
-app.use(require('connect-history-api-fallback')(rewrites))
+// var rewrites = {
+//   rewrites: [{
+//     from: '/cashloanmarket-web-site/m/', // 正则或者字符串
+//     to: '/cashloanmarket-web-site/m/index.html', // 字符串或者函数
+//   }],
+//   htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
+// }
+//
+// // 重定向不存在的URL，常用于SPA
+// app.use(require('connect-history-api-fallback')(rewrites))
 
 app.use(devMiddleware);
 

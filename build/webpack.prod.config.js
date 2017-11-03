@@ -39,9 +39,9 @@ Object.keys(plugin_entry).forEach((name) => {
   console.log(isHtml ? `src/html/${name}.html` : `src/html/${name}.art`);
   plugins.push(new HtmlWebpackPlugin({
     // favicon: baseConfig.srcPath + '/favicon.ico',
-    title: '自定义的title',
-    contentPath: '/cashloan-web-market',
-    filename: `${name}.html`,
+    title: '',
+    contentPath: '/cashloanmarket-web-site',
+    filename: `WEB-INF/${name}.shtml`,
     template: isHtml ? `src/html/${name}.html` : `src/html/${name}.art`,
     inject: true,
     minify: {
@@ -56,16 +56,16 @@ Object.keys(plugin_entry).forEach((name) => {
 // entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
 
 if (projectType === 'app') {
-  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios', 'core-js/es6/promise'];
+  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios', 'core-js/library/es6/promise'];
 } else {
-  entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
+  // entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
   entry['polyfill'] = ['core-js/library/es6/promise'];
 }
 module.exports = webpackMerge(baseConfig, {
   entry,
   output: {
     path: path.join(__dirname, '../dist/'), // 构建目录
-    publicPath: '/cashloan-web-market/',
+    publicPath: '/cashloanmarket-web-site/',
     filename: 'js/[name].[chunkhash:8].js'
   },
   module: {

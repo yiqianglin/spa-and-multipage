@@ -4,7 +4,7 @@ const argv = require('yargs').argv;
 
 const { projectType } = argv;
 const activityEntry =  require('./getEntries').entry;
-const appEntry = { 'app/app.entry': path.join(__dirname, '../src/js/app/app.entry.js')};
+const appEntry = { 'm/index': path.join(__dirname, '../src/js/m/index.js')};
 const entry = projectType === 'app' ? appEntry : activityEntry;
 
 
@@ -17,10 +17,14 @@ const config = {
 		port: 3004,
 		hostName: 'localhost',
 		autoOpenBrowser: true,
-		assetsPublicPath: '/',
+    publicPath: '/',
     proxyTable: {
       context: [
-        '/cashloan-web-market/cashloanmarket'
+        // '/cashloanmarket-web-site/cashloanmarket/**',
+        // '!*.html'
+        '/cashloanmarket-web-site/cashloanmarket/getBanner.htm',
+        '/cashloanmarket-web-site/cashloanmarket/productType.htm',
+        '/cashloanmarket-web-site/cashloanmarket/productList.htm'
       ],
       options: {
         // target: 'http://192.168.25.151:8080',
@@ -28,7 +32,13 @@ const config = {
         changeOrigin: true
       }
     }
-	}
+	},
+  build: {
+    env: {
+      NODE_ENV: JSON.stringify('production')
+    },
+    assetsRoot: path.resolve(__dirname, '../dist'),
+  }
 }
 
 module.exports = config;

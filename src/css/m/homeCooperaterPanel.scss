@@ -1,0 +1,99 @@
+.cooperator-panel-wrp{
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .cooperator-ul{
+    width: 708px;
+    margin: 18px auto 0;
+    font-size: 0;
+    text-align: center;
+    overflow: auto;
+    .cooperator-li{
+      display: inline-block;
+      font-size: 18px;
+      width: 230px;
+      height: 300px;
+      border: 1px solid #ececec;
+      margin-right: 8px;
+      position: relative;
+      padding-top: 28px;
+      margin-bottom: 16px;
+      vertical-align: middle;
+      float: left;
+      &:nth-of-type(3n){
+        margin-right: 0;
+      }
+      .cooperater-link{
+        width: 100%;
+        height: 100%;
+      }
+      .remark{
+        display: inline-block;
+        height: 38px;
+        max-width: 150px;
+        line-height: 38px;
+        color: #ffffff;
+        font-size: 18px;
+        background-color: #ff5b43;
+        position: absolute;
+        top: 13px;
+        right: 0;
+        padding: 0 15px 0 18px;
+        border: none;
+        border-radius: 19px 0 0 19px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .cooperater-img{
+        display: block;
+        margin: 0 auto;
+        width: 200px;
+        height: 100px;
+      }
+      .cooperater-name{
+        display: block;
+        width: 200px;
+        margin: 20px auto 16px;
+        font-size: 24px;
+        color: nth($colorText, 1);
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .cooperater-remark{
+        display: block;
+        width: 220px;
+        margin: 0 auto;
+        font-size: 24px;
+        color: #fd5c4d;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .go-cooperater-btn{
+        width: 200px;
+        height: 42px;
+        line-height: 42px;
+        display: block;
+        background: url("../../images/m/btn.png") no-repeat center;
+        background-size: contain;
+        margin: 22px auto 0;
+        font-size: 24px;
+        color: #5a8fff;
+        text-align: center;
+      }
+    }
+  }
+  .bottom-remark{
+    color: nth($colorText, 2);
+    font-size: 18px;
+    text-align: center;
+    margin: 20px auto 16px;
+  }
+}

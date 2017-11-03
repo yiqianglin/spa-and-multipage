@@ -38,13 +38,14 @@ const plugins = [
 Object.keys(plugin_entry).forEach((name) => {
   const isHtml = fs.existsSync(`${srcPath}/html/${name}.html`);
   const isTemplate = fs.existsSync(`${srcPath}/html/${name}.art`);
-  console.log(isHtml
+  console.log('将输出shtml文件:', isHtml
     ? `src/html/${name}.html`
     : isTemplate ? `src/html/${name}.art` : '啥都没有啊，那就没有HtmlWebpackPlugin了');
+  console.log(`/cashloanmarket-web-site/${name}.html`);
   plugins.push(new HtmlWebpackPlugin({
     // favicon: baseConfig.srcPath + '/favicon.ico',
-    title: '自定义的title',
-    contentPath: '/cashloan-web-market',
+    title: '',
+    contentPath: '/cashloanmarket-web-site',
     filename: `${name}.html`,
     template: isHtml ? `src/html/${name}.html` : `src/html/${name}.art`,
     inject: true,
@@ -53,18 +54,21 @@ Object.keys(plugin_entry).forEach((name) => {
       removeComments: false, // 移除HTML中的注释
       collapseWhitespace: false // 删除空白符与换行符
     },
+    showErrors: true,
     chunks: ['vendor', name, 'polyfill'] // 需要引入的chunk，不配置就会引入所有页面的资源
   }));
 });
 
-// entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
 if (projectType === 'app') {
-  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios'];
+  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios', 'core-js/library/es6/promise'];
+} else {
+  // entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
+  entry['polyfill'] = ['core-js/library/es6/promise'];
 }
 const _config = {
   entry,
   output: {
-    publicPath: '/cashloan-web-market/'
+    publicPath: '/cashloanmarket-web-site/'
   },
   module: {
     rules: [
