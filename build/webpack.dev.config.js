@@ -43,10 +43,10 @@ Object.keys(plugin_entry).forEach((name) => {
     : isTemplate ? `src/html/${name}.art` : '啥都没有啊，那就没有HtmlWebpackPlugin了');
   console.log(`/cashloanmarket-web-site/${name}.html`);
   plugins.push(new HtmlWebpackPlugin({
-    // favicon: baseConfig.srcPath + '/favicon.ico',
+    favicon: path.join(__dirname, '../favicon.ico'),
     title: '',
     contentPath: '/cashloanmarket-web-site',
-    filename: `${name}.html`,
+    filename: projectType === 'app' ? `m/cashloanmarket/index.htm` : `${name}.htm`,
     template: isHtml ? `src/html/${name}.html` : `src/html/${name}.art`,
     inject: true,
     minify: {

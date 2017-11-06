@@ -38,7 +38,7 @@ Object.keys(plugin_entry).forEach((name) => {
   const isTemplate = fs.existsSync(`${srcPath}/html/${name}.art`);
   console.log(isHtml ? `src/html/${name}.html` : `src/html/${name}.art`);
   plugins.push(new HtmlWebpackPlugin({
-    // favicon: baseConfig.srcPath + '/favicon.ico',
+    favicon: path.join(__dirname, '../favicon.ico'),
     title: '',
     contentPath: '/cashloanmarket-web-site',
     filename:  projectType === 'app' ? `WEB-INF/m/cashloanmarket/index.shtml` : `WEB-INF/${name}.shtml`,

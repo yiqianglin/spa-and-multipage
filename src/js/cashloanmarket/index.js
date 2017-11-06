@@ -103,9 +103,13 @@ $(document).ready(() => {
       });
     },
     eventBind() {
+      $('body').on('click', '.strategy', () => {
+        console.log('click');
+        $('.strategy-content').toggleClass('show');
+      });
       // 一级类选择
       $('body').on('click', '.select-item-li', () => {
-        window.location.href = '/cashloanmarket-web-site/cashloanmarket/more.html';
+        window.location.href = '/cashloanmarket-web-site/cashloanmarket/more.htm';
       });
       $('body').on('click', '.go-cooperater-btn', function () {
         const mobileurl = $(this).attr('data-mobileurl');

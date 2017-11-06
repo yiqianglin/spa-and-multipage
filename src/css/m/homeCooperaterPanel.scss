@@ -1,10 +1,6 @@
 .cooperator-panel-wrp{
   width: 100%;
-  flex: 1;
   overflow: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
   .cooperator-ul{
     width: 708px;
     margin: 18px auto 0;
@@ -15,7 +11,7 @@
       display: inline-block;
       font-size: 18px;
       width: 230px;
-      height: 300px;
+      height: 320px;
       border: 1px solid #ececec;
       margin-right: 8px;
       position: relative;
@@ -67,9 +63,9 @@
       }
       .cooperater-remark{
         display: block;
-        width: 220px;
+        width: 210px;
         margin: 0 auto;
-        font-size: 24px;
+        font-size: 18px;
         color: #fd5c4d;
         text-align: center;
         text-overflow: ellipsis;
@@ -83,10 +79,15 @@
         display: block;
         background: url("../../images/m/btn.png") no-repeat center;
         background-size: contain;
-        margin: 22px auto 0;
+        margin: 26px auto 0;
         font-size: 24px;
         color: #5a8fff;
         text-align: center;
+        &:active{
+          background: url("../../images/m/btn-active.png") no-repeat center;
+          background-size: contain;
+          color: #fff;
+        }
       }
     }
   }

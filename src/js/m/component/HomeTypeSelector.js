@@ -19,7 +19,7 @@ import 'css/m/homeTypeSelector.scss';
 class HomeTypeSelector extends Component {
   clickHandler(productTypeId, hasSubType) {
     // this.props.getProductTypeDeatil(productTypeId);
-    browserHistory.push(`${contentPath}/m/more.htm`);
+    browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm`);
   }
   showTypeSelectPanel() {
     this.props.togglePop('isShowTypeSelectPanel', true);

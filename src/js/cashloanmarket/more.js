@@ -88,6 +88,10 @@ $(document).ready(() => {
       });
     },
     eventBind() {
+      $('body').on('click', '.strategy', () => {
+        console.log('click');
+        $('.strategy-content').toggleClass('show');
+      });
       // 一级类选择
       $('body').on('click', '.select-item-li', function () {
         if ($(this).attr('data-productTypeId') === manager.globalData.productTypeIdSelected) { // 如果点击还是同一类目

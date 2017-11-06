@@ -4,6 +4,11 @@
   display: flex;
   color: #333;
   padding-left: 28px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: #fff;
   .type-selector-ul{
     flex: 1;
     align-items: center;
@@ -11,6 +16,8 @@
     overflow-y: hidden;
     white-space: nowrap;
     height: 80px;
+    font-size: 32px;
+    -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -24,7 +31,7 @@
     }
   }
   .select-panel-btn{
-    padding-top: 5px;
+    padding-top: 10px;
     width: 90px;
     height: 80px;
     .select-panel-icon{
@@ -36,7 +43,7 @@
       margin: 0 auto;
     }
     .select-panel-remark{
-      font-size: 18px;
+      font-size: 14px;
       color: #333333;
       text-align: center;
       margin-top: 4px;

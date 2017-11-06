@@ -11,7 +11,7 @@
   .inner-wrp{
     width: $viewWidth;
     margin: 0 auto;
-    padding: 18px 0 18px 88px;
+    padding: 18px 0 18px 140px;
     .QRcode{
       float: left;
       width: 78px;
@@ -32,6 +32,7 @@
       float: left;
       padding: 17px 0;
       margin-left: 50px;
+      text-align: center;
       .art-bottom{
         margin-top: 20px;
       }

@@ -22,7 +22,7 @@ import 'css/m/typeSelectPanel.scss';
 class TypeSelectPanel extends Component {
   async clickHandler(productTypeId, hasSubType) {
     await this.props.getProductTypeDeatil(productTypeId);
-    browserHistory.push(`${contentPath}/index/more.htm`);
+    browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm`);
     this.props.togglePop('isShowTypeSelectPanel', false);
   }
   render() {

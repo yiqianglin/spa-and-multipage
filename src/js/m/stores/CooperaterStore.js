@@ -93,6 +93,7 @@ class CooperaterStore {
     };
     if (secondProductTypeId) {
       params.secondProductTypeId = secondProductTypeId;
+      this.dataList.set('productTypeDeatilSelected', secondProductTypeId);
     }
     const data = await request('/cashloanmarket-web-site/cashloanmarket/productList.htm', params);
     if (+data.status === 1) {

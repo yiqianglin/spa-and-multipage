@@ -1,7 +1,7 @@
 <div class="tab-container">
   <div class="title-wrp">
     <span class="title">{{typeName}}</span>
-    <a href="/cashloanmarket-web-site/cashloanmarket/more.html" class="more">更多</a>
+    <!--<a href="/cashloanmarket-web-site/cashloanmarket/more.htm" class="more">更多</a>-->
   </div>
   <div class="clearfix"></div>
   <ul class="cooperater-ul fadeIn">

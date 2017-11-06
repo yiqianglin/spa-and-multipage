@@ -65,16 +65,16 @@ if (proxyTable.context) {
   app.use(proxyMiddleware(proxyTable.context, proxyTable.options));
 }
 
-// var rewrites = {
-//   rewrites: [{
-//     from: '/cashloanmarket-web-site/m/', // 正则或者字符串
-//     to: '/cashloanmarket-web-site/m/index.html', // 字符串或者函数
-//   }],
-//   htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
-// }
-//
-// // 重定向不存在的URL，常用于SPA
-// app.use(require('connect-history-api-fallback')(rewrites))
+var rewrites = {
+  rewrites: [{
+    from: '/cashloanmarket-web-site/m/cashloanmarket', // 正则或者字符串
+    to: '/cashloanmarket-web-site/m/cashloanmarket/index.htm', // 字符串或者函数
+  }],
+  htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
+}
+
+// 重定向不存在的URL，常用于SPA
+app.use(require('connect-history-api-fallback')(rewrites))
 
 app.use(devMiddleware);
 

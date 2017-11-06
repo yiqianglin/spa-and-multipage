@@ -1,6 +1,7 @@
 @import '../lib/lib-variables';
 
 .morepage{
+  width: 100%;
   height: 100%;
   min-height: 100%;
   position: relative;
@@ -8,4 +9,12 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  padding-top: 80px;
+  .more-type-selector-wrp{
+    transition: transform 0.5s ease;
+    transform: translateY(0);
+    &.hasProductTypeDetailList{
+      transform: translateY(80px);
+    }
+  }
 }

@@ -1,5 +1,16 @@
 /* 引入库文件 */
 @import '../lib/lib-variables';
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 .header{
   width: 100%;
   &.shadow{
@@ -12,11 +23,62 @@
     position: relative;
   }
   .logo{
-    width: 164px;
+    width: 353px;
     height: 44px;
     background-image: url("../../images/cashloanmarket/logo.png");
     display: block;
     position: absolute;
     bottom: 8px;
   }
+  .nav{
+    float: right;
+    height: 80px;
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    font-size: 18px;
+    background-color: #fff;
+    color: #5a8fff;
+    padding-right: 50px;
+    padding-top: 50px;
+    .home{
+      margin-right: 50px;
+    }
+    .strategy{
+
+    }
+  }
+  .strategy-wrp{
+    position: relative;
+    bottom: 80px;
+    right: 5px;
+    z-index: 2;
+  }
+  .strategy-content{
+    position: absolute;
+    right: 5px;
+    z-index: 2;
+    background-color: #fff;
+    padding: 16px;
+    opacity: 1;
+    //transform: translate3d(0, -100%, 0);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    &.show {
+      opacity: 1;
+      transform: translate3d(0, 105%, 0);
+    }
+    .QRcode{
+      display: block;
+      margin: 0 auto;
+      width: 78px;
+    }
+    .remark{
+      display: block;
+      text-align: center;
+      color: nth($colorText, 2);
+      font-size: 16px;
+      margin-top: 8px;
+    }
+  }
 }
+

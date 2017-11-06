@@ -31,10 +31,13 @@ class HomeTypeSelector extends Component {
     const { getProductTypeDeatil, getProductList } = this.props;
     console.log('一级分类', productTypeList, productTypeSelected);
     console.log('二级分类', productTypeDetailList, productTypeDeatilSelected);
+    const panelClassname = classnames({
+      'detail-type-selector-animation-wrp': true,
+      hasProductTypeDetailList: productTypeDetailList.length > 0
+    });
     return (
       <div className="more-type-selector">
-        <div className="type-selector-wrp">
-          <span className="label">全部</span>
+        <div className="type-selector-wrp ">
           <ul className="type-selector-ul">
             {
               productTypeList && productTypeList.length ? productTypeList.map((elem, index) => {
@@ -49,6 +52,7 @@ class HomeTypeSelector extends Component {
             }
           </ul>
         </div>
+        <div className={ panelClassname }>
         {
           productTypeDetailList && productTypeDetailList.length ? (
             <div className="detail-type-selector-wrp">
@@ -56,6 +60,7 @@ class HomeTypeSelector extends Component {
               <ul className="detail-type-selector-ul">
                 {
                   productTypeDetailList.map((elem, index) => {
+                    console.log(productTypeDeatilSelected);
                     const liClassname = classnames({
                       'detail-type-selector-li': true,
                       selected: productTypeDeatilSelected === elem.productTypeId
@@ -69,6 +74,7 @@ class HomeTypeSelector extends Component {
             </div>
           ) : null
         }
+        </div>
         {/* <div className="detail-type-selector-wrp">
           <span className="label">区间：</span>
           <ul className="detail-type-selector-ul">

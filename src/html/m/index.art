@@ -19,16 +19,15 @@
 
         <div id="root"></div>
 
-
         <script>
-        var _hmt = _hmt || [];
-        var contentPath = "<%- htmlWebpackPlugin.options.contentPath%>";
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?c8d4c7ce4b091659d99e91739c0f5e58";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-        })();
+          var contentPath = "<%- htmlWebpackPlugin.options.contentPath %>";
+          var _hmt = _hmt || [];
+          (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e43441bae340b5c164f17c3413a1620e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+          })();
         </script>
     </body>
 </html>

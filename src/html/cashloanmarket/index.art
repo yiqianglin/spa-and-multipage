@@ -37,6 +37,15 @@
             <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/layer/layer.js"></script>
             <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/swiper/swiper-3.4.2.min.js"></script>
             <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/jquery.qrcode.min.js"></script>
+            <script>
+              var _hmt = _hmt || [];
+              (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?e43441bae340b5c164f17c3413a1620e";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+              })();
+            </script>
         </div>
     </body>
 </html>

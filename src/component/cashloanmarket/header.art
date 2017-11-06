@@ -1,13 +1,16 @@
-{{if location == 'index'}}
-<div class="header">
+<div class="header {{if location != 'index'}}shadow{{/if}}">
     <div class="inner-wrp">
         <a href="http://www.xunleiyidai.com" class="logo"></a>
+        <div class="nav">
+            <a href="{{contentPath}}/cashloanmarket/index.htm" class="home">首页</a>
+            <a href="javascript:void(0);" class="strategy">贷款攻略</a>
+        </div>
+        <div class="strategy-wrp">
+            <div class="strategy-content">
+                <img class="QRcode" src="../../images/cashloanmarket/QRcode.png" alt="">
+                <span class="remark">关注官方公众号</span>
+                <span class="remark">获取最新贷款攻略</span>
+            </div>
+        </div>
     </div>
 </div>
-{{else}}
-<div class="header shadow">
-    <div class="inner-wrp">
-        <a href="http://www.xunleiyidai.com" class="logo"></a>
-    </div>
-</div>
-{{/if}}
