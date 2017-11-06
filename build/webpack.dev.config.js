@@ -55,15 +55,15 @@ Object.keys(plugin_entry).forEach((name) => {
       collapseWhitespace: false // 删除空白符与换行符
     },
     showErrors: true,
-    chunks: ['vendor', name, 'polyfill'] // 需要引入的chunk，不配置就会引入所有页面的资源
+    chunks: ['vendor', name, 'polyfill', 'manifest'] // 需要引入的chunk，不配置就会引入所有页面的资源
   }));
 });
 
 if (projectType === 'app') {
-  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios', 'core-js/library/es6/promise'];
+  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios', 'core-js/fn/promise'];
 } else {
   // entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
-  entry['polyfill'] = ['core-js/library/es6/promise'];
+  entry['polyfill'] = ['core-js/fn/promise'];
 }
 const _config = {
   entry,

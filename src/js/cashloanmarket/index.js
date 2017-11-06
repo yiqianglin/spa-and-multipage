@@ -34,6 +34,8 @@ $(document).ready(() => {
           console.log('banner', response);
           manager.globalData.bannerList = response.data.data.list;
           return Promise.resolve(response);
+        }).catch((err) => {
+          console.log(err);
         });
     },
     getProductType_1() { // 一级类
@@ -43,6 +45,8 @@ $(document).ready(() => {
           manager.globalData.productTypeList = response.data.data.list;
           manager.renderSelectItemUlTmp(selectItemUlTmp, $('#select-item-ul'));
           return Promise.resolve(response);
+        }).catch((err) => {
+          console.log(err);
         });
     },
     getProductList(params) {
@@ -52,6 +56,8 @@ $(document).ready(() => {
           manager.globalData.productList = response.data.data.list;
           manager.renderTabContainerTmp(tabContainerTmp, $('#tab-container'));
           return Promise.resolve(response);
+        }).catch((err) => {
+          console.log(err);
         });
     },
     renderSelectItemUlTmp(tmp, dom) {

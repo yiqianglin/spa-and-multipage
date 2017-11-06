@@ -41,7 +41,7 @@ Object.keys(plugin_entry).forEach((name) => {
     // favicon: baseConfig.srcPath + '/favicon.ico',
     title: '',
     contentPath: '/cashloanmarket-web-site',
-    filename: `WEB-INF/${name}.shtml`,
+    filename:  projectType === 'app' ? `WEB-INF/m/cashloanmarket/index.shtml` : `WEB-INF/${name}.shtml`,
     template: isHtml ? `src/html/${name}.html` : `src/html/${name}.art`,
     inject: true,
     minify: {
@@ -49,17 +49,15 @@ Object.keys(plugin_entry).forEach((name) => {
       removeComments: false, // 移除HTML中的注释
       collapseWhitespace: false // 删除空白符与换行符
     },
-    chunks: ['vendor', 'polyfill', name] // 需要引入的chunk，不配置就会引入所有页面的资源
+    chunks: ['vendor', 'polyfill', name, 'manifest'] // 需要引入的chunk，不配置就会引入所有页面的资源
   }));
 });
 
-// entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
-
 if (projectType === 'app') {
-  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios', 'core-js/library/es6/promise'];
+  entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axios', 'core-js/fn/promise'];
 } else {
   // entry['vendor'] = ['./src/js/lib/jquery-1.10.2.min.js', './src/js/lib/layer/skin/default/layer.css', './src/js/lib/layer/layer.js', './src/js/lib/jquery.qrcode.min'];
-  entry['polyfill'] = ['core-js/library/es6/promise'];
+  entry['polyfill'] = ['core-js/fn/promise'];
 }
 module.exports = webpackMerge(baseConfig, {
   entry,

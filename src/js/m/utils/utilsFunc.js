@@ -77,7 +77,7 @@ export function request(url, params, method = 'post', timeout = 60000) {
       const errorData = {
         code: '-1',
         msg: error.response ? error : error.message,
-        url: urlProtoMap[prototype].url,
+        url,
         params,
         method,
       };

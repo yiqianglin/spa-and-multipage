@@ -30,12 +30,11 @@ function checkStatus(response) {
     return Promise.reject(new ApiError({
       data: response.data,
       status: response.status,
-      message: '访问错误'
+      message: '数据类型错误'
     }));
   }
-
   return Promise.reject(new ApiError({
-    message: '访问错误'
+    message: '数据类型错误'
   }));
 }
 

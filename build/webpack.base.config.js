@@ -167,7 +167,7 @@ module.exports = {
       // jQuery: "jquery",
       // "window.jQuery": "jquery"
     }),
-    new webpack.optimize.CommonsChunkPlugin({ name: ['polyfill', 'vendor'], minChunks: Infinity }),
+    new webpack.optimize.CommonsChunkPlugin({ name: ['polyfill', 'vendor', 'manifest'], minChunks: Infinity }),
     new ExtractTextPlugin({
       filename: 'css/[name].[chunkhash:8].css', // 这个路径为什么能随便写，也没影响
       // publicPath: process.env.NODE_ENV === 'production' ? '/cashloanmarket-web-site/' : '/cashloanmarket-web-site/',

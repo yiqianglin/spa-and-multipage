@@ -3,21 +3,14 @@ const argv = require('yargs').argv;
 
 
 const { projectType } = argv;
-const activityEntry =  require('./getEntries').entry;
-const appEntry = { 'm/index': path.join(__dirname, '../src/js/m/index.js')};
-const entry = projectType === 'app' ? appEntry : activityEntry;
-
 
 const config = {
-	entry: entry,
-	dev: {
-		env: {
-			NODE_ENV: JSON.stringify('development')
-		},
-		port: 3004,
-		hostName: 'localhost',
-		autoOpenBrowser: true,
-    publicPath: '/',
+  entry:  require('./getEntries').entry,
+  dev: {
+    port: 3004,
+    hostName: 'localhost',
+    autoOpenBrowser: true,
+    publicPath: '/cashloanmarket-web-site',
     proxyTable: {
       context: [
         // '/cashloanmarket-web-site/cashloanmarket/**',
@@ -32,12 +25,10 @@ const config = {
         changeOrigin: true
       }
     }
-	},
+  },
   build: {
-    env: {
-      NODE_ENV: JSON.stringify('production')
-    },
     assetsRoot: path.resolve(__dirname, '../dist'),
+    publicPath: '/cashloanmarket-web-site',
   }
 }
 

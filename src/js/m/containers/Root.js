@@ -15,25 +15,17 @@ const rootRoute = {
         {
           path: 'm/index.html',
           getComponent(nextState, cb) {
-            require.ensure(
-              [],
-              (require) => {
-                cb(null, require('./Home').default);
-              },
-              'Home'
-            );
+            import(/* webpackChunkName: "Home" */ './Home').then((module) => {
+              cb(null, module.default);
+            });
           }
         },
         {
           path: 'm/more.html',
           getComponent(nextState, cb) {
-            require.ensure(
-              [],
-              (require) => {
-                cb(null, require('./More').default);
-              },
-              'More'
-            );
+            import(/* webpackChunkName: "More" */ './More').then((module) => {
+              cb(null, module.default);
+            });
           }
         }
       ]
