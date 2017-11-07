@@ -12,6 +12,8 @@
       "regenerator": true
     }
     ],
+    "transform-es3-property-literals",  //ie8
+    "transform-es3-member-expression-literals", //ie8
     "transform-export-extensions",
     "transform-decorators-legacy",
     "mobx-deep-action",

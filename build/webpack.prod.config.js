@@ -40,7 +40,7 @@ Object.keys(plugin_entry).forEach((name) => {
   plugins.push(new HtmlWebpackPlugin({
     favicon: path.join(__dirname, '../favicon.ico'),
     title: '',
-    contentPath: '/cashloanmarket-web-site',
+    contentPath: `${config.publicPath}`,
     filename:  projectType === 'app' ? `WEB-INF/m/cashloanmarket/index.shtml` : `WEB-INF/${name}.shtml`,
     template: isHtml ? `src/html/${name}.html` : `src/html/${name}.art`,
     inject: true,
@@ -63,7 +63,7 @@ module.exports = webpackMerge(baseConfig, {
   entry,
   output: {
     path: path.join(__dirname, '../dist/'), // 构建目录
-    publicPath: '/cashloanmarket-web-site/',
+    publicPath: `${config.publicPath}/`,
     filename: 'js/[name].[chunkhash:8].js'
   },
   module: {

@@ -18,10 +18,6 @@ export class ApiError extends Error {
   }
 }
 
-// function ApiError() {
-//   console.log('errosdfsdfsdfsdfr');
-// }
-
 function checkStatus(response) {
   if (response) {
     if (response.status === 200 || response.status === 304 || response.status === 400) {
@@ -51,10 +47,16 @@ export function post(url, data, timeout = 60000) {
     responseType: 'json'
   }).then(
     (response) => {
+      if (response.data == null && response.config.responseType === 'json' && response.request.responseText != null) {
+        try {
+          response.data = JSON.parse(response.request.responseText);
+        } catch (e) {
+          // ignored
+        }
+      }
       return checkStatus(response);
     },
     (response) => {
-      console.log('reject response', response);
       return Promise.reject(new ApiError({
         data: response.data,
         status: response.status,
@@ -62,7 +64,6 @@ export function post(url, data, timeout = 60000) {
       }));
     }
   ).catch((err) => {
-    console.log(err, err.status, err.data);
     layer.msg(err.message);
     return Promise.reject(err);
   });

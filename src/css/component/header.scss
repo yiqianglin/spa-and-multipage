@@ -23,12 +23,12 @@
     position: relative;
   }
   .logo{
-    width: 353px;
-    height: 44px;
+    width: 293px;
+    height: 41px;
     background-image: url("../../images/cashloanmarket/logo.png");
     display: block;
     position: absolute;
-    bottom: 8px;
+    bottom: 10px;
   }
   .nav{
     float: right;
@@ -38,14 +38,14 @@
     right: 0;
     font-size: 18px;
     background-color: #fff;
-    color: #5a8fff;
     padding-right: 50px;
-    padding-top: 50px;
+    padding-top: 42px;
     .home{
       margin-right: 50px;
+      color: #5a8fff;
     }
     .strategy{
-
+      color: #5a8fff;
     }
   }
   .strategy-wrp{
@@ -57,10 +57,11 @@
   .strategy-content{
     position: absolute;
     right: 5px;
+    bottom: -155px;
     z-index: 2;
     background-color: #fff;
-    padding: 16px;
-    opacity: 1;
+    padding: 16px 22px;
+    opacity: 0;
     //transform: translate3d(0, -100%, 0);
     transition: transform 0.5s ease, opacity 0.5s ease;
     &.show {
@@ -70,13 +71,13 @@
     .QRcode{
       display: block;
       margin: 0 auto;
-      width: 78px;
+      width: 140px;
     }
     .remark{
       display: block;
       text-align: center;
       color: nth($colorText, 2);
-      font-size: 16px;
+      font-size: 14px;
       margin-top: 8px;
     }
   }

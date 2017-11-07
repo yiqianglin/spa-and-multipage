@@ -51,7 +51,7 @@ module.exports = {
             options: {
               name: 'images/[name].[hash].[ext]',
               limit: 100,
-              publicPath: '/cashloanmarket-web-site/'
+              publicPath: `${config.publicPath}/`
             }
           }
         ]

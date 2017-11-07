@@ -1,7 +1,7 @@
 <div class="tab-container">
   <div class="title-wrp">
     <span class="title">{{typeName}}</span>
-    <!--<a href="/cashloanmarket-web-site/cashloanmarket/more.htm" class="more">更多</a>-->
+    <a href="{{contentPath}}/cashloanmarket/more.htm" class="more">全部</a>
   </div>
   <div class="clearfix"></div>
   <ul class="cooperater-ul fadeIn">
@@ -11,8 +11,9 @@
             <span class="li-remark">{{recommendFlag}}</span>
         {{/if}}
         <img src="{{val.imageUrl}}" alt="" class="cooperater-img" />
-        <p class="cooperater-name">{{val.name}}</p>
+        <p class="cooperater-name">{{val.mainDescription}}</p>
         <p class="cooperater-remark">{{val.description}}</p>
+        <p class="cooperater-count">已有{{val.shownCardinalNo | countFormat}}人申请</p>
         <a href={{val.homeUrl ? val.homeUrl : "javascript:void(0);"}} class="go-cooperater-btn" data-mobileurl="{{val.mobileUrl}}" data-name="{{val.name}}">立即贷款</a>
     </li>
     {{/each}}

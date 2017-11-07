@@ -2,24 +2,24 @@
   width: 100%;
   overflow: auto;
   .cooperator-ul{
-    width: 708px;
+    width: 690px;
     margin: 18px auto 0;
     font-size: 0;
     text-align: center;
     overflow: auto;
     .cooperator-li{
       display: inline-block;
-      font-size: 18px;
-      width: 230px;
-      height: 320px;
+      font-size: 24px;
+      width: 330px;
+      height: 376px;
       border: 1px solid #ececec;
-      margin-right: 8px;
+      margin-right: 24px;
       position: relative;
-      padding-top: 28px;
-      margin-bottom: 16px;
+      padding-top: 18px;
+      margin-bottom: 22px;
       vertical-align: middle;
       float: left;
-      &:nth-of-type(3n){
+      &:nth-of-type(2n){
         margin-right: 0;
       }
       .cooperater-link{
@@ -47,14 +47,15 @@
       .cooperater-img{
         display: block;
         margin: 0 auto;
-        width: 200px;
-        height: 100px;
+        width: 240px;
+        height: 120px;
       }
       .cooperater-name{
         display: block;
-        width: 200px;
-        margin: 20px auto 16px;
-        font-size: 24px;
+        width: 300px;
+        margin: 10px auto 0;
+        font-size: 30px;
+        line-height: 1.5;
         color: nth($colorText, 1);
         text-align: center;
         text-overflow: ellipsis;
@@ -63,24 +64,37 @@
       }
       .cooperater-remark{
         display: block;
-        width: 210px;
+        width: 300px;
         margin: 0 auto;
-        font-size: 18px;
+        font-size: 24px;
         color: #fd5c4d;
         text-align: center;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        margin-top: 12px;
+      }
+      .cooperater-count{
+        display: block;
+        width: 300px;
+        margin: 0 auto;
+        font-size: 24px;
+        color: nth($colorText, 3);
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin-top: 12px;
       }
       .go-cooperater-btn{
-        width: 200px;
-        height: 42px;
-        line-height: 42px;
+        width: 260px;
+        height: 62px;
+        line-height: 62px;
         display: block;
         background: url("../../images/m/btn.png") no-repeat center;
         background-size: contain;
         margin: 26px auto 0;
-        font-size: 24px;
+        font-size: 30px;
         color: #5a8fff;
         text-align: center;
         &:active{

@@ -6,22 +6,22 @@ const { projectType } = argv;
 
 const config = {
   entry:  require('./getEntries').entry,
+  publicPath: '',
   dev: {
     port: 3004,
     hostName: 'localhost',
     autoOpenBrowser: true,
-    publicPath: '/cashloanmarket-web-site',
     proxyTable: {
       context: [
-        // '/cashloanmarket-web-site/cashloanmarket/**',
+        // '/cashloanmarket/**',
         // '!*.html'
-        '/cashloanmarket-web-site/cashloanmarket/getBanner.htm',
-        '/cashloanmarket-web-site/cashloanmarket/productType.htm',
-        '/cashloanmarket-web-site/cashloanmarket/productList.htm'
+        '/cashloanmarket/getBanner.htm',
+        '/cashloanmarket/productType.htm',
+        '/cashloanmarket/productList.htm'
       ],
       options: {
         // target: 'http://192.168.25.151:8080',
-        target: 'http://test.xunleiyidai.com',
+        target: 'http://test.xunleiyidai.com/cashloanmarket-web-site/',
         changeOrigin: true
       }
     }

@@ -6,6 +6,7 @@
         <title>贷款超市</title>
         <meta http-equiv="x-ua-compatible" content="IE=8,9,10,edge" >
         <meta name="description" content="贷款超市"/>
+        <link rel="shortcut icon" href="<%- htmlWebpackPlugin.options.contentPath%>/favicon.ico">
     </head>
     <body>
         <div class="wrapper">
@@ -35,6 +36,7 @@
         <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/layer/layer.js"></script>
         <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/jquery.qrcode.min.js"></script>
         <script>
+          var contentPath = "<%- htmlWebpackPlugin.options.contentPath %>";
           var _hmt = _hmt || [];
           (function() {
             var hm = document.createElement("script");

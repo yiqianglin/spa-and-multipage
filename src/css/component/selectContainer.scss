@@ -128,7 +128,7 @@
       .cooperater-li{
         width: 240px;
         height: 300px;
-        border: 1px solid #ececec;
+        border: 1px solid #e0e0e0;
         display: inline-block;
         margin-right: 13px;
         margin-top: 12px;
@@ -169,16 +169,22 @@
           margin: 0 auto;
         }
         .cooperater-name{
-          font-size: 18px;
+          font-size: 16px;
           color: #333;
           text-align: center;
-          margin-top: 30px;
+          margin-top: 26px;
         }
         .cooperater-remark{
-          color: #fd5c4d;
           font-size: 16px;
+          color: #333;
           text-align: center;
-          margin-top: 20px;
+          margin-top: 10px;
+        }
+        .cooperater-count{
+          color: nth($colorText, 3);
+          font-size: 14px;
+          text-align: center;
+          margin-top: 19px;
         }
         .go-cooperater-btn{
           width: 200px;

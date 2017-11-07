@@ -17,7 +17,12 @@ export default class App extends Component {
     return (
       <div className="app-wrapper">
         {process.env.NODE_ENV === 'development' &&
-          <div style={{ height: '64px', position: 'fixed' }}>
+          <div style={{
+            height: '64px',
+            position: 'fixed',
+            top: '0px',
+            left: '0px'
+          }}>
             <DevTools />
           </div>}
         {this.props.children}

@@ -27,3 +27,29 @@ export function checkIEVersonr(version) {
   }
   return false;
 }
+
+export function toQueryParams (str) {
+  if (!str) return {};
+  str = str.trim().slice(1);
+  var queries = str.split('&'), result = {};
+  for (var i = 0, len = queries.length; i < len; i++) {
+    var pair = queries[i].split('=');
+    if (pair[0]) {
+      var key = decodeURIComponent(pair.shift()),
+        value = pair.length > 1 ? pair.join('=') : pair[0];
+      if (value != undefined) {
+        value = value.replace(/\+/g, " ");
+        value = decodeURIComponent(value);
+      }
+      if (key in result) {
+        if (!(result[key] instanceof Array)) {
+          result[key] = [result[key]];
+        }
+        result[key].push(value);
+      } else {
+        result[key] = value;
+      }
+    }
+  }
+  return result;
+}

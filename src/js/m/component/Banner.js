@@ -45,7 +45,7 @@ class Banner extends Component {
               console.log(item.imageUrl);
               return (
                 <a className="banner-link" key={index} href={item.url}>
-                  <img className="banner-img" src={item.imageUrl} alt=""/>
+                  <img className="banner-img" src={item.imageUrlSmall} alt=""/>
                 </a>
               );
             })

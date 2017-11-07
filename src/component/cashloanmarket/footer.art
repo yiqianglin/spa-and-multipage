@@ -3,13 +3,14 @@
         <div class="left-QRcode-wrp">
             <img src="../../images/cashloanmarket/QRcode.png" alt="" class="QRcode">
             <div class="art-right">
-                <p class="art-top">扫二维码关注“来这有钱”</p>
-                <p class="art-bottom">最新最全贷款信息</p>
+                <p class="art-top">扫码关注“来这有钱”</p>
+                <p class="art-bottom">最新、最全贷款信息</p>
             </div>
         </div>
         <div class="right-remark-wrp">
             <p class="art-top">“来这有钱”提示您：理性消费，谨慎借款</p>
-            <p class="art-bottom">Copyright&nbsp;&copy;2016-2017&nbsp;laizheyouqian.com&nbsp;&nbsp;&nbsp;&nbsp;粤ICP备</p>
+            <p class="art-bottom">Copyright&nbsp;&copy;2016-2017&nbsp;laizheyouqian.com&nbsp;&nbsp;&nbsp;&nbsp;<a class="beian"
+                    href="http://www.miitbeian.gov.cn/">粤ICP备17129720号-2</a></p>
         </div>
         <div class="clear"></div>
     </div>
