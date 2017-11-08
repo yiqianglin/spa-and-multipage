@@ -41,11 +41,10 @@ Object.keys(plugin_entry).forEach((name) => {
   console.log('将输出shtml文件:', isHtml
     ? `src/html/${name}.html`
     : isTemplate ? `src/html/${name}.art` : '啥都没有啊，那就没有HtmlWebpackPlugin了');
-  console.log(`${config.publicPath}/${name}.html`);
   plugins.push(new HtmlWebpackPlugin({
     favicon: path.join(__dirname, '../favicon.ico'),
     title: '',
-    contentPath: `${config.publicPath}`,
+    contentPath: process.env.NODE_ENV === 'production' ? `${config.build.publicPath}` : `${config.dev.publicPath}`,
     filename: projectType === 'app' ? `m/cashloanmarket/index.htm` : `${name}.htm`,
     template: isHtml ? `src/html/${name}.html` : `src/html/${name}.art`,
     inject: true,
@@ -68,7 +67,7 @@ if (projectType === 'app') {
 const _config = {
   entry,
   output: {
-    publicPath: `${config.publicPath}/`
+    publicPath: process.env.NODE_ENV === 'production' ? `${config.build.publicPath}/` : `${config.dev.publicPath}/`
   },
   module: {
     rules: [

@@ -28,7 +28,6 @@ class Banner extends Component {
   }
   render() {
     const { bannerList } = this.props;
-    console.log('render bannerList', bannerList);
     return (
       <div className="banner-wrp">
         <ReactSwipe className="swipe-con" swipeOptions={{
@@ -42,10 +41,9 @@ class Banner extends Component {
         }}>
           {
             bannerList.map((item, index) => {
-              console.log(item.imageUrl);
               return (
                 <a className="banner-link" key={index} href={item.url}>
-                  <img className="banner-img" src={item.imageUrlSmall} alt=""/>
+                  <img className="banner-img" src={item.imageUrlSmall ? item.imageUrlSmall : item.imageUrl} alt=""/>
                 </a>
               );
             })

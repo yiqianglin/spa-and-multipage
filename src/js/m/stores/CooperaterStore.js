@@ -35,7 +35,7 @@ class CooperaterStore {
    */
   async getProductType() {
     const params = {};
-    const data = await request('/cashloanmarket-web-site/cashloanmarket/productType.htm', params);
+    const data = await request(`${contentPath}/cashloanmarket/productType.htm`, params);
     if (+data.status === 1) {
       const { list } = data.data;
       this.dataList.set('productTypeList', list);
@@ -53,7 +53,7 @@ class CooperaterStore {
   async getProductTypeDeatil(productTypeId) {
     this.dataList.set('productTypeSelected', productTypeId);
     const params = { productTypeId };
-    const data = await request('/cashloanmarket-web-site/cashloanmarket/productType.htm', params);
+    const data = await request(`${contentPath}/cashloanmarket/productType.htm`, params);
     if (+data.status === 1) {
       const { list } = data.data;
       this.dataList.set('productTypeDeatilList', list);
@@ -73,7 +73,7 @@ class CooperaterStore {
    */
   async getRecommend(productTypeId) {
     const params = { productTypeId };
-    const data = await request('/cashloanmarket-web-site/cashloanmarket/productList.htm', params);
+    const data = await request(`${contentPath}/cashloanmarket/productList.htm`, params);
     if (+data.status === 1) {
       const { list } = data.data;
       this.dataList.set('recommendList', list);
@@ -95,7 +95,7 @@ class CooperaterStore {
       params.secondProductTypeId = secondProductTypeId;
       this.dataList.set('productTypeDeatilSelected', secondProductTypeId);
     }
-    const data = await request('/cashloanmarket-web-site/cashloanmarket/productList.htm', params);
+    const data = await request(`${contentPath}/cashloanmarket/productList.htm`, params);
     if (+data.status === 1) {
       const { list } = data.data;
       this.dataList.set('cooperaterList', list);

@@ -71,6 +71,12 @@ $(document).ready(() => {
           return Promise.resolve(response);
         });
     },
+    report(params) {
+      return post(`${contentPath}/stat/clickproduct.htm`, params)
+        .then((response) => {
+          return Promise.resolve(response);
+        });
+    },
     renderSelectedContainer(tmp, dom) {
       const html = tmp({
         productTypeIdSelected: manager.globalData.productTypeIdSelected, // 一级类目选择id
@@ -155,13 +161,20 @@ $(document).ready(() => {
         });
       });
       $('body').on('click', '.go-cooperater-btn', function () {
+        const url = $(this).attr('data-url');
         const mobileurl = $(this).attr('data-mobileurl');
         const name = $(this).attr('data-name');
+        const productId = $(this).attr('data-productid');
+        manager.report({ productId })
+          .catch((err) => {
+            console.log('上报统计错误');
+          });
+        if (url) {
+          window.location.href = url;
+        }
         if (mobileurl) {
-          setTimeout(() => {
-            $('#cooperater-name').html(name);
-            manager.showPop({ area: [], content: $('#pop-wrp') }, mobileurl);
-          }, 300);
+          $('#cooperater-name').html(name);
+          manager.showPop({ area: [], content: $('#pop-wrp') }, mobileurl);
         }
       });
     },

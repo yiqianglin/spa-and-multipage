@@ -47,8 +47,6 @@ $(document).ready(() => {
           console.log('banner', response);
           manager.globalData.bannerList = response.data.data.list;
           return Promise.resolve(response);
-        }).catch((err) => {
-          console.log('index.js catch 的getBanner错误 1');
         });
     },
     getProductType_1() { // 一级类
@@ -58,8 +56,6 @@ $(document).ready(() => {
           manager.globalData.productTypeList = response.data.data.list;
           manager.renderSelectItemUlTmp(selectItemUlTmp, $('#select-item-ul'));
           return Promise.resolve(response);
-        }).catch((err) => {
-          console.log('index.js catch 的getProductType_1错误 1');
         });
     },
     getProductList(params) {
@@ -69,8 +65,12 @@ $(document).ready(() => {
           manager.globalData.productList = response.data.data.list;
           manager.renderTabContainerTmp(tabContainerTmp, $('#tab-container'));
           return Promise.resolve(response);
-        }).catch((err) => {
-          console.log('index.js catch getProductList错误 1');
+        });
+    },
+    report(params) {
+      return post(`${contentPath}/stat/clickproduct.htm`, params)
+        .then((response) => {
+          return Promise.resolve(response);
         });
     },
     renderSelectItemUlTmp(tmp, dom) {
@@ -127,13 +127,20 @@ $(document).ready(() => {
         window.location.href = `${contentPath}/cashloanmarket/more.htm?productTypeId=${$(this).attr('data-productTypeId')}`;
       });
       $('body').on('click', '.go-cooperater-btn', function () {
+        const url = $(this).attr('data-url');
         const mobileurl = $(this).attr('data-mobileurl');
         const name = $(this).attr('data-name');
+        const productId = $(this).attr('data-productid');
+        manager.report({ productId })
+          .catch((err) => {
+            console.log('上报统计错误');
+          });
+        if (url) {
+          window.location.href = url;
+        }
         if (mobileurl) {
-          setTimeout(() => {
-            $('#cooperater-name').html(name);
-            manager.showPop({ area: [], content: $('#pop-wrp') }, mobileurl);
-          }, 300);
+          $('#cooperater-name').html(name);
+          manager.showPop({ area: [], content: $('#pop-wrp') }, mobileurl);
         }
       });
     },

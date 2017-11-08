@@ -45,7 +45,7 @@ const compiler = webpack(webpackConfig);
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   hot: true,
-  publicPath: `${config.publicPath}`,
+  publicPath: process.env.NODE_ENV === 'production' ? `${config.build.publicPath}` : `${config.dev.publicPath}`,
   quiet: false
 });
 
@@ -67,8 +67,8 @@ if (proxyTable.context) {
 
 var rewrites = {
   rewrites: [{
-    from: `${config.publicPath}/m/cashloanmarket`, // 正则或者字符串
-    to: `${config.publicPath}/m/cashloanmarket/index.htm`, // 字符串或者函数
+    from: `${process.env.NODE_ENV === 'production' ? config.build.publicPath : config.dev.publicPath}/m/cashloanmarket`, // 正则或者字符串
+    to: `${process.env.NODE_ENV === 'production' ? config.build.publicPath : config.dev.publicPath}/m/cashloanmarket/index.htm`, // 字符串或者函数
   }],
   htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
 }

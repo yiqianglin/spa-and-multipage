@@ -60,7 +60,6 @@ class HomeTypeSelector extends Component {
               <ul className="detail-type-selector-ul">
                 {
                   productTypeDetailList.map((elem, index) => {
-                    console.log(productTypeDeatilSelected);
                     const liClassname = classnames({
                       'detail-type-selector-li': true,
                       selected: productTypeDeatilSelected === elem.productTypeId

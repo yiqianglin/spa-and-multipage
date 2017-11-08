@@ -2,7 +2,6 @@
 
 .morepage{
   width: 100%;
-  height: 100%;
   min-height: 100%;
   position: relative;
   padding-bottom: 143px;
@@ -10,6 +9,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 80px;
+  overflow-y: auto;
   .more-type-selector-wrp{
     transition: transform 0.5s ease;
     transform: translateY(0);

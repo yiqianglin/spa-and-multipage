@@ -9,7 +9,6 @@ import TypeSelectPanel from '../component/TypeSelectPanel';
 export default class App extends Component {
   componentDidMount() {
     const { systemStore, cooperaterStore } = this.props;
-    console.log('m DidMount');
     this.props.cooperaterStore.getProductType();
   }
 

@@ -51,7 +51,7 @@ module.exports = {
             options: {
               name: 'images/[name].[hash].[ext]',
               limit: 100,
-              publicPath: `${config.publicPath}/`
+              // publicPath: process.env.NODE_ENV === 'production' ? `/` : `${config.dev.publicPath}/`
             }
           }
         ]
@@ -170,7 +170,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({ name: ['polyfill', 'vendor', 'manifest'], minChunks: Infinity }),
     new ExtractTextPlugin({
       filename: 'css/[name].[chunkhash:8].css', // 这个路径为什么能随便写，也没影响
-      // publicPath: process.env.NODE_ENV === 'production' ? '/cashloanmarket-web-site/' : '/cashloanmarket-web-site/',
+      // publicPath: process.env.NODE_ENV === 'production' ? `${config.build.publicPath}/` : `${config.dev.publicPath}/`
       allChunks: true // 这个新加上去，并不知道有什么用
       // 疑问：这plugin会将所有的css，less等全都打包到一个css，可以手动指定分隔css，但是动态改变不行。extract-chunk-text-webpack-plugin
     }),

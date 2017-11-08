@@ -28,7 +28,7 @@ export default class Home extends Component {
       hasProductTypeDetailList: productTypeDetailList.length > 0
     });
     return (
-      <div className="morepage" id="homepage">
+      <div className="morepage" id="morepage">
         <MoreTypeSelector />
         <div className={ panelClassname }>
           <MoreCooperaterPanel />

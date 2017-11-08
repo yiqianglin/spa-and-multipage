@@ -33,18 +33,27 @@ class SystemStore {
   }
 
   /**
-   * 获取一级分类列表
+   * 获取banner列表
    * @example
    * getProductType()
    */
   async getBannerList(appType) {
     const params = { appType };
-    console.log('banner request');
-    const data = await request('/cashloanmarket-web-site/cashloanmarket/getBanner.htm', params);
+    const data = await request(`${contentPath}/cashloanmarket/getBanner.htm`, params);
     if (+data.status === 1) {
       const { list } = data.data;
       this.bannerList = list;
     }
+  }
+
+  /**
+   * 获取banner列表
+   * @example
+   * getProductType()
+   */
+  async clickProductReport(productId) {
+    const params = { productId };
+    const data = await request(`${contentPath}/stat/clickproduct.htm`, params);
   }
 }
 
