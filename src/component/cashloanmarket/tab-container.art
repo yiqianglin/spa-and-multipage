@@ -7,8 +7,8 @@
   <ul class="cooperater-ul fadeIn">
     {{each productList val key}}
     <li class="cooperater-li {{if (key+1) % 4 == 0}}cooperater-li-right{{/if}}">
-        {{if recommendFlag}}
-            <span class="li-remark">{{recommendFlag}}</span>
+        {{if val.recommendFlag}}
+            <span class="li-remark">{{val.recommendFlag}}</span>
         {{/if}}
         <img src="{{val.imageUrl}}" alt="" class="cooperater-img" />
         <p class="cooperater-name">{{val.mainDescription}}</p>

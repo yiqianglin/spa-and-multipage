@@ -51,19 +51,16 @@ class HomeCooperaterPanel extends Component {
           } */}
           {
             recommendList ? recommendList.map((elem, index) => {
-              if (index + 1 <= 6) { // 仅显示热门推荐的前6个
-                return (<li className="cooperator-li" key={index}>
-                  {
-                    elem.recommendFlag ? <span className="remark">{elem.recommendFlag}</span> : null
-                  }
-                  <img src={elem.imageUrl} alt="" className="cooperater-img" />
-                  <p className="cooperater-name">{elem.mainDescription}</p>
-                  <p className="cooperater-remark">{elem.description}</p>
-                  <p className="cooperater-count">已有{this.numberGenerator(elem.shownCardinalNo)}人申请</p>
-                  <a href="javascript:void(0);" className="go-cooperater-btn" onClick={() => this.clickHandler(elem.productId, elem.homeUrl)}>立即贷款</a>
-                </li>);
-              }
-              return null;
+              return (<li className="cooperator-li" key={index}>
+                {
+                  elem.recommendFlag ? <span className="remark">{elem.recommendFlag}</span> : null
+                }
+                <img src={elem.imageUrl} alt="" className="cooperater-img" />
+                <p className="cooperater-name">{elem.mainDescription}</p>
+                <p className="cooperater-remark">{elem.description}</p>
+                <p className="cooperater-count">已有{this.numberGenerator(elem.shownCardinalNo)}人申请</p>
+                <a href="javascript:void(0);" className="go-cooperater-btn" onClick={() => this.clickHandler(elem.productId, elem.homeUrl)}>立即贷款</a>
+              </li>);
             }) : null
           }
         </ul>

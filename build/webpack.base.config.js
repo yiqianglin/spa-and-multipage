@@ -31,10 +31,6 @@ module.exports = {
       //         }
       //     }],
       // },
-      // {
-      //     test: /\.(ejs)$/,
-      //     loader: 'ejs-compiled-loader',
-      // },
       {
         test: /\.art$/,
         loader: 'art-template-loader',
@@ -44,14 +40,14 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpe?g|gif)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
               name: 'images/[name].[hash].[ext]',
               limit: 100,
-              // publicPath: process.env.NODE_ENV === 'production' ? `/` : `${config.dev.publicPath}/`
+              publicPath: process.env.NODE_ENV === 'production' ? `${config.build.publicPath}/` : `${config.dev.publicPath}/`
             }
           }
         ]
@@ -108,13 +104,6 @@ module.exports = {
             loader: 'babel-loader?cacheDirectory'
           }
         ],
-        // include: [
-        //   path.resolve(__dirname, 'src/js/m'),
-        //   path.resolve(__dirname, 'src/js/index'),
-        //   path.resolve(__dirname, 'src/js/activity'),
-        //   path.resolve(__dirname, 'src/js/m'),
-        //   path.resolve(__dirname, 'src/js/utils')
-        // ],
         exclude: [/node_modules/, path.join(__dirname, '../src/js/lib/')]
       }
       // {

@@ -4,15 +4,20 @@
 const argv = require('yargs').argv;
 process.env.NODE_ENV = 'production';
 
-// const { prodType } = argv;
-// process.env.PROD_TYPE = prodType
+const { prodType, env } = argv;
 
 const path = require('path');
+const ora = require('ora');
+const del = require('del');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.prod.config');
 
 
-webpack(webpackConfig, (err, stats) => {
-  if (err) throw err;
-});
+
+var spinner = ora('building for production...');
+spinner.start();
+del(`${config.build.assetsRoot}/**`)
+// webpack(webpackConfig, (err, stats) => {
+//   if (err) throw err;
+// });
 
