@@ -7,7 +7,7 @@
     "dev": "node ./build/dev-server.js --projectType",
     "prod": "webpack  --config ./build/webpack.prod.config.js",
     "prod:app": "node ./build/build.js --projectType=app",
-    "test:all": "node ./build/build.js --projectType=all --env==test"
+    "prod:all": "node ./build/buildAll.js --projectType=all"
   },
   "keywords": [
     "app",
@@ -100,6 +100,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^3.0.5",
+    "react-scroll": "^1.6.4",
     "react-swipe": "^5.1.0",
     "swipe-js-iso": "^2.0.4",
     "swiper": "^3.4.2"

@@ -27,28 +27,13 @@ $(document).ready(() => {
       productDetailTypeList: [], // 二级类目返回数据
       productList: [], // 商户列表,
       typeName: null, // 一级类目标题
+      notCarryFlag: null, // 用于表示（用二级类获取产品时，是否需要携带一级分类）
     },
     getProductType_1() { // 一级类
       return post(`${contentPath}/cashloanmarket/productType.htm`)
         .then((response) => {
           console.log(1, response);
           manager.globalData.productTypeList = response.data.data.list;
-          const urlProductTypeId = toQueryParams(window.location.search).productTypeId; // url上的productTypeId
-          if (urlProductTypeId) {
-            const temp = manager.globalData.productTypeList.filter((result) => {
-              return Number(result.productTypeId) === Number(urlProductTypeId);
-            });
-            if (temp.length) {
-              manager.globalData.productTypeIdSelected = urlProductTypeId;
-              manager.globalData.typeName = temp[0].name;
-            } else {
-              manager.globalData.productTypeIdSelected = manager.globalData.productTypeList[0].productTypeId; // 初始默认第一项一级分类被选中
-              manager.globalData.typeName = manager.globalData.productTypeList[0].name;
-            }
-          } else {
-            manager.globalData.productTypeIdSelected = manager.globalData.productTypeList[0].productTypeId; // 初始默认第一项一级分类被选中
-            manager.globalData.typeName = manager.globalData.productTypeList[0].name;
-          }
           manager.renderSelectedContainer(selectItemUlTmp, $('#select-item-ul'));
           return Promise.resolve(response);
         });
@@ -62,8 +47,41 @@ $(document).ready(() => {
           return Promise.resolve(response);
         });
     },
-    getProductList(params) {
-      return post(`${contentPath}/cashloanmarket/productList.htm`, params)
+    getProductListAll() {
+      const reqParams = {
+        pageIndex: 1, pageSize: 100
+      };
+      return post(`${contentPath}/cashloanmarket/productList.htm`, reqParams)
+        .then((response) => {
+          console.log(3, response);
+          manager.globalData.productList = response.data.data.list;
+          manager.renderSelectedContainer(tabContainerTmp, $('#tab-container'));
+          return Promise.resolve(response);
+        });
+    },
+    getProductList() {
+      const reqParams = {
+        pageIndex: 1, pageSize: 100
+      };
+      const typeSelected = manager.globalData.productTypeList.filter((result) => {
+        return Number(result.productTypeId) === Number(manager.globalData.productTypeIdSelected);
+      })[0];
+      const detailTypeSelected = manager.globalData.productDetailTypeList.filter((result) => {
+        return Number(result.productTypeId) === Number(manager.globalData.productDetailTypeSelected);
+      })[0];
+      if (typeSelected.notCarryFlag) {
+        console.log('1!!!!!!!');
+        reqParams.secondProductTypeId = manager.globalData.productDetailTypeSelected;
+      }
+      if (!typeSelected.notCarryFlag && typeSelected.hasSubType) {
+        console.log('2~~~~~~~~~~~~~');
+        reqParams.productTypeId = manager.globalData.productTypeIdSelected;
+        reqParams.secondProductTypeId = manager.globalData.productDetailTypeSelected;
+      } else if (!typeSelected.notCarryFlag && !typeSelected.hasSubType) {
+        console.log('3~~~~~~~~~~~~~', typeSelected.notCarryFlag, typeSelected.hasSubType);
+        reqParams.productTypeId = manager.globalData.productTypeIdSelected;
+      }
+      return post(`${contentPath}/cashloanmarket/productList.htm`, reqParams)
         .then((response) => {
           console.log(3, response);
           manager.globalData.productList = response.data.data.list;
@@ -118,8 +136,10 @@ $(document).ready(() => {
       });
     },
     eventBind() {
-      $('body').on('click', '.strategy', () => {
-        $('.strategy-content').toggleClass('show');
+      $('.strategy').hover(() => {
+        $('.strategy-content').addClass('show');
+      }, () => {
+        $('.strategy-content').removeClass('show');
       });
       // 一级类选择
       $('body').on('click', '.select-item-li', function () {
@@ -128,25 +148,24 @@ $(document).ready(() => {
         }
         manager.globalData.productTypeIdSelected = $(this).attr('data-productTypeId');
         manager.globalData.typeName = $(this).attr('data-typeName');
+        manager.globalData.notCarryFlag = $(this).attr('data-notCarryFlag');
         manager.renderSelectedContainer(selectItemUlTmp, $('#select-item-ul'));
-        if ($(this).attr('data-hasSubType')) { // 有二级分类
+        if (Number($(this).attr('data-hasSubType')) === 1) { // 有二级分类
+          console.log('有二级分类');
           manager.globalData.productDetailTypeSelected = null; // 重置
           manager.getProductType_2({ productTypeId: manager.globalData.productTypeIdSelected })
             .then((response) => {
               if (response.data.data.list && response.data.data.list.length) {
                 manager.globalData.productDetailTypeSelected = manager.globalData.productDetailTypeList[0].productTypeId;
                 manager.renderSelectedContainer(selectDetailItemWrpTmp, $('#select-detail-item-wrp'));
-                manager.getProductList({
-                  productTypeId: manager.globalData.productTypeIdSelected, secondProductTypeId: manager.globalData.productDetailTypeSelected, pageIndex: 1, pageSize: 100
-                });
+                manager.getProductList();
               } else {
-                manager.getProductList({
-                  productTypeId: manager.globalData.productTypeIdSelected, pageIndex: 1, pageSize: 100
-                });
+                manager.getProductList();
               }
             });
         } else { // 没有二级分类
-          manager.getProductList({ productTypeId: manager.globalData.productTypeIdSelected, pageIndex: 1, pageSize: 100 });
+          console.log('没有二级分类');
+          manager.getProductList();
         }
       });
       // 二级类选择
@@ -156,9 +175,7 @@ $(document).ready(() => {
         }
         manager.globalData.productDetailTypeSelected = $(this).attr('data-productTypeId');
         manager.renderSelectedContainer(selectDetailItemWrpTmp, $('#select-detail-item-wrp'));
-        manager.getProductList({
-          productTypeId: manager.globalData.productTypeIdSelected, secondProductTypeId: manager.globalData.productDetailTypeSelected, pageIndex: 1, pageSize: 100
-        });
+        manager.getProductList();
       });
       $('body').on('click', '.go-cooperater-btn', function () {
         const url = $(this).attr('data-url');
@@ -181,6 +198,32 @@ $(document).ready(() => {
     init() {
       manager.getProductType_1()
         .then(() => {
+          // 判断url上是否有参数
+          const urlProductTypeId = toQueryParams(window.location.search).productTypeId; // url上的productTypeId
+          if (urlProductTypeId) {
+            const temp = manager.globalData.productTypeList.filter((result) => {
+              return Number(result.productTypeId) === Number(urlProductTypeId);
+            });
+            if (temp.length) {
+              // 如果有匹配，则选中匹配url的一级分类
+              manager.globalData.productTypeIdSelected = urlProductTypeId;
+              manager.globalData.typeName = temp[0].name;
+              manager.globalData.notCarryFlag = temp[0].notCarryFlag;
+            } else {
+              // 如果没有匹配，则默认显示全部
+              manager.globalData.typeName = '全部';
+              manager.globalData.productTypeIdSelected = null;
+              manager.getProductListAll();
+              manager.renderSelectedContainer(selectItemUlTmp, $('#select-item-ul'));
+              return;
+            }
+          } else { // url上没有参数
+            manager.globalData.productTypeIdSelected = manager.globalData.productTypeList[0].productTypeId; // 初始默认第一项一级分类被选中
+            manager.globalData.typeName = manager.globalData.productTypeList[0].name;
+            manager.globalData.notCarryFlag = manager.globalData.productTypeList[0].notCarryFlag;
+          }
+          manager.renderSelectedContainer(selectItemUlTmp, $('#select-item-ul'));
+
           // 判断选中的一级目录下是否有二级目录
           let hasSubTypeJudgement = false;
           const temp = manager.globalData.productTypeList.filter((result) => {
@@ -190,20 +233,17 @@ $(document).ready(() => {
             hasSubTypeJudgement = temp[0].hasSubType;
           }
           if (!hasSubTypeJudgement) { // 没有二级分类
-            manager.getProductList({ productTypeId: manager.globalData.productTypeIdSelected, pageIndex: 1, pageSize: 100 });
+            console.log('init 没有二级分类');
+            manager.getProductList();
           } else {
             manager.getProductType_2({ productTypeId: manager.globalData.productTypeIdSelected })
               .then((response) => {
                 if (response.data.data.list && response.data.data.list.length) {
-                  manager.globalData.productDetailTypeSelected = manager.globalData.productDetailTypeList[0].productTypeId;
+                  manager.globalData.productDetailTypeSelected = manager.globalData.productDetailTypeList[0].productTypeId; // 默认选中二级分类第一个
                   manager.renderSelectedContainer(selectDetailItemWrpTmp, $('#select-detail-item-wrp'));
-                  manager.getProductList({
-                    productTypeId: manager.globalData.productTypeIdSelected, secondProductTypeId: manager.globalData.productDetailTypeSelected, pageIndex: 1, pageSize: 100
-                  });
+                  manager.getProductList();
                 } else {
-                  manager.getProductList({
-                    productTypeId: manager.globalData.productTypeIdSelected, pageIndex: 1, pageSize: 100
-                  });
+                  manager.getProductList();
                 }
               });
           }

@@ -5,6 +5,7 @@
       data-hasSubType="{{val.hasSubType}}"
       data-productTypeId="{{val.productTypeId}}"
       data-typeName="{{val.name}}"
+      data-notCarryFlag="{{val.notCarryFlag}}"
   >
     <span class="icon" style="background-image: url({{val.imageUrl}})"></span>
     <p class="icon-remark">{{val.name}}</p>

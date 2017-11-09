@@ -1,6 +1,6 @@
 .cooperator-panel-wrp{
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
   .cooperator-ul{
     width: 690px;
     margin: 18px auto 0;
@@ -107,9 +107,21 @@
     }
   }
   .bottom-remark{
-    color: nth($colorText, 2);
-    font-size: 18px;
     text-align: center;
     margin: 20px auto 16px;
+    .more-icon{
+      width: 32px;
+      height: 32px;
+      display: inline-block;
+      background: url("../../images/m/more-icon.png") no-repeat center;
+      background-size: contain;
+      vertical-align: middle;
+    }
+    .art{
+      vertical-align: middle;
+      margin-left: 14px;
+      color: #5a8fff;
+      font-size: 26px;
+    }
   }
 }

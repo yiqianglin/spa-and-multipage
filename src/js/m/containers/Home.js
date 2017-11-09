@@ -24,6 +24,7 @@ export default class Home extends Component {
   componentDidMount() {
     setWechatTitle('贷款超市');
     this.props.getRecommend(999999);
+    document.getElementById('app-wrapper').scrollTop = 0;
   }
 
   render() {

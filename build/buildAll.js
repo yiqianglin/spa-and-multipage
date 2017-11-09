@@ -10,7 +10,8 @@ const path = require('path');
 const ora = require('ora');
 const del = require('del');
 const webpack = require('webpack');
-const webpackConfig = require('./webpack.prod.config');
+const pcWebpackConfig = require('./webpack.prod.pc.config');
+const h5WebpackConfig = require('./webpack.prod.h5.config');
 
 
 
@@ -18,9 +19,14 @@ var spinner = ora('building for production...');
 spinner.start();
 del('dist/**').then((paths) => {
   console.log('delete finished');
-  webpack(webpackConfig, (err, stats) => {
-    if (err) throw err;
+  // webpack(pcWebpackConfig, (err, stats) => {
+  //   if (err) throw err;
+  // });
+  webpack(h5WebpackConfig, (err, stats) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
   });
 });
-
 

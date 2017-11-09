@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { setWechatTitle } from 'js/m/utils/utilsFunc';
+import { setWechatTitle, getUrlParameter } from 'js/m/utils/utilsFunc';
 import classnames from 'classnames';
 import 'css/m/more.scss';
 
@@ -18,7 +18,12 @@ import MoreCooperaterPanel from '../component/MoreCooperaterPanel';
   return props;
 })
 export default class Home extends Component {
+  componentWillMount() {
+  }
   componentDidMount() {
+    console.log(getUrlParameter('productTypeId'));
+    document.getElementById('app-wrapper').scrollTop = 0;
+    // document.getElementById('type-selector-ul').scrollLeft  = document.getElementById('type-selector-li-3').offsetLeft
   }
 
   render() {

@@ -38,15 +38,16 @@ class HomeTypeSelector extends Component {
     return (
       <div className="more-type-selector">
         <div className="type-selector-wrp ">
-          <ul className="type-selector-ul">
+          <ul className="type-selector-ul" id="type-selector-ul">
             {
               productTypeList && productTypeList.length ? productTypeList.map((elem, index) => {
                 const liClassname = classnames({
                   'type-selector-li': true,
-                  selected: productTypeSelected === elem.productTypeId
+                  [`type-selector-li-${elem.productTypeId}`]: true,
+                  selected: productTypeSelected === elem.productTypeId,
                 });
                 return (
-                  <li className={liClassname} key={index} onClick={ () => getProductTypeDeatil(elem.productTypeId) }>{elem.name}</li>
+                  <li className={liClassname} id={`type-selector-li-${elem.productTypeId}`} key={index} onClick={ () => getProductTypeDeatil(elem.productTypeId) }>{elem.name}</li>
                 );
               }) : null
             }

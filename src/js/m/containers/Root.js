@@ -13,6 +13,14 @@ const rootRoute = {
       component: require('./App').default,
       childRoutes: [
         {
+          path: '',
+          getComponent(nextState, cb) {
+            import(/* webpackChunkName: "Home" */ './Home').then((module) => {
+              cb(null, module.default);
+            });
+          }
+        },
+        {
           path: 'm/cashloanmarket/index.htm',
           getComponent(nextState, cb) {
             import(/* webpackChunkName: "Home" */ './Home').then((module) => {

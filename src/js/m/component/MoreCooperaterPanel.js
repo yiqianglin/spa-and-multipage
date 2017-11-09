@@ -15,7 +15,7 @@ class HomeCooperaterPanel extends Component {
     const { cooperaterList } = this.props;
     return (
       <div className="cooperator-panel-wrp">
-        <ul className="cooperator-ul">
+        <ul className="cooperator-ul" id="cooperator-ul">
           {
             cooperaterList ? cooperaterList.map((elem, index) => (
               <li className="cooperator-li" key={index}>

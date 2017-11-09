@@ -87,3 +87,20 @@ export function request(url, params, method = 'post', timeout = 60000) {
       return errorData;
     });
 }
+
+/**
+ * 获取url参数
+ * getUrlParameter()
+ */
+export function getUrlParameter() {
+  const url = window.location.search;
+  const theRequest = {};
+  if (url.indexOf('?') !== -1) {
+    const str = url.substr(1);
+    const strs = str.split('&');
+    for (let i = 0; i < strs.length; i += 1) {
+      theRequest[strs[i].split('=')[0]] = unescape(strs[i].split('=')[1]);
+    }
+  }
+  return theRequest;
+}

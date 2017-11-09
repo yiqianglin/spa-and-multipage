@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { Link } from 'react-router';
 
 @inject((stores) => {
   const props = {
@@ -59,12 +60,12 @@ class HomeCooperaterPanel extends Component {
                 <p className="cooperater-name">{elem.mainDescription}</p>
                 <p className="cooperater-remark">{elem.description}</p>
                 <p className="cooperater-count">已有{this.numberGenerator(elem.shownCardinalNo)}人申请</p>
-                <a href="javascript:void(0);" className="go-cooperater-btn" onClick={() => this.clickHandler(elem.productId, elem.homeUrl)}>立即贷款</a>
+                <a href={elem.mobileUrl} className="go-cooperater-btn" onClick={() => this.clickHandler(elem.productId, elem.homeUrl)}>立即贷款</a>
               </li>);
             }) : null
           }
         </ul>
-        <p className="bottom-remark">贷款有风险，选择需谨慎</p>
+        <p className="bottom-remark"><Link to={`${contentPath}/m/cashloanmarket/more.htm?productTypeId=all`}><span className="more-icon"></span><span className="art">查看更多贷款</span></Link></p>
       </div>
     );
   }
