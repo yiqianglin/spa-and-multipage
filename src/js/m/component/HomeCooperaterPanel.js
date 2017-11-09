@@ -3,12 +3,13 @@
  */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 
 @inject((stores) => {
   const props = {
     recommendList: stores.cooperaterStore.dataList.get('recommendList').toJS(),
-    clickProductReport: stores.systemStore.clickProductReport.bind(stores.systemStore)
+    clickProductReport: stores.systemStore.clickProductReport.bind(stores.systemStore),
+    getProductList: stores.cooperaterStore.getProductList.bind(stores.cooperaterStore)
   };
   return props;
 }) @observer
@@ -31,6 +32,14 @@ class HomeCooperaterPanel extends Component {
   clickHandler(productId, url) {
     this.props.clickProductReport(productId);
     window.location.href = url;
+  }
+  getAllProduct() {
+    browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=all`);
+    // this.props.getProductList()
+    //   .then(() => {
+    //     browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=all`);
+    //   })
+    //   .catch((err) => {});
   }
   render() {
     const { recommendList } = this.props;
@@ -65,7 +74,7 @@ class HomeCooperaterPanel extends Component {
             }) : null
           }
         </ul>
-        <p className="bottom-remark"><Link to={`${contentPath}/m/cashloanmarket/more.htm?productTypeId=all`}><span className="more-icon"></span><span className="art">查看更多贷款</span></Link></p>
+        <p className="bottom-remark" onClick={() => this.getAllProduct()}><span className="more-icon"></span><span className="art">查看更多贷款</span></p>
       </div>
     );
   }

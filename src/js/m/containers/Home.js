@@ -32,7 +32,7 @@ export default class Home extends Component {
       <div className="homepage" id="homepage">
         <HomeTypeSelector />
         <Banner />
-        <div className="recommend-title">极速贷款</div>
+        <div className="recommend-title">热门推荐</div>
         <HomeCooperaterPanel />
 
         <QRcodePanelBottom />

@@ -21,14 +21,14 @@ export default class Home extends Component {
   componentWillMount() {
   }
   componentDidMount() {
-    console.log(getUrlParameter('productTypeId'));
+    // console.log(getUrlParameter('productTypeId'));
     document.getElementById('app-wrapper').scrollTop = 0;
     // document.getElementById('type-selector-ul').scrollLeft  = document.getElementById('type-selector-li-3').offsetLeft
   }
 
   render() {
     const { productTypeDetailList } = this.props;
-    const panelClassname = classnames({
+    const panelClassname = classnames({ // 二级分类动画
       'more-type-selector-wrp': true,
       hasProductTypeDetailList: productTypeDetailList.length > 0
     });

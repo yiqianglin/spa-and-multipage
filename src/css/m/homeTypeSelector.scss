@@ -3,12 +3,13 @@
   height: 80px;
   display: flex;
   color: #333;
-  padding-left: 28px;
+  padding-left: 8px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 2;
   background-color: #fff;
+  border: 1px solid #e1e1e1;
   .type-selector-ul{
     flex: 1;
     align-items: center;
@@ -23,7 +24,7 @@
     }
     .type-selector-li{
       display: inline-block;
-      margin-right: 40px;
+      padding: 0 20px;
       vertical-align: middle;
       height: 80px;
       line-height: 80px;

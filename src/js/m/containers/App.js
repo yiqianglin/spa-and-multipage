@@ -9,7 +9,7 @@ import TypeSelectPanel from '../component/TypeSelectPanel';
 export default class App extends Component {
   componentDidMount() {
     const { systemStore, cooperaterStore } = this.props;
-    this.props.cooperaterStore.getProductType();
+    this.props.cooperaterStore.getProductTypeOneStep();
   }
 
   render() {

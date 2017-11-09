@@ -2,7 +2,8 @@
  * Created by cc on 2017/11/2.
  */
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import { when } from 'mobx';
+import { getUrlParameter } from 'js/m/utils/utilsFunc';
 import classnames from 'classnames';
 
 import { inject, observer } from 'mobx-react';
@@ -11,6 +12,7 @@ import 'css/m/moreTypeSelector.scss';
 
 @inject((stores) => {
   const props = {
+    dataList: stores.cooperaterStore.dataList,
     productTypeList: stores.cooperaterStore.dataList.get('productTypeList').toJS(),
     productTypeDetailList: stores.cooperaterStore.dataList.get('productTypeDeatilList').toJS(),
     productTypeSelected: stores.cooperaterStore.dataList.get('productTypeSelected'),
@@ -21,6 +23,51 @@ import 'css/m/moreTypeSelector.scss';
   return props;
 }) @observer
 class HomeTypeSelector extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSelectAll: false
+    };
+  }
+  componentDidMount() {
+    when(
+      () => { return this.props.productTypeList.length; },
+      () => {
+        if (getUrlParameter('productTypeId').productTypeId) { // 如果url有查找参数
+          const productTypeSelect = this.props.productTypeList.filter((result) => { // 找到productTypeList里面对应查询id是否存在
+            return Number(result.productTypeId) === Number(getUrlParameter('productTypeId').productTypeId);
+          })[0];
+          if (productTypeSelect) {
+            this.setState({ isSelectAll: false });
+            this.props.getProductTypeDeatil(Number(getUrlParameter('productTypeId').productTypeId));
+            document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`).offsetLeft;
+          } else {
+            this.productTypeSelectAll();
+          }
+        } else { // 没有url则根据之前选择的productTypeIdSelected或者获取全部
+          const temp = '';
+          if (this.props.productTypeSelected) {
+            this.setState({ isSelectAll: false });
+            this.props.getProductTypeDeatil(this.props.productTypeSelected);
+            document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`).offsetLeft;
+          } else {
+            this.productTypeSelectAll();
+          }
+        }
+      }
+    );
+  }
+  productTypeLiClickHandler(productTypeId) {
+    this.setState({ isSelectAll: false });
+    this.props.getProductTypeDeatil(productTypeId);
+  }
+  productTypeSelectAll() {
+    this.setState({ isSelectAll: true });
+    this.props.dataList.set('productTypeSelected', null);
+    this.props.dataList.set('productTypeDeatilList', []);
+    this.props.dataList.set('productTypeDeatilSelected', null);
+    this.props.getProductList();
+  }
   render() {
     const {
       productTypeList,
@@ -29,8 +76,12 @@ class HomeTypeSelector extends Component {
       productTypeDeatilSelected
     } = this.props;
     const { getProductTypeDeatil, getProductList } = this.props;
-    console.log('一级分类', productTypeList, productTypeSelected);
-    console.log('二级分类', productTypeDetailList, productTypeDeatilSelected);
+    // console.log('一级分类', productTypeList, productTypeSelected);
+    // console.log('二级分类', productTypeDetailList, productTypeDeatilSelected);
+    const selectAllClassname = classnames({
+      'type-selector-li': true,
+      selected: this.state.isSelectAll
+    });
     const panelClassname = classnames({
       'detail-type-selector-animation-wrp': true,
       hasProductTypeDetailList: productTypeDetailList.length > 0
@@ -39,6 +90,7 @@ class HomeTypeSelector extends Component {
       <div className="more-type-selector">
         <div className="type-selector-wrp ">
           <ul className="type-selector-ul" id="type-selector-ul">
+            <li className={selectAllClassname} onClick={ () => this.productTypeSelectAll() }>全部</li>
             {
               productTypeList && productTypeList.length ? productTypeList.map((elem, index) => {
                 const liClassname = classnames({
@@ -47,7 +99,7 @@ class HomeTypeSelector extends Component {
                   selected: productTypeSelected === elem.productTypeId,
                 });
                 return (
-                  <li className={liClassname} id={`type-selector-li-${elem.productTypeId}`} key={index} onClick={ () => getProductTypeDeatil(elem.productTypeId) }>{elem.name}</li>
+                  <li className={liClassname} id={`type-selector-li-${elem.productTypeId}`} key={index} onClick={ () => this.productTypeLiClickHandler(elem.productTypeId) }>{elem.name}</li>
                 );
               }) : null
             }

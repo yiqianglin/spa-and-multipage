@@ -29,6 +29,20 @@ class CooperaterStore {
   }
 
   /**
+   * 获取一级分类列表(不进行联动处理)
+   * @example
+   * getProductType()
+   */
+  async getProductTypeOneStep() {
+    const params = {};
+    const data = await request(`${contentPath}/cashloanmarket/productType.htm`, params);
+    if (+data.status === 1) {
+      const { list } = data.data;
+      this.dataList.set('productTypeList', list);
+    }
+  }
+
+  /**
    * 获取一级分类列表
    * @example
    * getProductType()
@@ -87,13 +101,32 @@ class CooperaterStore {
    */
   async getProductList(productTypeId, secondProductTypeId, pageIndex = 1, pageSize = 100) {
     const params = {
-      productTypeId,
       pageIndex,
       pageSize
     };
-    if (secondProductTypeId) {
-      params.secondProductTypeId = secondProductTypeId;
-      this.dataList.set('productTypeDeatilSelected', secondProductTypeId);
+    if (!productTypeId) { // 获取全部
+    } else {
+      if (productTypeId) {
+        this.dataList.set('productTypeIdSelected', productTypeId);
+      }
+      if (secondProductTypeId) {
+        this.dataList.set('productTypeDeatilSelected', secondProductTypeId);
+      }
+      const productTypeList = this.dataList.get('productTypeList').toJS();
+      console.log(this.dataList.get('productTypeIdSelected'));
+      console.log(productTypeId, secondProductTypeId);
+      const typeSelected = productTypeList.filter((result) => {
+        return Number(result.productTypeId) === Number(this.dataList.get('productTypeIdSelected'));
+      })[0];
+      if (typeSelected.notCarryFlag) {
+        params.secondProductTypeId = this.dataList.get('productTypeDeatilSelected');
+      }
+      if (!typeSelected.notCarryFlag && typeSelected.hasSubType) {
+        params.productTypeId = this.dataList.get('productTypeIdSelected');
+        params.secondProductTypeId = this.dataList.get('productTypeDeatilSelected');
+      } else if (!typeSelected.notCarryFlag && !typeSelected.hasSubType) {
+        params.productTypeId = this.dataList.get('productTypeIdSelected');
+      }
     }
     const data = await request(`${contentPath}/cashloanmarket/productList.htm`, params);
     if (+data.status === 1) {
