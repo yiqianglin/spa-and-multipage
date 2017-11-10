@@ -31,7 +31,9 @@ class HomeCooperaterPanel extends Component {
   }
   clickHandler(productId, url) {
     this.props.clickProductReport(productId);
-    window.location.href = url;
+    setTimeout(() => {
+      window.location.href = url;
+    }, 200);
   }
   getAllProduct() {
     browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=all`);
@@ -61,16 +63,18 @@ class HomeCooperaterPanel extends Component {
           } */}
           {
             recommendList ? recommendList.map((elem, index) => {
-              return (<li className="cooperator-li" key={index}>
-                {
-                  elem.recommendFlag ? <span className="remark">{elem.recommendFlag}</span> : null
-                }
-                <img src={elem.imageUrl} alt="" className="cooperater-img" />
-                <p className="cooperater-name">{elem.mainDescription}</p>
-                <p className="cooperater-remark">{elem.description}</p>
-                <p className="cooperater-count">已有{this.numberGenerator(elem.shownCardinalNo)}人申请</p>
-                <a href={elem.mobileUrl} className="go-cooperater-btn" onClick={() => this.clickHandler(elem.productId, elem.homeUrl)}>立即贷款</a>
-              </li>);
+              return (
+                <li className="cooperator-li" key={index}>
+                  {
+                    elem.recommendFlag ? <span className="remark">{elem.recommendFlag}</span> : null
+                  }
+                  <img src={elem.imageUrl} alt="" className="cooperater-img" />
+                  <p className="cooperater-name">{elem.mainDescription}</p>
+                  <p className="cooperater-remark">{elem.description}</p>
+                  <p className="cooperater-count">已有{this.numberGenerator(elem.shownCardinalNo)}人申请</p>
+                  <a href="javascript:void(0);" className="go-cooperater-btn" onClick={() => this.clickHandler(elem.productId, elem.mobileUrl)}>立即贷款</a>
+                </li>
+              );
             }) : null
           }
         </ul>

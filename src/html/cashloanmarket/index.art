@@ -6,7 +6,7 @@
         <title>贷款超市</title>
         <meta http-equiv="x-ua-compatible" content="IE=8,9,10,edge" >
         <meta name="description" content="贷款超市"/>
-        <link rel="stylesheet" href="<%- htmlWebpackPlugin.options.contentPath%>/css/lib/swiper/swiper-3.4.2.min.css">
+        <link rel="stylesheet" href="<%- htmlWebpackPlugin.options.contentPath%>/css/lib/swiper/swiper.css">
         <link rel="shortcut icon" href="<%- htmlWebpackPlugin.options.contentPath%>/favicon.ico">
     </head>
     <body>
@@ -36,7 +36,7 @@
             <![endif]-->
             <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/jquery-1.10.2.min.js"></script>
             <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/layer/layer.js"></script>
-            <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/swiper/swiper-3.4.2.min.js"></script>
+            <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/swiper/swiper-2.7.6.min.js"></script>
             <script src="<%- htmlWebpackPlugin.options.contentPath%>/js/lib/jquery.qrcode.min.js"></script>
             <script>
               var contentPath = "<%- htmlWebpackPlugin.options.contentPath %>";

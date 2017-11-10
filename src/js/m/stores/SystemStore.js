@@ -47,9 +47,9 @@ class SystemStore {
   }
 
   /**
-   * 获取banner列表
+   * 点击上报
    * @example
-   * getProductType()
+   * clickProductReport()
    */
   async clickProductReport(productId) {
     const params = { productId };

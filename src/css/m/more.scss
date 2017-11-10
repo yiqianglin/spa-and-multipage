@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 100%;
   position: relative;
-  padding-bottom: 143px;
+  padding-bottom: 280px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,31 @@
     transform: translateY(0);
     &.hasProductTypeDetailList{
       transform: translateY(80px);
+    }
+  }
+  .go-homepage-wrp{
+    position: absolute;
+    width: 100%;
+    bottom: 140px;
+    height: 60px;
+    z-index: 2;
+    .bottom-remark{
+      text-align: center;
+      vertical-align: middle;
+      .more-icon{
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+        background: url("../../images/m/more-icon.png") no-repeat center;
+        background-size: contain;
+        vertical-align: middle;
+      }
+      .art{
+        vertical-align: middle;
+        margin-left: 14px;
+        color: #5a8fff;
+        font-size: 26px;
+      }
     }
   }
 }

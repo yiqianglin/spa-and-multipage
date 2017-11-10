@@ -108,26 +108,39 @@ class CooperaterStore {
     } else {
       if (productTypeId) {
         this.dataList.set('productTypeIdSelected', productTypeId);
+        params.productTypeId = productTypeId;
       }
       if (secondProductTypeId) {
         this.dataList.set('productTypeDeatilSelected', secondProductTypeId);
+        params.secondProductTypeId = secondProductTypeId;
       }
       const productTypeList = this.dataList.get('productTypeList').toJS();
-      console.log(this.dataList.get('productTypeIdSelected'));
-      console.log(productTypeId, secondProductTypeId);
       const typeSelected = productTypeList.filter((result) => {
         return Number(result.productTypeId) === Number(this.dataList.get('productTypeIdSelected'));
       })[0];
-      if (typeSelected.notCarryFlag) {
-        params.secondProductTypeId = this.dataList.get('productTypeDeatilSelected');
-      }
-      if (!typeSelected.notCarryFlag && typeSelected.hasSubType) {
-        params.productTypeId = this.dataList.get('productTypeIdSelected');
-        params.secondProductTypeId = this.dataList.get('productTypeDeatilSelected');
-      } else if (!typeSelected.notCarryFlag && !typeSelected.hasSubType) {
-        params.productTypeId = this.dataList.get('productTypeIdSelected');
+      if (typeSelected.searchAllProductFlag) {
+        params.searchAllProductFlag = 1;
+      } else {
+        params.searchAllProductFlag = 0;
       }
     }
+    const data = await request(`${contentPath}/cashloanmarket/productList.htm`, params);
+    if (+data.status === 1) {
+      const { list } = data.data;
+      this.dataList.set('cooperaterList', list);
+    }
+  }
+  /**
+   * 获取产品列表
+   * @example
+   * getProductList()
+   */
+  async getProductListAll(pageIndex = 1, pageSize = 100) {
+    const params = {
+      searchAllProductFlag: 1,
+      pageIndex: 1,
+      pageSize: 100
+    };
     const data = await request(`${contentPath}/cashloanmarket/productList.htm`, params);
     if (+data.status === 1) {
       const { list } = data.data;

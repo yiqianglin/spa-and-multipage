@@ -29,6 +29,7 @@ class HomeTypeSelector extends Component {
     return (
       <div className="home-type-selector">
         <ul className="type-selector-ul">
+          <li className="type-selector-li" onClick={ () => this.clickHandler('all') }>全部</li>
           {
             productTypeList ? productTypeList.map((elem, index) => (
               <li className="type-selector-li" key={index}
@@ -36,7 +37,7 @@ class HomeTypeSelector extends Component {
                   data-producttypeid={elem.productTypeId}
                   onClick={
                     () => {
-                      console.log('onclick', this.clickHandler(elem.productTypeId, elem.hasSubType));
+                      this.clickHandler(elem.productTypeId, elem.hasSubType);
                     }
                   }
               >

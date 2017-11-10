@@ -18,7 +18,8 @@ import 'css/m/moreTypeSelector.scss';
     productTypeSelected: stores.cooperaterStore.dataList.get('productTypeSelected'),
     productTypeDeatilSelected: stores.cooperaterStore.dataList.get('productTypeDeatilSelected'),
     getProductTypeDeatil: stores.cooperaterStore.getProductTypeDeatil.bind(stores.cooperaterStore),
-    getProductList: stores.cooperaterStore.getProductList.bind(stores.cooperaterStore)
+    getProductList: stores.cooperaterStore.getProductList.bind(stores.cooperaterStore),
+    getProductListAll: stores.cooperaterStore.getProductListAll.bind(stores.cooperaterStore),
   };
   return props;
 }) @observer
@@ -40,7 +41,15 @@ class HomeTypeSelector extends Component {
           if (productTypeSelect) {
             this.setState({ isSelectAll: false });
             this.props.getProductTypeDeatil(Number(getUrlParameter('productTypeId').productTypeId));
-            document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`).offsetLeft;
+            if (document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`)) {
+              // document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`).offsetLeft;
+              this.animationScroll('type-selector-ul', `type-selector-li-${productTypeSelect.productTypeId}`);
+            } else {
+              setTimeout(() => {
+                // document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`).offsetLeft;
+                this.animationScroll('type-selector-ul', `type-selector-li-${productTypeSelect.productTypeId}`);
+              }, 200);
+            }
           } else {
             this.productTypeSelectAll();
           }
@@ -49,7 +58,15 @@ class HomeTypeSelector extends Component {
           if (this.props.productTypeSelected) {
             this.setState({ isSelectAll: false });
             this.props.getProductTypeDeatil(this.props.productTypeSelected);
-            document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`).offsetLeft;
+            if (document.getElementById(`type-selector-li-${this.props.productTypeSelected}}`)) {
+              // document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${this.props.productTypeSelected}`).offsetLeft;
+              this.animationScroll('type-selector-ul', `type-selector-li-${this.props.productTypeSelected}`);
+            } else {
+              setTimeout(() => {
+                // document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${this.props.productTypeSelected}`).offsetLeft;
+                this.animationScroll('type-selector-ul', `type-selector-li-${this.props.productTypeSelected}`);
+              }, 200);
+            }
           } else {
             this.productTypeSelectAll();
           }
@@ -57,6 +74,31 @@ class HomeTypeSelector extends Component {
       }
     );
   }
+  componentWillUnmount() {
+    window.cancelAnimationFrame(window.animationFrame);
+  }
+  animationScroll(parentDomId, childDomId, lastStepScroll) {
+    console.log('animationScroll');
+    const currentScroll = document.getElementById(parentDomId).scrollLeft;
+    const needScroll = document.getElementById(childDomId).offsetLeft;
+    console.log(needScroll, currentScroll, needScroll / 25);
+    document.getElementById(parentDomId).scrollLeft = currentScroll + (needScroll / 25);
+    if (needScroll > currentScroll && lastStepScroll !== currentScroll) {
+      document.getElementById(parentDomId).scrollLeft = currentScroll + (needScroll / 25);
+      console.log(document.getElementById(parentDomId).scrollLeft);
+      window.animationFrame = window.requestAnimationFrame(() => { this.animationScroll(parentDomId, childDomId, currentScroll); });
+    }
+  }
+  // animationScrollByTab(parentDomId, childDomId) {
+  //   const currentScroll = document.getElementById(parentDomId).scrollLeft;
+  //   const needScrollLeft = document.getElementById(childDomId).offsetLeft;
+  //   const needScrollRight = document.getElementById(childDomId).offsetRight;
+  //   const containerWidth = document.getElementById('type-selector-ul').width;
+  //   if (currentScroll >= (needScrollRight - containerWidth)) {
+  //     document.getElementById(parentDomId).scrollLeft = currentScroll + (needScroll / 25);
+  //     window.animationFrame = window.requestAnimationFrame(() => { this.animationScroll(parentDomId, childDomId); });
+  //   }
+  // }
   productTypeLiClickHandler(productTypeId) {
     this.setState({ isSelectAll: false });
     this.props.getProductTypeDeatil(productTypeId);
@@ -66,7 +108,11 @@ class HomeTypeSelector extends Component {
     this.props.dataList.set('productTypeSelected', null);
     this.props.dataList.set('productTypeDeatilList', []);
     this.props.dataList.set('productTypeDeatilSelected', null);
-    this.props.getProductList();
+    this.props.getProductListAll();
+  }
+  scrollToPanelTop() {
+    console.log(document.getElementById('cooperator-ul'), document.getElementById('cooperator-ul').scrollTop);
+    document.getElementById('app-wrapper').scrollTop = 0;
   }
   render() {
     const {
@@ -99,7 +145,10 @@ class HomeTypeSelector extends Component {
                   selected: productTypeSelected === elem.productTypeId,
                 });
                 return (
-                  <li className={liClassname} id={`type-selector-li-${elem.productTypeId}`} key={index} onClick={ () => this.productTypeLiClickHandler(elem.productTypeId) }>{elem.name}</li>
+                  <li className={liClassname} id={`type-selector-li-${elem.productTypeId}`} key={index} onClick={ () => {
+                    this.productTypeLiClickHandler(elem.productTypeId);
+                    this.scrollToPanelTop();
+                  } }>{elem.name}</li>
                 );
               }) : null
             }

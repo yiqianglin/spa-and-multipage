@@ -7,6 +7,6 @@
                 </div>
             {{/each}}
         </div>
-        <div class="swiper-pagination"></div>
+        <div class="pagination"></div>
     </div>
 </div>

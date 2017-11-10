@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { browserHistory } from 'react-router';
 import { setWechatTitle, getUrlParameter } from 'js/m/utils/utilsFunc';
 import classnames from 'classnames';
 import 'css/m/more.scss';
@@ -25,6 +26,9 @@ export default class Home extends Component {
     document.getElementById('app-wrapper').scrollTop = 0;
     // document.getElementById('type-selector-ul').scrollLeft  = document.getElementById('type-selector-li-3').offsetLeft
   }
+  goHomePage() {
+    browserHistory.push(`${contentPath}/m/cashloanmarket/index.htm`);
+  }
 
   render() {
     const { productTypeDetailList } = this.props;
@@ -37,6 +41,9 @@ export default class Home extends Component {
         <MoreTypeSelector />
         <div className={ panelClassname }>
           <MoreCooperaterPanel />
+        </div>
+        <div className="go-homepage-wrp">
+          <p className="bottom-remark" onClick={() => { this.goHomePage(); }}><span className="more-icon"></span><span className="art">回到首页</span></p>
         </div>
         <QRcodePanelBottom />
       </div>

@@ -34,11 +34,9 @@ $(document).ready(() => {
       dom.html(html);
       const mySwiper = new Swiper('.swiper-container', {
         autoplay: 5000, // 可选选项，自动滑动
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        paginationBulletRender(swiper, index, className) {
-          return `<span class="${className}"></span>`;
-        }
+        loop: true,
+        pagination: '.pagination',
+        paginationClickable: true
       });
     },
     getBanner() {

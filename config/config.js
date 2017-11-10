@@ -36,7 +36,7 @@ const config = {
   },
   build: {
     assetsRoot: path.resolve(__dirname, '../dist'),
-    publicPath: '',
+    publicPath: '/cashloanmarket-web-site',
   }
 }
 
