@@ -82,7 +82,6 @@ class HomeTypeSelector extends Component {
     const currentScroll = document.getElementById(parentDomId).scrollLeft;
     const needScroll = document.getElementById(childDomId).offsetLeft;
     console.log(needScroll, currentScroll, needScroll / 25);
-    document.getElementById(parentDomId).scrollLeft = currentScroll + (needScroll / 25);
     if (needScroll > currentScroll && lastStepScroll !== currentScroll) {
       document.getElementById(parentDomId).scrollLeft = currentScroll + (needScroll / 25);
       console.log(document.getElementById(parentDomId).scrollLeft);
@@ -147,7 +146,10 @@ class HomeTypeSelector extends Component {
                 return (
                   <li className={liClassname} id={`type-selector-li-${elem.productTypeId}`} key={index} onClick={ () => {
                     this.productTypeLiClickHandler(elem.productTypeId);
-                    this.scrollToPanelTop();
+                    setTimeout(() => {
+                      this.scrollToPanelTop();
+                      this.animationScroll('type-selector-ul', `type-selector-li-${this.props.productTypeSelected}`);
+                    }, 0);
                   } }>{elem.name}</li>
                 );
               }) : null
