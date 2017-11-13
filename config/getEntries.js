@@ -9,21 +9,10 @@ const notRequirePath = ['utils', 'common', 'component', 'less', 'config', 'image
 // 取得所有静态目录
 let allPath = glob.sync(srcPath + "*/");
 
-let entry = null;
-// switch(projectType) {
-//   case 'app':
-//     entry = getAppEntries();
-//     break;
-//   case 'pc':
-//     entry = getActivityEntries();
-//     break;
-//   case 'all':
-//     entry = getAllEntries();
-//     break;
-// }
-
 module.exports = {
-  entry: projectType === 'app' ? getAppEntries() : getActivityEntries()
+  entry: projectType === 'app' ? getAppEntries() : getPcEntries(),
+  pcEntries: getPcEntries(),
+  appEntries: getAppEntries()
 }
 
 /*
@@ -31,7 +20,7 @@ module.exports = {
  example
  { 'activity/forshoulei': 'E:/xunlei/daikuan/src/js/activity/forshoulei.js' }
  */
-function getActivityEntries() {
+function getPcEntries() {
   let jsPath;
   let entries = {};
   jsPath = glob.sync(srcPath + 'js/!(utils|common|config|lib|m)/*.js');

@@ -1,8 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const config = require('../config/config');
-const postcssConfig = require('../config/postcss.config');
+const config = require('../../config/config');
+const postcssConfig = require('../../config/postcss.config').pcConfig;
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -104,7 +104,7 @@ module.exports = {
             loader: 'babel-loader?cacheDirectory'
           }
         ],
-        exclude: [/node_modules/, path.join(__dirname, '../src/js/lib/')]
+        exclude: [/node_modules/, path.join(__dirname, '../../src/js/lib/')]
       }
       // {
       //   test: require.resolve('jquery'),
@@ -136,14 +136,14 @@ module.exports = {
   resolve: {
     // 配置别名，在项目中可缩减引用路径
     alias: {
-      util: `${__dirname}/../src/utils/index.js`,
-      model: `${__dirname}/../src/model/index.js`,
-      config: `${__dirname}/../src/config/index.js`,
-      css: `${__dirname}/../src/css`,
-      images: `${__dirname}/../src/images`,
-      js: `${__dirname}/../src/js`,
-      html: `${__dirname}/../src/html`,
-      component: `${__dirname}/../src/component`
+      util: `${__dirname}/../../src/utils/index.js`,
+      model: `${__dirname}/../../src/model/index.js`,
+      config: `${__dirname}/../../src/config/index.js`,
+      css: `${__dirname}/../../src/css`,
+      images: `${__dirname}/../../src/images`,
+      js: `${__dirname}/../../src/js`,
+      html: `${__dirname}/../../src/html`,
+      component: `${__dirname}/../../src/component`
     }
   },
   plugins: [

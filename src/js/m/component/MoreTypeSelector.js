@@ -82,9 +82,13 @@ class HomeTypeSelector extends Component {
     const currentScroll = document.getElementById(parentDomId).scrollLeft;
     const needScroll = document.getElementById(childDomId).offsetLeft;
     console.log(needScroll, currentScroll, needScroll / 25);
-    if (needScroll > currentScroll && lastStepScroll !== currentScroll) {
+    if (needScroll > currentScroll && lastStepScroll !== currentScroll && (needScroll > currentScroll + (needScroll / 25))) {
       document.getElementById(parentDomId).scrollLeft = currentScroll + (needScroll / 25);
       console.log(document.getElementById(parentDomId).scrollLeft);
+      window.animationFrame = window.requestAnimationFrame(() => { this.animationScroll(parentDomId, childDomId, currentScroll); });
+    } else if (needScroll < currentScroll){
+      const difference = currentScroll - needScroll;
+      document.getElementById(parentDomId).scrollLeft = currentScroll - (difference / 5);
       window.animationFrame = window.requestAnimationFrame(() => { this.animationScroll(parentDomId, childDomId, currentScroll); });
     }
   }
@@ -135,7 +139,10 @@ class HomeTypeSelector extends Component {
       <div className="more-type-selector">
         <div className="type-selector-wrp ">
           <ul className="type-selector-ul" id="type-selector-ul">
-            <li className={selectAllClassname} onClick={ () => this.productTypeSelectAll() }>全部</li>
+            <li id="type-selector-li-all" className={selectAllClassname} onClick={ () => {
+              this.productTypeSelectAll();
+              this.animationScroll('type-selector-ul', 'type-selector-li-all');
+            } }>全部</li>
             {
               productTypeList && productTypeList.length ? productTypeList.map((elem, index) => {
                 const liClassname = classnames({

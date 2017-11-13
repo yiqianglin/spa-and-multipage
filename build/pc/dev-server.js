@@ -11,11 +11,10 @@ const webpack = require('webpack');
 // 将http请求代理到其他服务器
 const proxyMiddleware = require('http-proxy-middleware');
 
-const config = require('../config/config');
+const config = require('../../config/config');
 
 // 根据 Node 环境来引入相应的 webpack 配置
-const pcWebpackConfig = require('./pc/webpack.dev.config');
-const appWebpackConfig = require('./app/webpack.dev.config');
+const webpackConfig = require('./webpack.dev.config');
 
 const proxyTable = config.dev.proxyTable;
 
@@ -33,8 +32,9 @@ const app = express();
 
 
 // 根据webpack配置文件创建Compiler对象
-const pcCompiler = webpack(pcWebpackConfig);
-const appCompiler = webpack(appWebpackConfig);
+console.log('----------------最终结果---------------------');
+console.log(webpackConfig);
+const compiler = webpack(webpackConfig);
 
 // m.get('/cashloanmarket-web-site/m/*', function (req, res) {
 //   console.log('GET ', 'http://localhost:3004/cashloanmarket-web-site/app/', req.originalUrl);
@@ -43,34 +43,17 @@ const appCompiler = webpack(appWebpackConfig);
 //   res.send(htmlStr);
 // })
 
-const pcDevMiddleware = require('webpack-dev-middleware')(pcCompiler, {
+const devMiddleware = require('webpack-dev-middleware')(compiler, {
   hot: true,
-  publicPath: process.env.NODE_ENV === 'production' ? `${config.build.publicPath}` : `${config.dev.publicPath}`,
+  publicPath: `${config.dev.publicPath}`,
   quiet: false
 });
 
-const pcHotMiddleware = require('webpack-hot-middleware')(pcCompiler, {
+const hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}
 });
 
-pcCompiler.plugin('compilation', (compilation) => {
-  compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
-    hotMiddleware.publish({ action: 'reload' });
-    cb();
-  });
-});
-
-const appDevMiddleware = require('webpack-dev-middleware')(appCompiler, {
-  hot: true,
-  publicPath: process.env.NODE_ENV === 'production' ? `${config.build.publicPath}` : `${config.dev.publicPath}`,
-  quiet: false
-});
-
-const appHotMiddleware = require('webpack-hot-middleware')(appCompiler, {
-  log: () => {}
-});
-
-appCompiler.plugin('compilation', (compilation) => {
+compiler.plugin('compilation', (compilation) => {
   compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
     hotMiddleware.publish({ action: 'reload' });
     cb();
@@ -84,8 +67,8 @@ if (proxyTable.context) {
 
 var rewrites = {
   rewrites: [{
-    from: `${process.env.NODE_ENV === 'production' ? config.build.publicPath : config.dev.publicPath}/m/cashloanmarket`, // 正则或者字符串
-    to: `${process.env.NODE_ENV === 'production' ? config.build.publicPath : config.dev.publicPath}/m/cashloanmarket/index.htm`, // 字符串或者函数
+    from: `${config.dev.publicPath}/m/cashloanmarket`, // 正则或者字符串
+    to: `${config.dev.publicPath}/m/cashloanmarket/index.htm`, // 字符串或者函数
   }],
   htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
 }
@@ -93,19 +76,15 @@ var rewrites = {
 // 重定向不存在的URL，常用于SPA
 app.use(require('connect-history-api-fallback')(rewrites))
 
-app.use(pcDevMiddleware);
+app.use(devMiddleware);
 
-app.use(pcHotMiddleware);
-
-app.use(appDevMiddleware);
-
-app.use(appHotMiddleware);
+app.use(hotMiddleware);
 
 const uri = `http://${config.dev.hostName}:${config.dev.port}`;
 console.log(uri);
 
 // webpack开发中间件合法（valid）之后输出提示语到控制台，表明服务器已启动
-pcDevMiddleware.waitUntilValid(() => {
+devMiddleware.waitUntilValid(() => {
   console.log(`> Listening at ${uri} \n`);
 });
 

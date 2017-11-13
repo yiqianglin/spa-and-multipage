@@ -4,10 +4,12 @@
   "description": "daikuan",
   "main": "index.js",
   "scripts": {
-    "dev": "node ./build/dev-server.js --projectType",
-    "prod": "webpack  --config ./build/webpack.prod.config.js",
-    "prod:app": "node ./build/build.js --projectType=app",
-    "prod:all": "node ./build/buildAll.js --projectType=all"
+    "dev:pc": "node ./build/pc/dev-server.js",
+    "dev:app": "node ./build/app/dev-server.js",
+    "dev:all": "node ./build/dev-server.js",
+    "prod:pc": "node ./build/pc/build.js",
+    "prod:app": "node ./build/app/build.js",
+    "prod:all": "node ./build/buildAll.js"
   },
   "keywords": [
     "app",

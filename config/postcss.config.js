@@ -24,21 +24,49 @@ const postcssConfig = {
   },
 }
 
-const config = [];
-if (projectType === 'app') {
+function getAppConfig() {
+  const config = [];
   config.push(
     autoprefixer({
       browsers: postcssConfig.autoprefixer['app']
     }),
     pxtorem(postcssConfig.postcssPxtorem)
   );
-} else {
-  config.push(
-    autoprefixer({
-      browsers: postcssConfig.autoprefixer['app']
-    })
-  );
+  return config;
 }
 
-module.exports = config;
+function getPcConfig() {
+  const config = [];
+  config.push(
+    autoprefixer({
+      browsers: postcssConfig.autoprefixer['pc']
+    })
+  );
+  return config;
+}
 
+module.exports = {
+  appConfig: getAppConfig(),
+  pcConfig: getPcConfig()
+};
+
+
+// const config = [];
+// if (projectType === 'app') {
+//   config.push(
+//     autoprefixer({
+//       browsers: postcssConfig.autoprefixer['app']
+//     }),
+//     pxtorem(postcssConfig.postcssPxtorem)
+//   );
+// } else {
+//   config.push(
+//     autoprefixer({
+//       browsers: postcssConfig.autoprefixer['app']
+//     })
+//   );
+// }
+
+// module.exports = {
+//   config: config
+// };

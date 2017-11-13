@@ -4,11 +4,11 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // webpack html 打包模块
 const webpackMerge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const config = require('../config/config');
+const config = require('../../config/config');
 const baseConfig = require('./webpack.base.config');
 const argv = require('yargs').argv;
 
-const srcPath = path.join(__dirname, '../src/'); // 源码路径
+const srcPath = path.join(__dirname, '../../src/'); // 源码路径
 const entry = config.entry;
 const plugin_entry = JSON.parse(JSON.stringify(config.entry));
 const { projectType } = argv;
@@ -38,11 +38,8 @@ const plugins = [
 Object.keys(plugin_entry).forEach((name) => {
   const isHtml = fs.existsSync(`${srcPath}/html/${name}.html`);
   const isTemplate = fs.existsSync(`${srcPath}/html/${name}.art`);
-  console.log('将输出shtml文件:', isHtml
-    ? `src/html/${name}.html`
-    : isTemplate ? `src/html/${name}.art` : '啥都没有啊，那就没有HtmlWebpackPlugin了');
   plugins.push(new HtmlWebpackPlugin({
-    favicon: path.join(__dirname, '../favicon.ico'),
+    favicon: path.join(__dirname, '../../favicon.ico'),
     title: '',
     contentPath: process.env.NODE_ENV === 'production' ? `${config.build.publicPath}` : `${config.dev.publicPath}`,
     filename: projectType === 'app' ? `m/cashloanmarket/index.htm` : `${name}.htm`,
