@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import PropTypes from 'prop-types';
 import DevTools from 'mobx-react-devtools';
 import { inject, observer } from 'mobx-react';
 import 'css/m/index.scss';
@@ -13,6 +16,7 @@ export default class App extends Component {
   }
 
   render() {
+    console.log('app:', this.props.history, this.context);
     return (
       <div className="app-wrapper" id="app-wrapper">
         {process.env.NODE_ENV === 'development' &&
@@ -24,7 +28,7 @@ export default class App extends Component {
           }}>
             <DevTools />
           </div>}
-        {this.props.children}
+          { renderRoutes(this.props.route.routes) }
         <TypeSelectPanel />
       </div>
     );

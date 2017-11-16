@@ -61,7 +61,8 @@ entry.vendor = ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'axi
 const _config = {
   entry,
   output: {
-    publicPath: `${config.dev.publicPath}/`
+    publicPath: `${config.dev.publicPath}/`,
+    filename: '[name].js'
   },
   module: {
     rules: [

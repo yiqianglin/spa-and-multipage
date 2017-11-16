@@ -2,8 +2,7 @@
  * Created by cc on 2017/11/1.
  */
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
-
+import { withRouter } from 'react-router';
 import { inject, observer } from 'mobx-react';
 
 import 'css/m/homeTypeSelector.scss';
@@ -17,14 +16,21 @@ import 'css/m/homeTypeSelector.scss';
   return props;
 }) @observer
 class HomeTypeSelector extends Component {
+  constructor(props, context){
+    super(props, context);
+    console.log(props, context);
+  }
   clickHandler(productTypeId, hasSubType) {
     // this.props.getProductTypeDeatil(productTypeId);
-    browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=${productTypeId}`);
+    console.log('HomeTypeSelector', this.props.history, this.context);
+    this.props.history.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=${productTypeId}`);
+
   }
   showTypeSelectPanel() {
     this.props.togglePop('isShowTypeSelectPanel', true);
   }
   render() {
+    console.log('HomeTypeSelector', this.props.history);
     const { productTypeList } = this.props;
     return (
       <div className="home-type-selector">
@@ -55,4 +61,4 @@ class HomeTypeSelector extends Component {
   }
 }
 
-export default HomeTypeSelector;
+export default withRouter(HomeTypeSelector);
