@@ -162,6 +162,10 @@ class HomeTypeSelector extends Component {
               }) : null
             }
           </ul>
+          <span className="select-panel-btn">
+            <span className="select-panel-icon"></span>
+            <p className="select-panel-remark">菜单</p>
+          </span>
         </div>
         <div className={ panelClassname }>
         {

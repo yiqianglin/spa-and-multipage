@@ -9,8 +9,7 @@
   left: 0;
   z-index: 2;
   background-color: #fff;
-  border: 1px solid #e1e1e1;
-  box-shadow: 0 0px 8px rgba(95, 95, 95, 0.50);
+  box-shadow: 0 0 18px rgba(95, 95, 95, 0.50);
   .type-selector-ul{
     flex: 1;
     align-items: center;
@@ -50,6 +49,7 @@
       color: #333333;
       text-align: center;
       margin-top: 4px;
+      line-height: 1;
     }
   }
 }

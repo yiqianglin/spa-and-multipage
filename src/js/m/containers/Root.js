@@ -11,12 +11,18 @@ import PropTypes from 'prop-types';
 import { renderRoutes } from 'react-router-config';
 import { Provider } from 'mobx-react';
 import * as stores from 'js/m/stores';
-import loadRules from 'bundle-loader?lazy&name=myChunk!./Rules';
+import loadRules from 'bundle-loader?lazy&name=[name]!./Rules';
+import loadMore from 'bundle-loader?lazy&name=[name]!./More';
 import Bundle from './Bundle';
 
 const Rules = (props) => (
   <Bundle load={loadRules}>
     {(Rules) => <Rules {...props}/>}
+  </Bundle>
+);
+const More = (props) => (
+  <Bundle load={loadMore}>
+    {(More) => <More {...props}/>}
   </Bundle>
 );
 
@@ -31,7 +37,7 @@ const routes = [
       },
       {
         path: '/m/cashloanmarket/more.htm',
-        component: require('./More').default
+        component: More
       },
       {
         path: '/m/cashloanmarket/rules.htm',

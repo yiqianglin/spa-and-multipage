@@ -12,9 +12,21 @@
     width: $viewWidth;
     margin: 0 auto;
     padding: 18px 0 18px 140px;
-    .QRcode{
+    .QRcode-dec{
       float: left;
-      width: 78px;
+      width: 76px;
+      height: 76px;
+      background-image: url("../../images/cashloanmarket/QRcode-dec.png");
+      background-size: contain;
+      position: relative;
+      .QRcode{
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        display: block;
+        top: 6px;
+        left: 6px;
+      }
     }
     .art-right{
       float: left;

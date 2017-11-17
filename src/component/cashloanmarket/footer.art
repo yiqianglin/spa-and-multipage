@@ -1,7 +1,9 @@
 <div class="footer">
     <div class="inner-wrp">
         <div class="left-QRcode-wrp">
-            <img src="../../images/cashloanmarket/QRcode.png" alt="" class="QRcode">
+            <div class="QRcode-dec">
+                <img src="https://xl-games.oss-cn-hangzhou.aliyuncs.com/qrcode/QRcode-common-min.jpg" alt="" class="QRcode">
+            </div>
             <div class="art-right">
                 <p class="art-top">扫码关注“来这有钱”</p>
                 <p class="art-bottom">最新、最全贷款信息</p>

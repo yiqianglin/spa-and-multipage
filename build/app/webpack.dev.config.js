@@ -62,7 +62,8 @@ const _config = {
   entry,
   output: {
     publicPath: `${config.dev.publicPath}/`,
-    filename: '[name].js'
+    filename: '[name].js',
+    chunkFilename: '[name].js'
   },
   module: {
     rules: [

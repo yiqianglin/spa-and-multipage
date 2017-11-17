@@ -11,10 +11,21 @@
     margin: 0 auto;
     text-align: center;
   }
-  .QRcode{
+  .QRcode-dec{
     display: inline-block;
     width: 200px;
+    height: 96px;
     vertical-align: middle;
+    position: relative;
+    background: url("../../images/m/QRcode-dec.png") no-repeat center;
+    background-size: contain;
+    .QRcode{
+      width: 84px;
+      height: 84px;
+      position: absolute;
+      top: 6px;
+      left: 6px;
+    }
   }
   .art-right {
     color: #fff;

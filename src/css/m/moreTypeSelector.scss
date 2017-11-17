@@ -14,13 +14,12 @@
     font-size: 30px;
     color: nth($colorText, 1);
     display: flex;
-    border-bottom: 1px solid #eeeeee;
     position: absolute;
     background-color: #fff;
     top: 0;
-    lef: 0;
+    left: 0;
     z-index:2;
-    box-shadow: 0 0px 8px rgba(95, 95, 95, 0.50);
+    box-shadow: 0 0 18px rgba(95, 95, 95, 0.50);
     .label{
       display: inline-block;
       color: #7886ff;
@@ -102,6 +101,27 @@
           color: #fc5a4d;
         }
       }
+    }
+  }
+  .select-panel-btn{
+    padding-top: 10px;
+    width: 90px;
+    height: 80px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    .select-panel-icon{
+      display: block;
+      width: 42px;
+      height: 42px;
+      background: url('../../images/m/select-menu-icon.png') no-repeat center;
+      background-size: contain;
+      margin: 0 auto;
+    }
+    .select-panel-remark{
+      font-size: 14px;
+      color: #333333;
+      text-align: center;
+      margin-top: 4px;
+      line-height: 1;
     }
   }
 }
