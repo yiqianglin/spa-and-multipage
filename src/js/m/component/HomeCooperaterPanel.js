@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router';
 
 @inject((stores) => {
   const props = {
@@ -36,7 +36,7 @@ class HomeCooperaterPanel extends Component {
     }, 200);
   }
   getAllProduct() {
-    browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=all`);
+    this.props.history.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=all`);
     // this.props.getProductList()
     //   .then(() => {
     //     browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=all`);
@@ -84,4 +84,4 @@ class HomeCooperaterPanel extends Component {
   }
 }
 
-export default HomeCooperaterPanel;
+export default withRouter(HomeCooperaterPanel);

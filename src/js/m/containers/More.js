@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router';
 import { setWechatTitle, getUrlParameter } from 'js/m/utils/utilsFunc';
 import classnames from 'classnames';
 import 'css/m/more.scss';
@@ -11,23 +11,26 @@ import 'css/m/more.scss';
 import MoreTypeSelector from '../component/MoreTypeSelector';
 import QRcodePanelBottom from '../component/QRcodePanelBottom';
 import MoreCooperaterPanel from '../component/MoreCooperaterPanel';
+import TypeSelectPanel from '../component/TypeSelectPanel';
 
 @inject((stores) => {
   const props = {
     productTypeDetailList: stores.cooperaterStore.dataList.get('productTypeDeatilList').toJS(),
   };
   return props;
-})
-export default class Home extends Component {
+}) @observer
+class Home extends Component {
   componentWillMount() {
   }
   componentDidMount() {
-    // console.log(getUrlParameter('productTypeId'));
     document.getElementById('app-wrapper').scrollTop = 0;
-    // document.getElementById('type-selector-ul').scrollLeft  = document.getElementById('type-selector-li-3').offsetLeft
   }
   goHomePage() {
-    browserHistory.push(`${contentPath}/m/cashloanmarket/index.htm`);
+    this.props.history.push(`${contentPath}/m/cashloanmarket/index.htm`);
+  }
+
+  typeSelectPanelSelectedHandler(productTypeId){
+    this.props.history.replace(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=${productTypeId}`);
   }
 
   render() {
@@ -46,7 +49,10 @@ export default class Home extends Component {
           <p className="bottom-remark" onClick={() => { this.goHomePage(); }}><span className="more-icon"></span><span className="art">回到首页</span></p>
         </div>
         <QRcodePanelBottom />
+        <TypeSelectPanel callbackFromParent = {this.typeSelectPanelSelectedHandler.bind(this)}/>
       </div>
     );
   }
 }
+
+export default withRouter(Home);

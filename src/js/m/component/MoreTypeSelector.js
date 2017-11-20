@@ -20,6 +20,7 @@ import 'css/m/moreTypeSelector.scss';
     getProductTypeDeatil: stores.cooperaterStore.getProductTypeDeatil.bind(stores.cooperaterStore),
     getProductList: stores.cooperaterStore.getProductList.bind(stores.cooperaterStore),
     getProductListAll: stores.cooperaterStore.getProductListAll.bind(stores.cooperaterStore),
+    togglePop: stores.systemStore.togglePop.bind(stores.systemStore)
   };
   return props;
 }) @observer
@@ -42,11 +43,9 @@ class HomeTypeSelector extends Component {
             this.setState({ isSelectAll: false });
             this.props.getProductTypeDeatil(Number(getUrlParameter('productTypeId').productTypeId));
             if (document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`)) {
-              // document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`).offsetLeft;
               this.animationScroll('type-selector-ul', `type-selector-li-${productTypeSelect.productTypeId}`);
             } else {
               setTimeout(() => {
-                // document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${productTypeSelect.productTypeId}`).offsetLeft;
                 this.animationScroll('type-selector-ul', `type-selector-li-${productTypeSelect.productTypeId}`);
               }, 200);
             }
@@ -59,11 +58,9 @@ class HomeTypeSelector extends Component {
             this.setState({ isSelectAll: false });
             this.props.getProductTypeDeatil(this.props.productTypeSelected);
             if (document.getElementById(`type-selector-li-${this.props.productTypeSelected}}`)) {
-              // document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${this.props.productTypeSelected}`).offsetLeft;
               this.animationScroll('type-selector-ul', `type-selector-li-${this.props.productTypeSelected}`);
             } else {
               setTimeout(() => {
-                // document.getElementById('type-selector-ul').scrollLeft = document.getElementById(`type-selector-li-${this.props.productTypeSelected}`).offsetLeft;
                 this.animationScroll('type-selector-ul', `type-selector-li-${this.props.productTypeSelected}`);
               }, 200);
             }
@@ -77,31 +74,38 @@ class HomeTypeSelector extends Component {
   componentWillUnmount() {
     window.cancelAnimationFrame(window.animationFrame);
   }
+  componentWillReceiveProps(nextProps){ // more页面打开typeSelectPanel面板，兼容url没改变，顶部选择栏变化
+    if (this.props.productTypeSelected !== null && nextProps.productTypeSelected !==null && nextProps.productTypeSelected === this.props.productTypeSelected) {
+      if (document.getElementById(`type-selector-li-${nextProps.productTypeSelected}}`)) {
+        this.animationScroll('type-selector-ul', `type-selector-li-${nextProps.productTypeSelected}`);
+      } else {
+        setTimeout(() => {
+          this.animationScroll('type-selector-ul', `type-selector-li-${nextProps.productTypeSelected}`);
+        }, 200);
+      }
+    }
+  }
   animationScroll(parentDomId, childDomId, lastStepScroll) {
-    console.log('animationScroll');
-    const currentScroll = document.getElementById(parentDomId).scrollLeft;
-    const needScroll = document.getElementById(childDomId).offsetLeft;
-    console.log(needScroll, currentScroll, needScroll / 25);
-    if (needScroll > currentScroll && lastStepScroll !== currentScroll && (needScroll > currentScroll + (needScroll / 25))) {
-      document.getElementById(parentDomId).scrollLeft = currentScroll + (needScroll / 25);
-      console.log(document.getElementById(parentDomId).scrollLeft);
+    const $parentDom = document.getElementById(parentDomId);
+    const $childDom = document.getElementById(childDomId);
+
+    const currentScroll = $parentDom.scrollLeft;
+    const needScroll = $childDom.offsetLeft - (window.screen.width / 2) + ($childDom.offsetWidth / 2);
+    let cardinalNumber = 0;
+    if (needScroll > 20) { // 根据需要移动的距离，调整基数
+      cardinalNumber = 20;
+    } else {
+      cardinalNumber = 10;
+    }
+    if (needScroll != currentScroll && lastStepScroll !== currentScroll && (needScroll > currentScroll + (needScroll / cardinalNumber))) {
+      $parentDom.scrollLeft = currentScroll + (needScroll / cardinalNumber);
       window.animationFrame = window.requestAnimationFrame(() => { this.animationScroll(parentDomId, childDomId, currentScroll); });
-    } else if (needScroll < currentScroll){
+    } else if (needScroll != currentScroll && lastStepScroll !== currentScroll && needScroll < currentScroll){
       const difference = currentScroll - needScroll;
-      document.getElementById(parentDomId).scrollLeft = currentScroll - (difference / 5);
+      $parentDom.scrollLeft = currentScroll - (difference / cardinalNumber);
       window.animationFrame = window.requestAnimationFrame(() => { this.animationScroll(parentDomId, childDomId, currentScroll); });
     }
   }
-  // animationScrollByTab(parentDomId, childDomId) {
-  //   const currentScroll = document.getElementById(parentDomId).scrollLeft;
-  //   const needScrollLeft = document.getElementById(childDomId).offsetLeft;
-  //   const needScrollRight = document.getElementById(childDomId).offsetRight;
-  //   const containerWidth = document.getElementById('type-selector-ul').width;
-  //   if (currentScroll >= (needScrollRight - containerWidth)) {
-  //     document.getElementById(parentDomId).scrollLeft = currentScroll + (needScroll / 25);
-  //     window.animationFrame = window.requestAnimationFrame(() => { this.animationScroll(parentDomId, childDomId); });
-  //   }
-  // }
   productTypeLiClickHandler(productTypeId) {
     this.setState({ isSelectAll: false });
     this.props.getProductTypeDeatil(productTypeId);
@@ -114,8 +118,10 @@ class HomeTypeSelector extends Component {
     this.props.getProductListAll();
   }
   scrollToPanelTop() {
-    console.log(document.getElementById('cooperator-ul'), document.getElementById('cooperator-ul').scrollTop);
     document.getElementById('app-wrapper').scrollTop = 0;
+  }
+  showTypeSelectPanel() {
+    this.props.togglePop('isShowTypeSelectPanel', true);
   }
   render() {
     const {
@@ -164,7 +170,7 @@ class HomeTypeSelector extends Component {
           </ul>
           <span className="select-panel-btn">
             <span className="select-panel-icon"></span>
-            <p className="select-panel-remark">菜单</p>
+            <p className="select-panel-remark" onClick={() => this.showTypeSelectPanel()}>菜单</p>
           </span>
         </div>
         <div className={ panelClassname }>
@@ -172,15 +178,23 @@ class HomeTypeSelector extends Component {
           productTypeDetailList && productTypeDetailList.length ? (
             <div className="detail-type-selector-wrp">
               <span className="label">区间：</span>
-              <ul className="detail-type-selector-ul">
+              <ul className="detail-type-selector-ul" id="detail-type-selector-ul">
                 {
                   productTypeDetailList.map((elem, index) => {
                     const liClassname = classnames({
                       'detail-type-selector-li': true,
-                      selected: productTypeDeatilSelected === elem.productTypeId
+                      selected: productTypeDeatilSelected === elem.productTypeId,
+                      [`detail-type-selector-li-${elem.productTypeId}`]: true,
                     });
                     return (
-                      <li className={liClassname} key={index} onClick={ () => getProductList(productTypeSelected, elem.productTypeId) }>{elem.name}</li>
+                      <li className={liClassname} id={`detail-type-selector-li-${elem.productTypeId}`} key={index} onClick={ () => {
+                        getProductList(productTypeSelected, elem.productTypeId);
+                        setTimeout(() => {
+                          this.scrollToPanelTop();
+                          this.animationScroll('detail-type-selector-ul', `detail-type-selector-li-${this.props.productTypeDeatilSelected}`);
+                        }, 0);
+                      }
+                    }>{elem.name}</li>
                     );
                   })
                 }
@@ -189,18 +203,6 @@ class HomeTypeSelector extends Component {
           ) : null
         }
         </div>
-        {/* <div className="detail-type-selector-wrp">
-          <span className="label">区间：</span>
-          <ul className="detail-type-selector-ul">
-            <li className="detail-type-selector-li selected">不限</li>
-            <li className="detail-type-selector-li">500-1000元</li>
-            <li className="detail-type-selector-li">1000-2000元</li>
-            <li className="detail-type-selector-li">2000-5000</li>
-            <li className="detail-type-selector-li">10000-20000</li>
-            <li className="detail-type-selector-li">20000-10万</li>
-            <li className="detail-type-selector-li">10万以上</li>
-          </ul>
-        </div> */}
       </div>
     );
   }

@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router';
 
 import classnames from 'classnames';
 
@@ -15,14 +15,16 @@ import 'css/m/typeSelectPanel.scss';
     productTypeSelected: stores.cooperaterStore.dataList.get('productTypeSelected'),
     getProductTypeDeatil: stores.cooperaterStore.getProductTypeDeatil.bind(stores.cooperaterStore),
     isShow: stores.systemStore.popStatus.get('isShowTypeSelectPanel'),
-    togglePop: stores.systemStore.togglePop.bind(stores.systemStore)
+    togglePop: stores.systemStore.togglePop.bind(stores.systemStore),
   };
   return props;
 }) @observer
 class TypeSelectPanel extends Component {
   async clickHandler(productTypeId, hasSubType) {
     await this.props.getProductTypeDeatil(productTypeId);
-    browserHistory.push(`${contentPath}/m/cashloanmarket/more.htm`);
+    // this.props.history.push(`${contentPath}/m/cashloanmarket/more.htm?productTypeId=${productTypeId}`);
+    // 将callback逻辑交给父组件处理
+    this.props.callbackFromParent(productTypeId);
     this.props.togglePop('isShowTypeSelectPanel', false);
   }
   render() {
@@ -59,5 +61,4 @@ class TypeSelectPanel extends Component {
   }
 }
 
-export default TypeSelectPanel;
-
+export default withRouter(TypeSelectPanel);
